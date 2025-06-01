@@ -31,8 +31,8 @@ jobs:
         git clone https://github.com/g-truc/glm
         cd glm
         cmake -DGLM_BUILD_TESTS=OFF DBUILD_SHARED_LIBS=OFF -B build .
-        cmake --build build -- all
-        cmake --build build -- install
+        cmake --build build --target ALL_BUILD
+        cmake --build build --target INSTALL
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
