@@ -30,7 +30,7 @@
 #include <ghoul/misc/profiling.h>
 #include <iostream>
 #include <string_view>
-#include <syncstream>
+// #include <syncstream>
 
 #ifdef WIN32
 #include <Windows.h>
