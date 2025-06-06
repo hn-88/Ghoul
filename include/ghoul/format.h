@@ -62,6 +62,7 @@ struct std::formatter<std::optional<T>> {
 
 #ifdef __APPLE__
 // Specialize std::formatter for glm::vec types
+/* Currently complains about undefined glm, so commenting it out.
 template <typename T, glm::length_t L>
 struct std::formatter<glm::vec<L, T>> : std::formatter<std::string> {
     auto format(const glm::vec<L, T>& vec, std::format_context& ctx) {
@@ -74,6 +75,7 @@ struct std::formatter<glm::vec<L, T>> : std::formatter<std::string> {
         return std::formatter<std::string>::format(result, ctx);
     }
 };
+*********/
 #endif // __APPLE__
 
 
