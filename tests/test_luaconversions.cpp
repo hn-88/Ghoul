@@ -102,6 +102,8 @@ TEST_CASE("LuaConversion: String", "[luaconversion]") {
     lua_close(state);
 }
 
+#ifndef __APPLE__
+
 TEMPLATE_TEST_CASE("LuaConversion - Glm Types", "[luaconversion]", glm::vec2, glm::vec3,
                    glm::vec4, glm::dvec2, glm::dvec3, glm::dvec4, glm::ivec2, glm::ivec3,
                    glm::ivec4, glm::uvec2, glm::uvec3, glm::uvec4, glm::mat2x2,
@@ -125,6 +127,8 @@ TEMPLATE_TEST_CASE("LuaConversion - Glm Types", "[luaconversion]", glm::vec2, gl
 
     lua_close(state);
 }
+
+#endif // not APPLE, since std::format on MacOS has limitations.
 
 TEMPLATE_TEST_CASE("LuaConversion Fuzz <short", "[luaconversion]", char, signed char,
                    unsigned char)
