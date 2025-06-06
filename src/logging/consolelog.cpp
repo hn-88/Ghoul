@@ -84,6 +84,10 @@ void logToStream(std::ostream& stream, const std::string& message) {
     stream << message << '\n';
 }
 
+extern std::mutex ghoul_cout_mutex;
+#define GH_THREADSAFE_FLUSH \
+    { std::lock_guard<std::mutex> lock(ghoul_cout_mutex); std::cout << std::flush; }
+
 #endif // __APPLE__
 
 namespace ghoul::logging {
@@ -181,6 +185,7 @@ void ConsoleLog::flush() {
 #ifndef __APPLE__
     std::osyncstream(std::cout).flush();
 #elif __APPLE__
+GH_THREADSAFE_FLUSH
 #endif
 }
 
