@@ -57,4 +57,22 @@ struct std::formatter<std::optional<T>> {
     }
 };
 
+#ifdef __APPLE__
+// Specialize std::formatter for glm::vec types
+template <typename T, glm::length_t L>
+struct std::formatter<glm::vec<L, T>> : std::formatter<std::string> {
+    auto format(const glm::vec<L, T>& vec, std::format_context& ctx) {
+        std::string result = "vec(";
+        for (glm::length_t i = 0; i < L; ++i) {
+            result += std::to_string(vec[i]);
+            if (i < L - 1) result += ", ";
+        }
+        result += ")";
+        return std::formatter<std::string>::format(result, ctx);
+    }
+};
+#endif // __APPLE__
+
+
 #endif // __GHOUL___FORMAT___H__
+
