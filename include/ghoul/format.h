@@ -29,6 +29,9 @@
 #include <filesystem>
 #include <format>
 #include <optional>
+#ifdef __APPLE__
+include <glm/glm.hpp>
+#endif // __APPLE__
 
 template <>
 struct std::formatter<std::filesystem::path> {
