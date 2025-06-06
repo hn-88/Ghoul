@@ -30,7 +30,10 @@
 #include <ghoul/misc/profiling.h>
 #include <iostream>
 #include <string_view>
-// #include <syncstream>
+
+#ifndef __APPLE__
+#include <syncstream>
+#endif // not APPLE - in 2025, Apple Clang does not support syncstream
 
 #ifdef WIN32
 #include <Windows.h>
@@ -40,6 +43,7 @@
 #include <assert.h>
 #include <unistd.h>
 #include <sys/sysctl.h>
+#include <mutex>  // as syncstream replacement
 
 // Function is taken from https://developer.apple.com/library/mac/qa/qa1361/_index.html
 // Returns true if the current process is being debugged (either running under the
@@ -69,6 +73,17 @@ static bool runningInDebugger() {
     // We're being debugged if the P_TRACED flag is set.
     return ((info.kp_proc.p_flag & P_TRACED) != 0);
 }
+
+// // Replace std::osyncstream usage with:
+// logToStream(std::cerr, res);
+// logToStream(std::cout, res);
+std::mutex logMutex;
+
+void logToStream(std::ostream& stream, const std::string& message) {
+    std::lock_guard<std::mutex> lock(logMutex);
+    stream << message << '\n';
+}
+
 #endif // __APPLE__
 
 namespace ghoul::logging {
@@ -142,10 +157,18 @@ void ConsoleLog::log(LogLevel level, std::string_view category, std::string_view
 
     res += message;
     if (level >= LogLevel::Error) {
+#ifndef __APPLE__
         std::osyncstream(std::cerr) << res << '\n';
+#elif __APPLE__
+        logToStream(std::cerr, res);
+#endif
     }
     else {
+#ifndef __APPLE__
         std::osyncstream(std::cout) << res << '\n';
+#elif __APPLE__
+        logToStream(std::cout, res);
+#endif
     }
 
 
@@ -155,7 +178,10 @@ void ConsoleLog::log(LogLevel level, std::string_view category, std::string_view
 }
 
 void ConsoleLog::flush() {
+#ifndef __APPLE__
     std::osyncstream(std::cout).flush();
+#elif __APPLE__
+#endif
 }
 
 void ConsoleLog::setColorForLevel(LogLevel level) {
