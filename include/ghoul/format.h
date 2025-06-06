@@ -30,7 +30,7 @@
 #include <format>
 #include <optional>
 #ifdef __APPLE__
-include "glm.h"
+#include "glm.h"
 #endif // __APPLE__
 
 template <>
