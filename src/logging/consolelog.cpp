@@ -81,12 +81,12 @@ std::mutex logMutex;
 
 void logToStream(std::ostream& stream, const std::string& message) {
     std::lock_guard<std::mutex> lock(logMutex);
-    stream << message << '\n';
+    stream << message << '\n' << std::flush;
 }
 
-extern std::mutex ghoul_cout_mutex;
-#define GH_THREADSAFE_FLUSH \
-    { std::lock_guard<std::mutex> lock(ghoul_cout_mutex); std::cout << std::flush; }
+// extern std::mutex ghoul_cout_mutex;
+// #define GH_THREADSAFE_FLUSH \
+//    { std::lock_guard<std::mutex> lock(ghoul_cout_mutex); std::cout << std::flush; }
 
 #endif // __APPLE__
 
@@ -185,7 +185,7 @@ void ConsoleLog::flush() {
 #ifndef __APPLE__
     std::osyncstream(std::cout).flush();
 #elif __APPLE__
-GH_THREADSAFE_FLUSH
+    std::cout.flush();
 #endif
 }
 
