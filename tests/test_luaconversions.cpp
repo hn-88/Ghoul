@@ -263,6 +263,8 @@ TEMPLATE_TEST_CASE("LuaConversion Float Fuzz", "[luaconversion]", float, double,
     lua_close(state);
 }
 
+#ifndef __APPLE__
+
 TEMPLATE_TEST_CASE("LuaConversion: Vec2 Float Fuzz", "[luaconversion]", glm::vec2,
                    glm::dvec2)
 {
@@ -577,6 +579,8 @@ TEMPLATE_TEST_CASE("LuaConversion: Mat2x4 & Mat4x2 Fuzz", "[luaconversion]", glm
 
     lua_close(state);
 }
+
+#endif // not APPLE, since std::format on MacOS has limitations.
 
 TEST_CASE("LuaConversion: Variant", "[luaconversion]") {
     lua_State* state = luaL_newstate();
