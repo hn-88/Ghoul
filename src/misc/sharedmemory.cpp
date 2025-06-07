@@ -35,6 +35,14 @@
 #include <cerrno>
 #include <cstring>
 #include <sys/shm.h>
+
+// Undefine conflicting macros (only required on macOS)
+#ifdef __APPLE__
+#undef IPC_R
+#undef IPC_W
+#undef IPC_M
+#endif
+
 // Common access type bits, used with ipcperm()
 constexpr int IPC_R = 000400; // read permission
 constexpr int IPC_W = 000200; // write/alter permission
