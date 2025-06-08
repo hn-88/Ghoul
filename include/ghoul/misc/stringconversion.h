@@ -64,7 +64,11 @@ std::string to_string(const T& value) {
         return value;
     }
     else {
+#ifndef __APPLE__
         return std::format("{}", value);
+#else
+        return "MacOS std::format() has limitations, formatter overload needed";
+#endif //APPLE
     }
 }
 
