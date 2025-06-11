@@ -26,6 +26,7 @@
 #ifndef __GHOUL___STRINGCONVERSION___H__
 #define __GHOUL___STRINGCONVERSION___H__
 
+#include <ghoul/glm.h>
 #include <format>
 #include <string>
 #include <string_view>
