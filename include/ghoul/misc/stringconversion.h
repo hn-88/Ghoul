@@ -30,6 +30,9 @@
 #include <format>
 #include <string>
 #include <string_view>
+#ifdef __APPLE__
+#include <sstream>
+#endif // APPLE
 
 namespace ghoul {
 
