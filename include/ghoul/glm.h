@@ -192,6 +192,19 @@ glm::tmat4x3<valType> createFillMat4x3(valType v) {
 // so only ifdef __APPLE__
 #ifdef __APPLE__
 namespace std {
+template <glm::length_t L, typename T, glm::qualifier Q>
+struct formatter<glm::vec<L, T, Q>> : formatter<std::string> {
+    auto format(const glm::vec<L, T, Q>& vec, format_context& ctx) const {
+        std::string result = "{";
+        for (glm::length_t i = 0; i < L; ++i) {
+            result += std::to_string(vec[i]);
+            if (i < L - 1) result += ",";
+        }
+        result += "}";
+        return formatter<std::string>::format(result, ctx);
+    }
+};
+}
 #endif // APPLE
 template <>
 struct std::formatter<glm::bvec2> {
@@ -1078,9 +1091,7 @@ struct std::not_equal_to<glm::dvec4> {
         return a.x != b.x && a.x != b.y && a.z != b.z && a.w != b.w;
     }
 };
-#ifdef __APPLE__
-}  // namespace std
-#endif // APPLE
+
 
 #ifdef __APPLE__
 #pragma clang diagnostic pop
