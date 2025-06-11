@@ -30,8 +30,10 @@
 #include <format>
 #include <optional>
 
+namespace std {
+
 template <>
-struct std::formatter<std::filesystem::path> {
+struct formatter<std::filesystem::path> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -42,7 +44,7 @@ struct std::formatter<std::filesystem::path> {
 };
 
 template <typename T>
-struct std::formatter<std::optional<T>> {
+struct formatter<std::optional<T>> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -56,5 +58,7 @@ struct std::formatter<std::optional<T>> {
         }
     }
 };
+
+} // namespace std
 
 #endif // __GHOUL___FORMAT___H__
