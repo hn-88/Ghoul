@@ -187,6 +187,12 @@ glm::tmat4x3<valType> createFillMat4x3(valType v) {
 
 } // namespace ghoul
 
+// MacOS needs an explicit namespace std
+// but Linux complains of redundant std:: 
+// so only ifdef __APPLE__
+#ifdef __APPLE__
+namespace std {
+#endif // APPLE
 template <>
 struct std::formatter<glm::bvec2> {
     constexpr auto parse(std::format_parse_context& ctx) {
@@ -1072,6 +1078,9 @@ struct std::not_equal_to<glm::dvec4> {
         return a.x != b.x && a.x != b.y && a.z != b.z && a.w != b.w;
     }
 };
+#ifdef __APPLE__
+}  // namespace std
+#endif // APPLE
 
 #ifdef __APPLE__
 #pragma clang diagnostic pop
