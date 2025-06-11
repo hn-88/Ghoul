@@ -30,9 +30,6 @@
 #include <format>
 #include <string>
 #include <string_view>
-#ifdef __APPLE__
-#include <sstream>
-#endif // APPLE
 
 namespace ghoul {
 
@@ -68,14 +65,7 @@ std::string to_string(const T& value) {
         return value;
     }
     else {
-#ifndef __APPLE__
         return std::format("{}", value);
-#else
-        // Use std::ostringstream for macOS compatibility
-        std::ostringstream oss;
-        oss << value;
-        return oss.str();
-#endif // APPLE
     }
 }
 
