@@ -189,9 +189,10 @@ glm::tmat4x3<valType> createFillMat4x3(valType v) {
 
 // MacOS needs an explicit namespace std
 // but Linux complains of redundant std:: 
-// so only ifdef __APPLE__
-#ifdef __APPLE__
+ 
+ 
 namespace std {
+
 template <glm::length_t L, typename T, glm::qualifier Q>
 struct formatter<glm::vec<L, T, Q>> : formatter<std::string> {
     auto format(const glm::vec<L, T, Q>& vec, format_context& ctx) const {
@@ -204,10 +205,9 @@ struct formatter<glm::vec<L, T, Q>> : formatter<std::string> {
         return formatter<std::string>::format(result, ctx);
     }
 };
-}
-#endif // APPLE
+
 template <>
-struct std::formatter<glm::bvec2> {
+struct formatter<glm::bvec2> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -218,7 +218,7 @@ struct std::formatter<glm::bvec2> {
 };
 
 template <>
-struct std::formatter<glm::bvec3> {
+struct formatter<glm::bvec3> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -229,7 +229,7 @@ struct std::formatter<glm::bvec3> {
 };
 
 template <>
-struct std::formatter<glm::bvec4> {
+struct formatter<glm::bvec4> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -243,7 +243,7 @@ struct std::formatter<glm::bvec4> {
 };
 
 template <>
-struct std::formatter<glm::vec2> {
+struct formatter<glm::vec2> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -254,7 +254,7 @@ struct std::formatter<glm::vec2> {
 };
 
 template <>
-struct std::formatter<glm::vec3> {
+struct formatter<glm::vec3> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -265,7 +265,7 @@ struct std::formatter<glm::vec3> {
 };
 
 template <>
-struct std::formatter<glm::vec4> {
+struct formatter<glm::vec4> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -279,7 +279,7 @@ struct std::formatter<glm::vec4> {
 };
 
 template <>
-struct std::formatter<glm::quat> {
+struct formatter<glm::quat> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -293,7 +293,7 @@ struct std::formatter<glm::quat> {
 };
 
 template <>
-struct std::formatter<glm::dvec2> {
+struct formatter<glm::dvec2> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -304,7 +304,7 @@ struct std::formatter<glm::dvec2> {
 };
 
 template <>
-struct std::formatter<glm::dvec3> {
+struct formatter<glm::dvec3> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -315,7 +315,7 @@ struct std::formatter<glm::dvec3> {
 };
 
 template <>
-struct std::formatter<glm::dvec4> {
+struct formatter<glm::dvec4> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -329,7 +329,7 @@ struct std::formatter<glm::dvec4> {
 };
 
 template <>
-struct std::formatter<glm::dquat> {
+struct formatter<glm::dquat> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -343,7 +343,7 @@ struct std::formatter<glm::dquat> {
 };
 
 template <>
-struct std::formatter<glm::ivec2> {
+struct formatter<glm::ivec2> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -354,7 +354,7 @@ struct std::formatter<glm::ivec2> {
 };
 
 template <>
-struct std::formatter<glm::ivec3> {
+struct formatter<glm::ivec3> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -365,7 +365,7 @@ struct std::formatter<glm::ivec3> {
 };
 
 template <>
-struct std::formatter<glm::ivec4> {
+struct formatter<glm::ivec4> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -379,7 +379,7 @@ struct std::formatter<glm::ivec4> {
 };
 
 template <>
-struct std::formatter<glm::uvec2> {
+struct formatter<glm::uvec2> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -390,7 +390,7 @@ struct std::formatter<glm::uvec2> {
 };
 
 template <>
-struct std::formatter<glm::uvec3> {
+struct formatter<glm::uvec3> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -401,7 +401,7 @@ struct std::formatter<glm::uvec3> {
 };
 
 template <>
-struct std::formatter<glm::uvec4> {
+struct formatter<glm::uvec4> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -415,7 +415,7 @@ struct std::formatter<glm::uvec4> {
 };
 
 template <>
-struct std::formatter<glm::mat2> {
+struct formatter<glm::mat2> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -429,7 +429,7 @@ struct std::formatter<glm::mat2> {
 };
 
 template <>
-struct std::formatter<glm::mat2x3> {
+struct formatter<glm::mat2x3> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -444,7 +444,7 @@ struct std::formatter<glm::mat2x3> {
 };
 
 template <>
-struct std::formatter<glm::mat2x4> {
+struct formatter<glm::mat2x4> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -460,7 +460,7 @@ struct std::formatter<glm::mat2x4> {
 };
 
 template <>
-struct std::formatter<glm::mat3x2> {
+struct formatter<glm::mat3x2> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -475,7 +475,7 @@ struct std::formatter<glm::mat3x2> {
 };
 
 template <>
-struct std::formatter<glm::mat3> {
+struct formatter<glm::mat3> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -492,7 +492,7 @@ struct std::formatter<glm::mat3> {
 };
 
 template <>
-struct std::formatter<glm::mat3x4> {
+struct formatter<glm::mat3x4> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -509,7 +509,7 @@ struct std::formatter<glm::mat3x4> {
 };
 
 template <>
-struct std::formatter<glm::mat4x2> {
+struct formatter<glm::mat4x2> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -527,7 +527,7 @@ struct std::formatter<glm::mat4x2> {
 };
 
 template <>
-struct std::formatter<glm::mat4x3> {
+struct formatter<glm::mat4x3> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -545,7 +545,7 @@ struct std::formatter<glm::mat4x3> {
 };
 
 template <>
-struct std::formatter<glm::mat4> {
+struct formatter<glm::mat4> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -563,7 +563,7 @@ struct std::formatter<glm::mat4> {
 };
 
 template <>
-struct std::formatter<glm::dmat2> {
+struct formatter<glm::dmat2> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -577,7 +577,7 @@ struct std::formatter<glm::dmat2> {
 };
 
 template <>
-struct std::formatter<glm::dmat2x3> {
+struct formatter<glm::dmat2x3> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -592,7 +592,7 @@ struct std::formatter<glm::dmat2x3> {
 };
 
 template <>
-struct std::formatter<glm::dmat2x4> {
+struct formatter<glm::dmat2x4> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -608,7 +608,7 @@ struct std::formatter<glm::dmat2x4> {
 };
 
 template <>
-struct std::formatter<glm::dmat3x2> {
+struct formatter<glm::dmat3x2> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -623,7 +623,7 @@ struct std::formatter<glm::dmat3x2> {
 };
 
 template <>
-struct std::formatter<glm::dmat3> {
+struct formatter<glm::dmat3> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -640,7 +640,7 @@ struct std::formatter<glm::dmat3> {
 };
 
 template <>
-struct std::formatter<glm::dmat3x4> {
+struct formatter<glm::dmat3x4> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -657,7 +657,7 @@ struct std::formatter<glm::dmat3x4> {
 };
 
 template <>
-struct std::formatter<glm::dmat4x2> {
+struct formatter<glm::dmat4x2> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -675,7 +675,7 @@ struct std::formatter<glm::dmat4x2> {
 };
 
 template <>
-struct std::formatter<glm::dmat4x3> {
+struct formatter<glm::dmat4x3> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -693,7 +693,7 @@ struct std::formatter<glm::dmat4x3> {
 };
 
 template <>
-struct std::formatter<glm::dmat4> {
+struct formatter<glm::dmat4> {
     constexpr auto parse(std::format_parse_context& ctx) {
         return ctx.begin();
     }
@@ -715,378 +715,378 @@ struct std::formatter<glm::dmat4> {
 
 
 template <>
-struct std::less<glm::vec2> {
+struct less<glm::vec2> {
     bool operator()(const glm::vec2& a, const glm::vec2& b) const {
         return a.x < b.x && a.x < b.y;
     }
 };
 
 template <>
-struct std::less<glm::vec3> {
+struct less<glm::vec3> {
     bool operator()(const glm::vec3& a, const glm::vec3& b) const {
         return a.x < b.x && a.x < b.y && a.z < b.z;
     }
 };
 
 template <>
-struct std::less<glm::vec4> {
+struct less<glm::vec4> {
     bool operator()(const glm::vec4& a, const glm::vec4& b) const {
         return a.x < b.x && a.x < b.y && a.z < b.z && a.w < b.w;
     }
 };
 
 template <>
-struct std::less<glm::ivec2> {
+struct less<glm::ivec2> {
     bool operator()(const glm::ivec2& a, const glm::ivec2& b) const {
         return a.x < b.x && a.x < b.y;
     }
 };
 
 template <>
-struct std::less<glm::ivec3> {
+struct less<glm::ivec3> {
     bool operator()(const glm::ivec3& a, const glm::ivec3& b) const {
         return a.x < b.x && a.x < b.y && a.z < b.z;
     }
 };
 
 template <>
-struct std::less<glm::ivec4> {
+struct less<glm::ivec4> {
     bool operator()(const glm::ivec4& a, const glm::ivec4& b) const {
         return a.x < b.x && a.x < b.y && a.z < b.z && a.w < b.w;
     }
 };
 
 template <>
-struct std::less<glm::dvec2> {
+struct less<glm::dvec2> {
     bool operator()(const glm::dvec2& a, const glm::dvec2& b) const {
         return a.x < b.x && a.x < b.y;
     }
 };
 
 template <>
-struct std::less<glm::dvec3> {
+struct less<glm::dvec3> {
     bool operator()(const glm::dvec3& a, const glm::dvec3& b) const {
         return a.x < b.x && a.x < b.y && a.z < b.z;
     }
 };
 
 template <>
-struct std::less<glm::dvec4> {
+struct less<glm::dvec4> {
     bool operator()(const glm::dvec4& a, const glm::dvec4& b) const {
         return a.x < b.x && a.x < b.y && a.z < b.z && a.w < b.w;
     }
 };
 
 template <>
-struct std::less_equal<glm::vec2> {
+struct less_equal<glm::vec2> {
     bool operator()(const glm::vec2& a, const glm::vec2& b) const {
         return a.x <= b.x && a.x <= b.y;
     }
 };
 
 template <>
-struct std::less_equal<glm::vec3> {
+struct less_equal<glm::vec3> {
     bool operator()(const glm::vec3& a, const glm::vec3& b) const {
         return a.x <= b.x && a.x <= b.y && a.z <= b.z;
     }
 };
 
 template <>
-struct std::less_equal<glm::vec4> {
+struct less_equal<glm::vec4> {
     bool operator()(const glm::vec4& a, const glm::vec4& b) const {
         return a.x <= b.x && a.x <= b.y && a.z <= b.z && a.w <= b.w;
     }
 };
 
 template <>
-struct std::less_equal<glm::ivec2> {
+struct less_equal<glm::ivec2> {
     bool operator()(const glm::ivec2& a, const glm::ivec2& b) const {
         return a.x <= b.x && a.x <= b.y;
     }
 };
 
 template <>
-struct std::less_equal<glm::ivec3> {
+struct less_equal<glm::ivec3> {
     bool operator()(const glm::ivec3& a, const glm::ivec3& b) const {
         return a.x <= b.x && a.x <= b.y && a.z <= b.z;
     }
 };
 
 template <>
-struct std::less_equal<glm::ivec4> {
+struct less_equal<glm::ivec4> {
     bool operator()(const glm::ivec4& a, const glm::ivec4& b) const {
         return a.x <= b.x && a.x <= b.y && a.z <= b.z && a.w <= b.w;
     }
 };
 
 template <>
-struct std::less_equal<glm::dvec2> {
+struct less_equal<glm::dvec2> {
     bool operator()(const glm::dvec2& a, const glm::dvec2& b) const {
         return a.x <= b.x && a.x <= b.y;
     }
 };
 
 template <>
-struct std::less_equal<glm::dvec3> {
+struct less_equal<glm::dvec3> {
     bool operator()(const glm::dvec3& a, const glm::dvec3& b) const {
         return a.x <= b.x && a.x <= b.y && a.z <= b.z;
     }
 };
 
 template <>
-struct std::less_equal<glm::dvec4> {
+struct less_equal<glm::dvec4> {
     bool operator()(const glm::dvec4& a, const glm::dvec4& b) const {
         return a.x <= b.x && a.x <= b.y && a.z <= b.z && a.w <= b.w;
     }
 };
 
 template <>
-struct std::greater<glm::vec2> {
+struct greater<glm::vec2> {
     bool operator()(const glm::vec2& a, const glm::vec2& b) const {
         return a.x > b.x && a.x > b.y;
     }
 };
 
 template <>
-struct std::greater<glm::vec3> {
+struct greater<glm::vec3> {
     bool operator()(const glm::vec3& a, const glm::vec3& b) const {
         return a.x > b.x && a.x > b.y && a.z > b.z;
     }
 };
 
 template <>
-struct std::greater<glm::vec4> {
+struct greater<glm::vec4> {
     bool operator()(const glm::vec4& a, const glm::vec4& b) const {
         return a.x > b.x && a.x > b.y && a.z > b.z && a.w > b.w;
     }
 };
 
 template <>
-struct std::greater<glm::ivec2> {
+struct greater<glm::ivec2> {
     bool operator()(const glm::ivec2& a, const glm::ivec2& b) const {
         return a.x > b.x && a.x > b.y;
     }
 };
 
 template <>
-struct std::greater<glm::ivec3> {
+struct greater<glm::ivec3> {
     bool operator()(const glm::ivec3& a, const glm::ivec3& b) const {
         return a.x > b.x && a.x > b.y && a.z > b.z;
     }
 };
 
 template <>
-struct std::greater<glm::ivec4> {
+struct greater<glm::ivec4> {
     bool operator()(const glm::ivec4& a, const glm::ivec4& b) const {
         return a.x > b.x && a.x > b.y && a.z > b.z && a.w > b.w;
     }
 };
 
 template <>
-struct std::greater<glm::dvec2> {
+struct greater<glm::dvec2> {
     bool operator()(const glm::dvec2& a, const glm::dvec2& b) const {
         return a.x > b.x && a.x > b.y;
     }
 };
 
 template <>
-struct std::greater<glm::dvec3> {
+struct greater<glm::dvec3> {
     bool operator()(const glm::dvec3& a, const glm::dvec3& b) const {
         return a.x > b.x && a.x > b.y && a.z > b.z;
     }
 };
 
 template <>
-struct std::greater<glm::dvec4> {
+struct greater<glm::dvec4> {
     bool operator()(const glm::dvec4& a, const glm::dvec4& b) const {
         return a.x > b.x && a.x > b.y && a.z > b.z && a.w > b.w;
     }
 };
 
 template <>
-struct std::greater_equal<glm::vec2> {
+struct greater_equal<glm::vec2> {
     bool operator()(const glm::vec2& a, const glm::vec2& b) const {
         return a.x >= b.x && a.x >= b.y;
     }
 };
 
 template <>
-struct std::greater_equal<glm::vec3> {
+struct greater_equal<glm::vec3> {
     bool operator()(const glm::vec3& a, const glm::vec3& b) const {
         return a.x >= b.x && a.x >= b.y && a.z >= b.z;
     }
 };
 
 template <>
-struct std::greater_equal<glm::vec4> {
+struct greater_equal<glm::vec4> {
     bool operator()(const glm::vec4& a, const glm::vec4& b) const {
         return a.x >= b.x && a.x >= b.y && a.z >= b.z && a.w >= b.w;
     }
 };
 
 template <>
-struct std::greater_equal<glm::ivec2> {
+struct greater_equal<glm::ivec2> {
     bool operator()(const glm::ivec2& a, const glm::ivec2& b) const {
         return a.x >= b.x && a.x >= b.y;
     }
 };
 
 template <>
-struct std::greater_equal<glm::ivec3> {
+struct greater_equal<glm::ivec3> {
     bool operator()(const glm::ivec3& a, const glm::ivec3& b) const {
         return a.x >= b.x && a.x >= b.y && a.z >= b.z;
     }
 };
 
 template <>
-struct std::greater_equal<glm::ivec4> {
+struct greater_equal<glm::ivec4> {
     bool operator()(const glm::ivec4& a, const glm::ivec4& b) const {
         return a.x >= b.x && a.x >= b.y && a.z >= b.z && a.w >= b.w;
     }
 };
 
 template <>
-struct std::greater_equal<glm::dvec2> {
+struct greater_equal<glm::dvec2> {
     bool operator()(const glm::dvec2& a, const glm::dvec2& b) const {
         return a.x >= b.x && a.x >= b.y;
     }
 };
 
 template <>
-struct std::greater_equal<glm::dvec3> {
+struct greater_equal<glm::dvec3> {
     bool operator()(const glm::dvec3& a, const glm::dvec3& b) const {
         return a.x >= b.x && a.x >= b.y && a.z >= b.z;
     }
 };
 
 template <>
-struct std::greater_equal<glm::dvec4> {
+struct greater_equal<glm::dvec4> {
     bool operator()(const glm::dvec4& a, const glm::dvec4& b) const {
         return a.x >= b.x && a.x >= b.y && a.z >= b.z && a.w >= b.w;
     }
 };
 
 template <>
-struct std::equal_to<glm::vec2> {
+struct equal_to<glm::vec2> {
     bool operator()(const glm::vec2& a, const glm::vec2& b) const {
         return a.x == b.x && a.x == b.y;
     }
 };
 
 template <>
-struct std::equal_to<glm::vec3> {
+struct equal_to<glm::vec3> {
     bool operator()(const glm::vec3& a, const glm::vec3& b) const {
         return a.x == b.x && a.x == b.y && a.z == b.z;
     }
 };
 
 template <>
-struct std::equal_to<glm::vec4> {
+struct equal_to<glm::vec4> {
     bool operator()(const glm::vec4& a, const glm::vec4& b) const {
         return a.x == b.x && a.x == b.y && a.z == b.z && a.w == b.w;
     }
 };
 
 template <>
-struct std::equal_to<glm::ivec2> {
+struct equal_to<glm::ivec2> {
     bool operator()(const glm::ivec2& a, const glm::ivec2& b) const {
         return a.x == b.x && a.x == b.y;
     }
 };
 
 template <>
-struct std::equal_to<glm::ivec3> {
+struct equal_to<glm::ivec3> {
     bool operator()(const glm::ivec3& a, const glm::ivec3& b) const {
         return a.x == b.x && a.x == b.y && a.z == b.z;
     }
 };
 
 template <>
-struct std::equal_to<glm::ivec4> {
+struct equal_to<glm::ivec4> {
     bool operator()(const glm::ivec4& a, const glm::ivec4& b) const {
         return a.x == b.x && a.x == b.y && a.z == b.z && a.w == b.w;
     }
 };
 
 template <>
-struct std::equal_to<glm::dvec2> {
+struct equal_to<glm::dvec2> {
     bool operator()(const glm::dvec2& a, const glm::dvec2& b) const {
         return a.x == b.x && a.x == b.y;
     }
 };
 
 template <>
-struct std::equal_to<glm::dvec3> {
+struct equal_to<glm::dvec3> {
     bool operator()(const glm::dvec3& a, const glm::dvec3& b) const {
         return a.x == b.x && a.x == b.y && a.z == b.z;
     }
 };
 
 template <>
-struct std::equal_to<glm::dvec4> {
+struct equal_to<glm::dvec4> {
     bool operator()(const glm::dvec4& a, const glm::dvec4& b) const {
         return a.x == b.x && a.x == b.y && a.z == b.z && a.w == b.w;
     }
 };
 
 template <>
-struct std::not_equal_to<glm::vec2> {
+struct not_equal_to<glm::vec2> {
     bool operator()(const glm::vec2& a, const glm::vec2& b) const {
         return a.x != b.x && a.x != b.y;
     }
 };
 
 template <>
-struct std::not_equal_to<glm::vec3> {
+struct not_equal_to<glm::vec3> {
     bool operator()(const glm::vec3& a, const glm::vec3& b) const {
         return a.x != b.x && a.x != b.y && a.z != b.z;
     }
 };
 
 template <>
-struct std::not_equal_to<glm::vec4> {
+struct not_equal_to<glm::vec4> {
     bool operator()(const glm::vec4& a, const glm::vec4& b) const {
         return a.x != b.x && a.x != b.y && a.z != b.z && a.w != b.w;
     }
 };
 
 template <>
-struct std::not_equal_to<glm::ivec2> {
+struct not_equal_to<glm::ivec2> {
     bool operator()(const glm::ivec2& a, const glm::ivec2& b) const {
         return a.x != b.x && a.x != b.y;
     }
 };
 
 template <>
-struct std::not_equal_to<glm::ivec3> {
+struct not_equal_to<glm::ivec3> {
     bool operator()(const glm::ivec3& a, const glm::ivec3& b) const {
         return a.x != b.x && a.x != b.y && a.z != b.z;
     }
 };
 
 template <>
-struct std::not_equal_to<glm::ivec4> {
+struct not_equal_to<glm::ivec4> {
     bool operator()(const glm::ivec4& a, const glm::ivec4& b) const {
         return a.x != b.x && a.x != b.y && a.z != b.z && a.w != b.w;
     }
 };
 
 template <>
-struct std::not_equal_to<glm::dvec2> {
+struct not_equal_to<glm::dvec2> {
     bool operator()(const glm::dvec2& a, const glm::dvec2& b) const {
         return a.x != b.x && a.x != b.y;
     }
 };
 
 template <>
-struct std::not_equal_to<glm::dvec3> {
+struct not_equal_to<glm::dvec3> {
     bool operator()(const glm::dvec3& a, const glm::dvec3& b) const {
         return a.x != b.x && a.x != b.y && a.z != b.z;
     }
 };
 
 template <>
-struct std::not_equal_to<glm::dvec4> {
+struct not_equal_to<glm::dvec4> {
     bool operator()(const glm::dvec4& a, const glm::dvec4& b) const {
         return a.x != b.x && a.x != b.y && a.z != b.z && a.w != b.w;
     }
