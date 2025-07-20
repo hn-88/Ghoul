@@ -32,13 +32,8 @@
 #include <cstring>
 #include <memory>
 
-#if defined(__APPLE__) || (defined(__linux__) && defined(__clang__))
-#include <experimental/memory_resource>
-namespace pmr = std::experimental::pmr;
-#else
 #include <memory_resource>
 namespace pmr = std::pmr;
-#endif
 
 #include <vector>
 
