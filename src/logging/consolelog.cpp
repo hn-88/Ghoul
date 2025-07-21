@@ -30,7 +30,8 @@
 #include <ghoul/misc/profiling.h>
 #include <iostream>
 #include <string_view>
-#if __has_include(<syncstream>)
+
+#if __has_include(<syncstream>) && __cplusplus >= 202002L
 #include <syncstream>
 #else
 #include <mutex>
@@ -45,7 +46,16 @@
 #include <unistd.h>
 #include <sys/sysctl.h>
 
-#if !__has_include(<syncstream>)
+// XCode 16.4 has syncstream, but tries to compile all ifdef paths?
+
+#if __has_include(<syncstream>) && __cplusplus >= 202002L
+#  include <syncstream>
+#  define HAS_OSYNCSTREAM 1
+#else
+#  define HAS_OSYNCSTREAM 0
+#endif
+
+#if !(HAS_OSYNCSTREAM)
 std::mutex sync_mutex;
 
 template <typename T>
@@ -59,7 +69,9 @@ void sync_print_cerr(T&& message) {
     std::lock_guard<std::mutex> lock(sync_mutex);
     std::cerr << std::forward<T>(message) << std::endl;
 }
+
 #endif // if no syncstream, use sync_print instead of osyncstream
+
 
 // Function is taken from https://developer.apple.com/library/mac/qa/qa1361/_index.html
 // Returns true if the current process is being debugged (either running under the
@@ -162,14 +174,14 @@ void ConsoleLog::log(LogLevel level, std::string_view category, std::string_view
 
     res += message;
     if (level >= LogLevel::Error) {
-#if __has_include(<syncstream>)
+#if HAS_OSYNCSTREAM
         std::osyncstream(std::cerr) << res << '\n';
 #else
        sync_print_cerr(res); 
 #endif
     }
     else {
-#if __has_include(<syncstream>)
+#if HAS_OSYNCSTREAM
         std::osyncstream(std::cout) << res << '\n';
 #else
        sync_print_cout(res);
@@ -182,7 +194,7 @@ void ConsoleLog::log(LogLevel level, std::string_view category, std::string_view
     }
 }
 
-#if !__has_include(<syncstream>)
+#if !(HAS_OSYNCSTREAM)
 void ConsoleLog::flush() {
     std::lock_guard<std::mutex> lock(sync_mutex);
     std::cout.flush();
