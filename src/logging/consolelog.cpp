@@ -46,14 +46,12 @@
 #include <unistd.h>
 #include <sys/sysctl.h>
 
-// XCode 16.4 has syncstream, but tries to compile all ifdef paths?
+// XCode 16.4 has syncstream, but still has errors.
+// So, forcing the code to not use syncstream
+// inside the ifdef __APPLE__
 
-#if __has_include(<syncstream>) && __cplusplus >= 202002L
-#  include <syncstream>
-#  define HAS_OSYNCSTREAM 1
-#else
-#  define HAS_OSYNCSTREAM 0
-#endif
+#define HAS_OSYNCSTREAM 0
+#include <mutex>
 
 #if !(HAS_OSYNCSTREAM)
 std::mutex sync_mutex;
