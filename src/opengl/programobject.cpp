@@ -266,6 +266,18 @@ void ProgramObject::linkProgramObject() {
         const std::string log = std::string(rawLog.data());
         throw ProgramObjectLinkingError(log, name());
     }
+
+    GLint logLength = 0;
+    glGetProgramiv(_id, GL_INFO_LOG_LENGTH, &logLength);
+    if (logLength > 0) {
+        std::vector<GLchar> rawLog(logLength);
+        glGetProgramInfoLog(_id, logLength, nullptr, rawLog.data());
+        const std::string log = std::string(rawLog.data());
+        if (!log.empty()) {
+            LWARNING(log);
+        }
+    }
+
     _programIsDirty = false;
 }
 
