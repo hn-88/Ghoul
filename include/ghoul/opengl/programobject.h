@@ -2160,7 +2160,7 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name, bool value);
+    bool setAttribute(const std::string& name, bool value) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed values \p v1 and \p v2.
@@ -2174,7 +2174,7 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name, bool v1, bool v2);
+    bool setAttribute(const std::string& name, bool v1, bool v2) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed values \p v1, \p v2,
@@ -2189,7 +2189,7 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name, bool v1, bool v2, bool v3);
+    bool setAttribute(const std::string& name, bool v1, bool v2, bool v3) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed values \p v1, \p v2,
@@ -2205,7 +2205,7 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name, bool v1, bool v2, bool v3, bool v4);
+    bool setAttribute(const std::string& name, bool v1, bool v2, bool v3, bool v4) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2218,7 +2218,7 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name, const glm::bvec2& value);
+    bool setAttribute(const std::string& name, const glm::bvec2& value) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2231,7 +2231,7 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name, const glm::bvec3& value);
+    bool setAttribute(const std::string& name, const glm::bvec3& value) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2244,7 +2244,7 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name, const glm::bvec4& value);
+    bool setAttribute(const std::string& name, const glm::bvec4& value) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2257,7 +2257,7 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name, GLint value);
+    bool setAttribute(const std::string& name, GLint value) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed values \p v1 and \p v2.
@@ -2271,7 +2271,7 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name, GLint v1, GLint v2);
+    bool setAttribute(const std::string& name, GLint v1, GLint v2) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed values \p v1, \p v2,
@@ -2286,7 +2286,7 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name, GLint v1, GLint v2, GLint v3);
+    bool setAttribute(const std::string& name, GLint v1, GLint v2, GLint v3) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed values \p v1, \p v2,
@@ -2302,7 +2302,8 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name, GLint v1, GLint v2, GLint v3, GLint v4);
+    bool setAttribute(const std::string& name, GLint v1, GLint v2, GLint v3,
+        GLint v4) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2315,7 +2316,7 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name, const glm::ivec2& value);
+    bool setAttribute(const std::string& name, const glm::ivec2& value) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2328,7 +2329,7 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name, const glm::ivec3& value);
+    bool setAttribute(const std::string& name, const glm::ivec3& value) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2341,7 +2342,7 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name, const glm::ivec4& value);
+    bool setAttribute(const std::string& name, const glm::ivec4& value) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2354,7 +2355,7 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name, GLfloat value);
+    bool setAttribute(const std::string& name, GLfloat value) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed values \p v1 and \p v2.
@@ -2368,7 +2369,7 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name, GLfloat v1, GLfloat v2);
+    bool setAttribute(const std::string& name, GLfloat v1, GLfloat v2) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed values \p v1, \p v2,
@@ -2383,7 +2384,7 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name, GLfloat v1, GLfloat v2, GLfloat v3);
+    bool setAttribute(const std::string& name, GLfloat v1, GLfloat v2, GLfloat v3) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed values \p v1, \p v2,
@@ -2399,8 +2400,8 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name,
-        GLfloat v1, GLfloat v2, GLfloat v3, GLfloat v4);
+    bool setAttribute(const std::string& name, GLfloat v1, GLfloat v2, GLfloat v3,
+        GLfloat v4) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2413,7 +2414,7 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name, const glm::vec2& value);
+    bool setAttribute(const std::string& name, const glm::vec2& value) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2426,7 +2427,7 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name, const glm::vec3& value);
+    bool setAttribute(const std::string& name, const glm::vec3& value) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2439,7 +2440,7 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name, const glm::vec4& value);
+    bool setAttribute(const std::string& name, const glm::vec4& value) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2452,7 +2453,7 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name, GLdouble value);
+    bool setAttribute(const std::string& name, GLdouble value) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed values \p v1 and \p v2.
@@ -2466,7 +2467,7 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name, GLdouble v1, GLdouble v2);
+    bool setAttribute(const std::string& name, GLdouble v1, GLdouble v2) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed values \p v1, \p v2,
@@ -2481,7 +2482,8 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name, GLdouble v1, GLdouble v2, GLdouble v3);
+    bool setAttribute(const std::string& name, GLdouble v1, GLdouble v2,
+        GLdouble v3) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed values \p v1, \p v2,
@@ -2497,8 +2499,8 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name,
-        GLdouble v1, GLdouble v2, GLdouble v3, GLdouble v4);
+    bool setAttribute(const std::string& name, GLdouble v1, GLdouble v2, GLdouble v3,
+        GLdouble v4) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2511,7 +2513,7 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name, const glm::dvec2& value);
+    bool setAttribute(const std::string& name, const glm::dvec2& value) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2524,7 +2526,7 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name, const glm::dvec3& value);
+    bool setAttribute(const std::string& name, const glm::dvec3& value) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2537,7 +2539,7 @@ public:
      *
      * \pre \p name must not be empty
      */
-    bool setAttribute(const std::string& name, const glm::dvec4& value);
+    bool setAttribute(const std::string& name, const glm::dvec4& value) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2553,7 +2555,7 @@ public:
      * \pre \p name must not be empty
      */
     bool setAttribute(const std::string& name, const glm::mat2x2& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2569,7 +2571,7 @@ public:
      * \pre \p name must not be empty
      */
     bool setAttribute(const std::string& name, const glm::mat2x3& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2585,7 +2587,7 @@ public:
      * \pre \p name must not be empty
      */
     bool setAttribute(const std::string& name, const glm::mat2x4& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2601,7 +2603,7 @@ public:
      * \pre \p name must not be empty
      */
     bool setAttribute(const std::string& name, const glm::mat3x2& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2617,7 +2619,7 @@ public:
      * \pre \p name must not be empty
      */
     bool setAttribute(const std::string& name, const glm::mat3x3& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2633,7 +2635,7 @@ public:
      * \pre \p name must not be empty
      */
     bool setAttribute(const std::string& name, const glm::mat3x4& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2649,7 +2651,7 @@ public:
      * \pre \p name must not be empty
      */
     bool setAttribute(const std::string& name, const glm::mat4x2& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2665,7 +2667,7 @@ public:
      * \pre \p name must not be empty
      */
     bool setAttribute(const std::string& name, const glm::mat4x3& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2681,7 +2683,7 @@ public:
      * \pre \p name must not be empty
      */
     bool setAttribute(const std::string& name, const glm::mat4x4& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2697,7 +2699,7 @@ public:
      * \pre \p name must not be empty
      */
     bool setAttribute(const std::string& name, const glm::dmat2x2& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2713,7 +2715,7 @@ public:
      * \pre \p name must not be empty
      */
     bool setAttribute(const std::string& name, const glm::dmat2x3& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2729,7 +2731,7 @@ public:
      * \pre \p name must not be empty
      */
     bool setAttribute(const std::string& name, const glm::dmat2x4& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2745,7 +2747,7 @@ public:
      * \pre \p name must not be empty
      */
     bool setAttribute(const std::string& name, const glm::dmat3x2& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2761,7 +2763,7 @@ public:
      * \pre \p name must not be empty
      */
     bool setAttribute(const std::string& name, const glm::dmat3x3& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2777,7 +2779,7 @@ public:
      * \pre \p name must not be empty
      */
     bool setAttribute(const std::string& name, const glm::dmat3x4& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2792,7 +2794,7 @@ public:
      * \pre \p name must not be empty
      */
     bool setAttribute(const std::string& name, const glm::dmat4x2& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2808,7 +2810,7 @@ public:
      * \pre \p name must not be empty
      */
     bool setAttribute(const std::string& name, const glm::dmat4x3& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Locates and sets the vertex attribute \p name to the passed \p value. Returns
@@ -2824,7 +2826,7 @@ public:
      * \pre \p name must not be empty
      */
     bool setAttribute(const std::string& name, const glm::dmat4x4& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -2835,7 +2837,7 @@ public:
      *
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
-    void setAttribute(GLuint location, bool value);
+    void setAttribute(GLuint location, bool value) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed values \p v1 and \p v2.
@@ -2847,7 +2849,7 @@ public:
      *
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
-    void setAttribute(GLuint location, bool v1, bool v2);
+    void setAttribute(GLuint location, bool v1, bool v2) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed values \p v1, \p v2, and
@@ -2860,7 +2862,7 @@ public:
      *
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
-    void setAttribute(GLuint location, bool v1, bool v2, bool v3);
+    void setAttribute(GLuint location, bool v1, bool v2, bool v3) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed values \p v1, \p v2,
@@ -2874,7 +2876,7 @@ public:
      *
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
-    void setAttribute(GLuint location, bool v1, bool v2, bool v3, bool v4);
+    void setAttribute(GLuint location, bool v1, bool v2, bool v3, bool v4) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -2885,7 +2887,7 @@ public:
      *
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
-    void setAttribute(GLuint location, const glm::bvec2& value);
+    void setAttribute(GLuint location, const glm::bvec2& value) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -2896,7 +2898,7 @@ public:
      *
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
-    void setAttribute(GLuint location, const glm::bvec3& value);
+    void setAttribute(GLuint location, const glm::bvec3& value) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -2907,7 +2909,7 @@ public:
      *
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
-    void setAttribute(GLuint location, const glm::bvec4& value);
+    void setAttribute(GLuint location, const glm::bvec4& value) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -2918,7 +2920,7 @@ public:
      *
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
-    void setAttribute(GLuint location, GLint value);
+    void setAttribute(GLuint location, GLint value) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed values \p v1 and \p v2.
@@ -2930,7 +2932,7 @@ public:
      *
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
-    void setAttribute(GLuint location, GLint v1, GLint v2);
+    void setAttribute(GLuint location, GLint v1, GLint v2) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed values \p v1, \p v2, and
@@ -2943,7 +2945,7 @@ public:
      *
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
-    void setAttribute(GLuint location, GLint v1, GLint v2, GLint v3);
+    void setAttribute(GLuint location, GLint v1, GLint v2, GLint v3) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed values \p v1, \p v2,
@@ -2957,7 +2959,7 @@ public:
      *
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
-    void setAttribute(GLuint location, GLint v1, GLint v2, GLint v3, GLint v4);
+    void setAttribute(GLuint location, GLint v1, GLint v2, GLint v3, GLint v4) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -2968,7 +2970,7 @@ public:
      *
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
-    void setAttribute(GLuint location, const glm::ivec2& value);
+    void setAttribute(GLuint location, const glm::ivec2& value) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -2979,7 +2981,7 @@ public:
      *
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
-    void setAttribute(GLuint location, const glm::ivec3& value);
+    void setAttribute(GLuint location, const glm::ivec3& value) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -2990,7 +2992,7 @@ public:
      *
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
-    void setAttribute(GLuint location, const glm::ivec4& value);
+    void setAttribute(GLuint location, const glm::ivec4& value) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -3001,7 +3003,7 @@ public:
      *
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
-    void setAttribute(GLuint location, GLfloat value);
+    void setAttribute(GLuint location, GLfloat value) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed values \p v1 and \p v2.
@@ -3013,7 +3015,7 @@ public:
      *
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
-    void setAttribute(GLuint location, GLfloat v1, GLfloat v2);
+    void setAttribute(GLuint location, GLfloat v1, GLfloat v2) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed values \p v1, \p v2, and
@@ -3026,7 +3028,7 @@ public:
      *
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
-    void setAttribute(GLuint location, GLfloat v1, GLfloat v2, GLfloat v3);
+    void setAttribute(GLuint location, GLfloat v1, GLfloat v2, GLfloat v3) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed values \p v1, \p v2,
@@ -3040,7 +3042,8 @@ public:
      *
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
-    void setAttribute(GLuint location, GLfloat v1, GLfloat v2, GLfloat v3, GLfloat v4);
+    void setAttribute(GLuint location, GLfloat v1, GLfloat v2, GLfloat v3,
+        GLfloat v4) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -3051,7 +3054,7 @@ public:
      *
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
-    void setAttribute(GLuint location, const glm::vec2& value);
+    void setAttribute(GLuint location, const glm::vec2& value) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -3062,7 +3065,7 @@ public:
      *
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
-    void setAttribute(GLuint location, const glm::vec3& value);
+    void setAttribute(GLuint location, const glm::vec3& value) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -3073,7 +3076,7 @@ public:
      *
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
-    void setAttribute(GLuint location, const glm::vec4& value);
+    void setAttribute(GLuint location, const glm::vec4& value) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -3084,7 +3087,7 @@ public:
      *
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
-    void setAttribute(GLuint location, GLdouble value);
+    void setAttribute(GLuint location, GLdouble value) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed values \p v1 and \p v2.
@@ -3096,7 +3099,7 @@ public:
      *
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
-    void setAttribute(GLuint location, GLdouble v1, GLdouble v2);
+    void setAttribute(GLuint location, GLdouble v1, GLdouble v2) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed values \p v1, \p v2, and
@@ -3109,7 +3112,7 @@ public:
      *
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
-    void setAttribute(GLuint location, GLdouble v1, GLdouble v2, GLdouble v3);
+    void setAttribute(GLuint location, GLdouble v1, GLdouble v2, GLdouble v3) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed values \p v1, \p v2,
@@ -3124,7 +3127,7 @@ public:
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
     void setAttribute(GLuint location, GLdouble v1, GLdouble v2, GLdouble v3,
-        GLdouble v4);
+        GLdouble v4) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -3135,7 +3138,7 @@ public:
      *
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
-    void setAttribute(GLuint location, const glm::dvec2& value);
+    void setAttribute(GLuint location, const glm::dvec2& value) const;
 
     /**
      * Sets the vertex attribute \p location to the passed \p value. Returns
@@ -3147,7 +3150,7 @@ public:
      *
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
-    void setAttribute(GLuint location, const glm::dvec3& value);
+    void setAttribute(GLuint location, const glm::dvec3& value) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -3158,7 +3161,7 @@ public:
      *
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
-    void setAttribute(GLuint location, const glm::dvec4& value);
+    void setAttribute(GLuint location, const glm::dvec4& value) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -3172,7 +3175,7 @@ public:
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
     void setAttribute(GLuint location, const glm::mat2x2& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -3186,7 +3189,7 @@ public:
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
     void setAttribute(GLuint location, const glm::mat2x3& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -3200,7 +3203,7 @@ public:
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
     void setAttribute(GLuint location, const glm::mat2x4& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -3214,7 +3217,7 @@ public:
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
     void setAttribute(GLuint location, const glm::mat3x2& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -3228,7 +3231,7 @@ public:
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
     void setAttribute(GLuint location, const glm::mat3x3& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -3242,7 +3245,7 @@ public:
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
     void setAttribute(GLuint location, const glm::mat3x4& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -3256,7 +3259,7 @@ public:
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
     void setAttribute(GLuint location, const glm::mat4x2& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -3270,7 +3273,7 @@ public:
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
     void setAttribute(GLuint location, const glm::mat4x3& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -3284,7 +3287,7 @@ public:
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
     void setAttribute(GLuint location, const glm::mat4x4& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Sets the vertex attribute \p location to the passed \p value. Will call the OpenGL
@@ -3298,7 +3301,7 @@ public:
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
     void setAttribute(GLuint location, const glm::dmat2x2& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -3312,7 +3315,7 @@ public:
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
     void setAttribute(GLuint location, const glm::dmat2x3& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -3326,7 +3329,7 @@ public:
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
     void setAttribute(GLuint location, const glm::dmat2x4& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -3340,7 +3343,7 @@ public:
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
     void setAttribute(GLuint location, const glm::dmat3x2& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -3354,7 +3357,7 @@ public:
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
     void setAttribute(GLuint location, const glm::dmat3x3& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -3368,7 +3371,7 @@ public:
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
     void setAttribute(GLuint location, const glm::dmat3x4& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -3382,7 +3385,7 @@ public:
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
     void setAttribute(GLuint location, const glm::dmat4x2& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -3396,7 +3399,7 @@ public:
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
     void setAttribute(GLuint location, const glm::dmat4x3& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     /**
      * Sets the vertex attribute at the \p location to the passed \p value. Will call the
@@ -3410,7 +3413,7 @@ public:
      * \pre \p location must not be `GL_INVALID_INDEX`
      */
     void setAttribute(GLuint location, const glm::dmat4x4& value,
-        Transpose transpose = Transpose::No);
+        Transpose transpose = Transpose::No) const;
 
     //////////////////////////////////////////////////////////////////////////////////////
     ////// Attributes

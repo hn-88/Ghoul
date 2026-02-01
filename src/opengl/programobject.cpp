@@ -2612,7 +2612,7 @@ void ProgramObject::setIgnoreAttributeLocationError(IgnoreError ignoreError) {
     _ignoreAttributeLocationError = ignoreError;
 }
 
-bool ProgramObject::setAttribute(const std::string& name, bool value) {
+bool ProgramObject::setAttribute(const std::string& name, bool value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLuint location = attributeLocation(name);
@@ -2623,7 +2623,7 @@ bool ProgramObject::setAttribute(const std::string& name, bool value) {
     return true;
 }
 
-bool ProgramObject::setAttribute(const std::string& name, bool v1, bool v2) {
+bool ProgramObject::setAttribute(const std::string& name, bool v1, bool v2) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLuint location = attributeLocation(name);
@@ -2634,7 +2634,9 @@ bool ProgramObject::setAttribute(const std::string& name, bool v1, bool v2) {
     return true;
 }
 
-bool ProgramObject::setAttribute(const std::string& name, bool v1, bool v2, bool v3) {
+bool ProgramObject::setAttribute(const std::string& name, bool v1, bool v2,
+                                 bool v3) const
+{
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLuint location = attributeLocation(name);
@@ -2646,7 +2648,7 @@ bool ProgramObject::setAttribute(const std::string& name, bool v1, bool v2, bool
 }
 
 bool ProgramObject::setAttribute(const std::string& name, bool v1, bool v2, bool v3,
-                                 bool v4)
+                                 bool v4) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
@@ -2658,7 +2660,7 @@ bool ProgramObject::setAttribute(const std::string& name, bool v1, bool v2, bool
     return true;
 }
 
-bool ProgramObject::setAttribute(const std::string& name, const glm::bvec2& value) {
+bool ProgramObject::setAttribute(const std::string& name, const glm::bvec2& value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLuint location = attributeLocation(name);
@@ -2669,7 +2671,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::bvec2& valu
     return true;
 }
 
-bool ProgramObject::setAttribute(const std::string& name, const glm::bvec3& value) {
+bool ProgramObject::setAttribute(const std::string& name, const glm::bvec3& value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLuint location = attributeLocation(name);
@@ -2680,7 +2682,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::bvec3& valu
     return true;
 }
 
-bool ProgramObject::setAttribute(const std::string& name, const glm::bvec4& value) {
+bool ProgramObject::setAttribute(const std::string& name, const glm::bvec4& value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLuint location = attributeLocation(name);
@@ -2691,7 +2693,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::bvec4& valu
     return true;
 }
 
-bool ProgramObject::setAttribute(const std::string& name, GLint value) {
+bool ProgramObject::setAttribute(const std::string& name, GLint value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLuint location = attributeLocation(name);
@@ -2702,7 +2704,7 @@ bool ProgramObject::setAttribute(const std::string& name, GLint value) {
     return true;
 }
 
-bool ProgramObject::setAttribute(const std::string& name, GLint v1, GLint v2) {
+bool ProgramObject::setAttribute(const std::string& name, GLint v1, GLint v2) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLuint location = attributeLocation(name);
@@ -2713,7 +2715,9 @@ bool ProgramObject::setAttribute(const std::string& name, GLint v1, GLint v2) {
     return true;
 }
 
-bool ProgramObject::setAttribute(const std::string& name, GLint v1, GLint v2, GLint v3) {
+bool ProgramObject::setAttribute(const std::string& name, GLint v1, GLint v2,
+                                 GLint v3) const
+{
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLuint location = attributeLocation(name);
@@ -2725,7 +2729,7 @@ bool ProgramObject::setAttribute(const std::string& name, GLint v1, GLint v2, GL
 }
 
 bool ProgramObject::setAttribute(const std::string& name, GLint v1, GLint v2, GLint v3,
-                                 GLint v4)
+                                 GLint v4) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
@@ -2737,7 +2741,7 @@ bool ProgramObject::setAttribute(const std::string& name, GLint v1, GLint v2, GL
     return true;
 }
 
-bool ProgramObject::setAttribute(const std::string& name, const glm::ivec2& value) {
+bool ProgramObject::setAttribute(const std::string& name, const glm::ivec2& value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLuint location = attributeLocation(name);
@@ -2748,7 +2752,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::ivec2& valu
     return true;
 }
 
-bool ProgramObject::setAttribute(const std::string& name, const glm::ivec3& value) {
+bool ProgramObject::setAttribute(const std::string& name, const glm::ivec3& value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLuint location = attributeLocation(name);
@@ -2759,7 +2763,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::ivec3& valu
     return true;
 }
 
-bool ProgramObject::setAttribute(const std::string& name, const glm::ivec4& value) {
+bool ProgramObject::setAttribute(const std::string& name, const glm::ivec4& value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLuint location = attributeLocation(name);
@@ -2770,7 +2774,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::ivec4& valu
     return true;
 }
 
-bool ProgramObject::setAttribute(const std::string& name, GLfloat value) {
+bool ProgramObject::setAttribute(const std::string& name, GLfloat value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLuint location = attributeLocation(name);
@@ -2781,7 +2785,7 @@ bool ProgramObject::setAttribute(const std::string& name, GLfloat value) {
     return true;
 }
 
-bool ProgramObject::setAttribute(const std::string& name, GLfloat v1, GLfloat v2) {
+bool ProgramObject::setAttribute(const std::string& name, GLfloat v1, GLfloat v2) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLuint location = attributeLocation(name);
@@ -2793,7 +2797,7 @@ bool ProgramObject::setAttribute(const std::string& name, GLfloat v1, GLfloat v2
 }
 
 bool ProgramObject::setAttribute(const std::string& name, GLfloat v1, GLfloat v2,
-                                 GLfloat v3)
+                                 GLfloat v3) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
@@ -2806,7 +2810,7 @@ bool ProgramObject::setAttribute(const std::string& name, GLfloat v1, GLfloat v2
 }
 
 bool ProgramObject::setAttribute(const std::string& name, GLfloat v1, GLfloat v2,
-                                 GLfloat v3, GLfloat v4)
+                                 GLfloat v3, GLfloat v4) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
@@ -2818,7 +2822,7 @@ bool ProgramObject::setAttribute(const std::string& name, GLfloat v1, GLfloat v2
     return true;
 }
 
-bool ProgramObject::setAttribute(const std::string& name, const glm::vec2& value) {
+bool ProgramObject::setAttribute(const std::string& name, const glm::vec2& value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLuint location = attributeLocation(name);
@@ -2829,7 +2833,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::vec2& value
     return true;
 }
 
-bool ProgramObject::setAttribute(const std::string& name, const glm::vec3& value) {
+bool ProgramObject::setAttribute(const std::string& name, const glm::vec3& value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLuint location = attributeLocation(name);
@@ -2840,7 +2844,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::vec3& value
     return true;
 }
 
-bool ProgramObject::setAttribute(const std::string& name, const glm::vec4& value) {
+bool ProgramObject::setAttribute(const std::string& name, const glm::vec4& value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLuint location = attributeLocation(name);
@@ -2851,7 +2855,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::vec4& value
     return true;
 }
 
-bool ProgramObject::setAttribute(const std::string& name, GLdouble value) {
+bool ProgramObject::setAttribute(const std::string& name, GLdouble value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLuint location = attributeLocation(name);
@@ -2862,7 +2866,8 @@ bool ProgramObject::setAttribute(const std::string& name, GLdouble value) {
     return true;
 }
 
-bool ProgramObject::setAttribute(const std::string& name, GLdouble v1, GLdouble v2) {
+bool ProgramObject::setAttribute(const std::string& name, GLdouble v1, GLdouble v2) const
+{
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLuint location = attributeLocation(name);
@@ -2874,7 +2879,7 @@ bool ProgramObject::setAttribute(const std::string& name, GLdouble v1, GLdouble 
 }
 
 bool ProgramObject::setAttribute(const std::string& name, GLdouble v1, GLdouble v2,
-                                 GLdouble v3)
+                                 GLdouble v3) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
@@ -2887,7 +2892,7 @@ bool ProgramObject::setAttribute(const std::string& name, GLdouble v1, GLdouble 
 }
 
 bool ProgramObject::setAttribute(const std::string& name, GLdouble v1, GLdouble v2,
-                                 GLdouble v3, GLdouble v4)
+                                 GLdouble v3, GLdouble v4) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
@@ -2899,7 +2904,7 @@ bool ProgramObject::setAttribute(const std::string& name, GLdouble v1, GLdouble 
     return true;
 }
 
-bool ProgramObject::setAttribute(const std::string& name, const glm::dvec2& value) {
+bool ProgramObject::setAttribute(const std::string& name, const glm::dvec2& value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLuint location = attributeLocation(name);
@@ -2910,7 +2915,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::dvec2& valu
     return true;
 }
 
-bool ProgramObject::setAttribute(const std::string& name, const glm::dvec3& value) {
+bool ProgramObject::setAttribute(const std::string& name, const glm::dvec3& value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLuint location = attributeLocation(name);
@@ -2921,7 +2926,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::dvec3& valu
     return true;
 }
 
-bool ProgramObject::setAttribute(const std::string& name, const glm::dvec4& value) {
+bool ProgramObject::setAttribute(const std::string& name, const glm::dvec4& value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLuint location = attributeLocation(name);
@@ -2933,7 +2938,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::dvec4& valu
 }
 
 bool ProgramObject::setAttribute(const std::string& name, const glm::mat2x2& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
@@ -2946,7 +2951,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::mat2x2& val
 }
 
 bool ProgramObject::setAttribute(const std::string& name, const glm::mat2x3& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
@@ -2959,7 +2964,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::mat2x3& val
 }
 
 bool ProgramObject::setAttribute(const std::string& name, const glm::mat2x4& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
@@ -2972,7 +2977,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::mat2x4& val
 }
 
 bool ProgramObject::setAttribute(const std::string& name, const glm::mat3x2& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
@@ -2985,7 +2990,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::mat3x2& val
 }
 
 bool ProgramObject::setAttribute(const std::string& name, const glm::mat3x3& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
@@ -2998,7 +3003,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::mat3x3& val
 }
 
 bool ProgramObject::setAttribute(const std::string& name, const glm::mat3x4& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
@@ -3011,7 +3016,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::mat3x4& val
 }
 
 bool ProgramObject::setAttribute(const std::string& name, const glm::mat4x2& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
@@ -3024,7 +3029,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::mat4x2& val
 }
 
 bool ProgramObject::setAttribute(const std::string& name, const glm::mat4x3& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
@@ -3037,7 +3042,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::mat4x3& val
 }
 
 bool ProgramObject::setAttribute(const std::string& name, const glm::mat4x4& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
@@ -3050,7 +3055,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::mat4x4& val
 }
 
 bool ProgramObject::setAttribute(const std::string& name, const glm::dmat2x2& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
@@ -3063,7 +3068,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::dmat2x2& va
 }
 
 bool ProgramObject::setAttribute(const std::string& name, const glm::dmat2x3& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
@@ -3076,7 +3081,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::dmat2x3& va
 }
 
 bool ProgramObject::setAttribute(const std::string& name, const glm::dmat2x4& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
@@ -3089,7 +3094,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::dmat2x4& va
 }
 
 bool ProgramObject::setAttribute(const std::string& name, const glm::dmat3x2& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
@@ -3102,7 +3107,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::dmat3x2& va
 }
 
 bool ProgramObject::setAttribute(const std::string& name, const glm::dmat3x3& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
@@ -3115,7 +3120,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::dmat3x3& va
 }
 
 bool ProgramObject::setAttribute(const std::string& name, const glm::dmat3x4& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
@@ -3128,7 +3133,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::dmat3x4& va
 }
 
 bool ProgramObject::setAttribute(const std::string& name, const glm::dmat4x2& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
@@ -3141,7 +3146,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::dmat4x2& va
 }
 
 bool ProgramObject::setAttribute(const std::string& name, const glm::dmat4x3& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
@@ -3154,7 +3159,7 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::dmat4x3& va
 }
 
 bool ProgramObject::setAttribute(const std::string& name, const glm::dmat4x4& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
@@ -3166,153 +3171,160 @@ bool ProgramObject::setAttribute(const std::string& name, const glm::dmat4x4& va
     return true;
 }
 
-void ProgramObject::setAttribute(GLuint location, bool value) {
+void ProgramObject::setAttribute(GLuint location, bool value) const {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     glVertexAttribI1i(location, value);
 }
 
-void ProgramObject::setAttribute(GLuint location, bool v1, bool v2) {
+void ProgramObject::setAttribute(GLuint location, bool v1, bool v2) const {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     glVertexAttribI2i(location, v1, v2);
 }
 
-void ProgramObject::setAttribute(GLuint location, bool v1, bool v2, bool v3) {
+void ProgramObject::setAttribute(GLuint location, bool v1, bool v2, bool v3) const {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     glVertexAttribI3i(location, v1, v2, v3);
 }
 
-void ProgramObject::setAttribute(GLuint location, bool v1, bool v2, bool v3, bool v4) {
-    ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
-    glVertexAttribI4i(location, v1, v2, v3, v4);
-}
-
-void ProgramObject::setAttribute(GLuint location, const glm::bvec2& value) {
-    ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
-    glVertexAttribI2iv(location, glm::value_ptr(glm::ivec2(value)));
-}
-
-void ProgramObject::setAttribute(GLuint location, const glm::bvec3& value) {
-    ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
-    glVertexAttribI3iv(location, glm::value_ptr(glm::ivec3(value)));
-}
-
-void ProgramObject::setAttribute(GLuint location, const glm::bvec4& value) {
-    ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
-    glVertexAttribI4iv(location, glm::value_ptr(glm::ivec4(value)));
-}
-
-void ProgramObject::setAttribute(GLuint location, GLint value) {
-    ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
-    glVertexAttribI1i(location, value);
-}
-
-void ProgramObject::setAttribute(GLuint location, GLint v1, GLint v2) {
-    ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
-    glVertexAttribI2i(location, v1, v2);
-}
-
-void ProgramObject::setAttribute(GLuint location, GLint v1, GLint v2, GLint v3) {
-    ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
-    glVertexAttribI3i(location, v1, v2, v3);
-}
-
-void ProgramObject::setAttribute(GLuint location, GLint v1, GLint v2, GLint v3, GLint v4)
+void ProgramObject::setAttribute(GLuint location, bool v1, bool v2, bool v3,
+                                 bool v4) const
 {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     glVertexAttribI4i(location, v1, v2, v3, v4);
 }
 
-void ProgramObject::setAttribute(GLuint location, const glm::ivec2& value) {
+void ProgramObject::setAttribute(GLuint location, const glm::bvec2& value) const {
+    ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
+    glVertexAttribI2iv(location, glm::value_ptr(glm::ivec2(value)));
+}
+
+void ProgramObject::setAttribute(GLuint location, const glm::bvec3& value) const {
+    ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
+    glVertexAttribI3iv(location, glm::value_ptr(glm::ivec3(value)));
+}
+
+void ProgramObject::setAttribute(GLuint location, const glm::bvec4& value) const {
+    ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
+    glVertexAttribI4iv(location, glm::value_ptr(glm::ivec4(value)));
+}
+
+void ProgramObject::setAttribute(GLuint location, GLint value) const {
+    ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
+    glVertexAttribI1i(location, value);
+}
+
+void ProgramObject::setAttribute(GLuint location, GLint v1, GLint v2) const {
+    ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
+    glVertexAttribI2i(location, v1, v2);
+}
+
+void ProgramObject::setAttribute(GLuint location, GLint v1, GLint v2, GLint v3) const {
+    ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
+    glVertexAttribI3i(location, v1, v2, v3);
+}
+
+void ProgramObject::setAttribute(GLuint location, GLint v1, GLint v2, GLint v3,
+                                 GLint v4) const
+{
+    ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
+    glVertexAttribI4i(location, v1, v2, v3, v4);
+}
+
+void ProgramObject::setAttribute(GLuint location, const glm::ivec2& value) const {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     glVertexAttribI2iv(location, glm::value_ptr(value));
 }
 
-void ProgramObject::setAttribute(GLuint location, const glm::ivec3& value) {
+void ProgramObject::setAttribute(GLuint location, const glm::ivec3& value) const {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     glVertexAttribI3iv(location, glm::value_ptr(value));
 }
 
-void ProgramObject::setAttribute(GLuint location, const glm::ivec4& value) {
+void ProgramObject::setAttribute(GLuint location, const glm::ivec4& value) const {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     glVertexAttribI4iv(location, glm::value_ptr(value));
 }
 
-void ProgramObject::setAttribute(GLuint location, GLfloat value) {
+void ProgramObject::setAttribute(GLuint location, GLfloat value) const {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     glVertexAttrib1f(location, value);
 }
 
-void ProgramObject::setAttribute(GLuint location, GLfloat v1, GLfloat v2) {
+void ProgramObject::setAttribute(GLuint location, GLfloat v1, GLfloat v2) const {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     glVertexAttrib2f(location, v1, v2);
 }
 
-void ProgramObject::setAttribute(GLuint location, GLfloat v1, GLfloat v2, GLfloat v3) {
+void ProgramObject::setAttribute(GLuint location, GLfloat v1, GLfloat v2,
+                                 GLfloat v3) const
+{
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     glVertexAttrib3f(location, v1, v2, v3);
 }
 
-void ProgramObject::setAttribute(GLuint location,
-                                 GLfloat v1, GLfloat v2, GLfloat v3, GLfloat v4)
+void ProgramObject::setAttribute(GLuint location, GLfloat v1, GLfloat v2, GLfloat v3,
+                                 GLfloat v4) const
 {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     glVertexAttrib4f(location, v1, v2, v3, v4);
 }
 
-void ProgramObject::setAttribute(GLuint location, const glm::vec2& value) {
+void ProgramObject::setAttribute(GLuint location, const glm::vec2& value) const {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     glVertexAttrib2fv(location, glm::value_ptr(value));
 }
 
-void ProgramObject::setAttribute(GLuint location, const glm::vec3& value) {
+void ProgramObject::setAttribute(GLuint location, const glm::vec3& value) const {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     glVertexAttrib3fv(location, glm::value_ptr(value));
 }
 
-void ProgramObject::setAttribute(GLuint location, const glm::vec4& value) {
+void ProgramObject::setAttribute(GLuint location, const glm::vec4& value) const {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     glVertexAttrib4fv(location, glm::value_ptr(value));
 }
 
-void ProgramObject::setAttribute(GLuint location, GLdouble value) {
+void ProgramObject::setAttribute(GLuint location, GLdouble value) const {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     glVertexAttribL1d(location, value);
 }
 
-void ProgramObject::setAttribute(GLuint location, GLdouble v1, GLdouble v2) {
+void ProgramObject::setAttribute(GLuint location, GLdouble v1, GLdouble v2) const {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     glVertexAttribL2d(location, v1, v2);
 }
 
-void ProgramObject::setAttribute(GLuint location, GLdouble v1, GLdouble v2, GLdouble v3) {
+void ProgramObject::setAttribute(GLuint location, GLdouble v1, GLdouble v2,
+                                 GLdouble v3) const
+{
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     glVertexAttribL3d(location, v1, v2, v3);
 }
 
-void ProgramObject::setAttribute(GLuint location,
-                                 GLdouble v1, GLdouble v2, GLdouble v3, GLdouble v4)
+void ProgramObject::setAttribute(GLuint location, GLdouble v1, GLdouble v2, GLdouble v3,
+                                 GLdouble v4) const
 {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     glVertexAttribL4d(location, v1, v2, v3, v4);
 }
 
-void ProgramObject::setAttribute(GLuint location, const glm::dvec2& value) {
+void ProgramObject::setAttribute(GLuint location, const glm::dvec2& value) const {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     glVertexAttribL2dv(location, glm::value_ptr(value));
 }
 
-void ProgramObject::setAttribute(GLuint location, const glm::dvec3& value) {
+void ProgramObject::setAttribute(GLuint location, const glm::dvec3& value) const {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     glVertexAttribL3dv(location, glm::value_ptr(value));
 }
 
-void ProgramObject::setAttribute(GLuint location, const glm::dvec4& value) {
+void ProgramObject::setAttribute(GLuint location, const glm::dvec4& value) const {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     glVertexAttribL4dv(location, glm::value_ptr(value));
 }
 
 void ProgramObject::setAttribute(GLuint location, const glm::mat2x2& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     if (transpose) {
@@ -3325,7 +3337,7 @@ void ProgramObject::setAttribute(GLuint location, const glm::mat2x2& value,
 }
 
 void ProgramObject::setAttribute(GLuint location, const glm::mat2x3& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     if (transpose) {
@@ -3338,7 +3350,7 @@ void ProgramObject::setAttribute(GLuint location, const glm::mat2x3& value,
 }
 
 void ProgramObject::setAttribute(GLuint location, const glm::mat2x4& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     if (transpose) {
@@ -3351,7 +3363,7 @@ void ProgramObject::setAttribute(GLuint location, const glm::mat2x4& value,
 }
 
 void ProgramObject::setAttribute(GLuint location, const glm::mat3x2& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     if (transpose) {
@@ -3365,7 +3377,7 @@ void ProgramObject::setAttribute(GLuint location, const glm::mat3x2& value,
 }
 
 void ProgramObject::setAttribute(GLuint location, const glm::mat3x3& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     if (transpose) {
@@ -3379,7 +3391,7 @@ void ProgramObject::setAttribute(GLuint location, const glm::mat3x3& value,
 }
 
 void ProgramObject::setAttribute(GLuint location, const glm::mat3x4& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     if (transpose) {
@@ -3393,7 +3405,7 @@ void ProgramObject::setAttribute(GLuint location, const glm::mat3x4& value,
 }
 
 void ProgramObject::setAttribute(GLuint location, const glm::mat4x2& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     if (transpose) {
@@ -3408,7 +3420,7 @@ void ProgramObject::setAttribute(GLuint location, const glm::mat4x2& value,
 }
 
 void ProgramObject::setAttribute(GLuint location, const glm::mat4x3& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     if (transpose) {
@@ -3423,7 +3435,7 @@ void ProgramObject::setAttribute(GLuint location, const glm::mat4x3& value,
 }
 
 void ProgramObject::setAttribute(GLuint location, const glm::mat4x4& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     if (transpose) {
@@ -3438,7 +3450,7 @@ void ProgramObject::setAttribute(GLuint location, const glm::mat4x4& value,
 }
 
 void ProgramObject::setAttribute(GLuint location, const glm::dmat2x2& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     if (transpose) {
@@ -3451,7 +3463,7 @@ void ProgramObject::setAttribute(GLuint location, const glm::dmat2x2& value,
 }
 
 void ProgramObject::setAttribute(GLuint location, const glm::dmat2x3& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     if (transpose) {
@@ -3464,7 +3476,7 @@ void ProgramObject::setAttribute(GLuint location, const glm::dmat2x3& value,
 }
 
 void ProgramObject::setAttribute(GLuint location, const glm::dmat2x4& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     if (transpose) {
@@ -3477,7 +3489,7 @@ void ProgramObject::setAttribute(GLuint location, const glm::dmat2x4& value,
 }
 
 void ProgramObject::setAttribute(GLuint location, const glm::dmat3x2& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     if (transpose) {
@@ -3491,7 +3503,7 @@ void ProgramObject::setAttribute(GLuint location, const glm::dmat3x2& value,
 }
 
 void ProgramObject::setAttribute(GLuint location, const glm::dmat3x3& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     if (transpose) {
@@ -3505,7 +3517,7 @@ void ProgramObject::setAttribute(GLuint location, const glm::dmat3x3& value,
 }
 
 void ProgramObject::setAttribute(GLuint location, const glm::dmat3x4& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     if (transpose) {
@@ -3519,7 +3531,7 @@ void ProgramObject::setAttribute(GLuint location, const glm::dmat3x4& value,
 }
 
 void ProgramObject::setAttribute(GLuint location, const glm::dmat4x2& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     if (transpose) {
@@ -3534,7 +3546,7 @@ void ProgramObject::setAttribute(GLuint location, const glm::dmat4x2& value,
 }
 
 void ProgramObject::setAttribute(GLuint location, const glm::dmat4x3& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     if (transpose) {
@@ -3549,7 +3561,7 @@ void ProgramObject::setAttribute(GLuint location, const glm::dmat4x3& value,
 }
 
 void ProgramObject::setAttribute(GLuint location, const glm::dmat4x4& value,
-                                 Transpose transpose)
+                                 Transpose transpose) const
 {
     ghoul_assert(location != GL_INVALID_INDEX, "Location must not be GL_INVALID_INDEX");
     if (transpose) {
