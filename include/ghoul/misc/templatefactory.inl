@@ -56,7 +56,6 @@ namespace {
     BaseClass* createDefault(bool useDictionary, const ghoul::Dictionary& dict,
                              pmr::memory_resource* pool)
     {
-#ifdef GHL_DEBUG
         // We don't have a dictionary constructor, but the user tried to create it with a
         // Dictionary
         if (useDictionary || dict.size() != 0) {
@@ -66,7 +65,7 @@ namespace {
                 className
             ));
         }
-#endif
+
         if (pool) {
             void* ptr = pool->allocate(sizeof(Class));
             return new (ptr) Class;
