@@ -77,7 +77,7 @@ public:
     WebSocket(std::unique_ptr<TcpSocket> socket,
         websocketpp::server<websocketpp::config::core>& server);
 
-    virtual ~WebSocket() override;
+    ~WebSocket() override;
 
     std::string address() const override;
     int port() const override;

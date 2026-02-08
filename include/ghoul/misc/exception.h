@@ -49,7 +49,7 @@ struct RuntimeError : public std::runtime_error {
      */
     explicit RuntimeError(std::string msg, std::string comp = "");
 
-    virtual ~RuntimeError() override = default;
+    ~RuntimeError() override = default;
 
     /// The main message describing the exception
     const std::string message;

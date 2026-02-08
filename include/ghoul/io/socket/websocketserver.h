@@ -51,7 +51,7 @@ class WebSocket;
 class WebSocketServer : public SocketServer {
 public:
     WebSocketServer();
-    virtual ~WebSocketServer() override = default;
+    ~WebSocketServer() override = default;
 
     int port() const override;
     void close() override;

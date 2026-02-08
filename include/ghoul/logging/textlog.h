@@ -92,7 +92,7 @@ public:
     /**
      * Destructor closing and releasing the file handle.
      */
-    virtual ~TextLog() override;
+    ~TextLog() override;
 
     /**
      * Method that logs a `message` with a given `level` and `category` to the text file.

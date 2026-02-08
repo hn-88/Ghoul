@@ -302,7 +302,7 @@ public:
     /**
      * Sets the `bool` value passed in the constructor to `true`
      */
-    virtual void execute(const std::vector<std::string>& /*parameters*/) override;
+    void execute(const std::vector<std::string>& /*parameters*/) override;
 
 protected:
     std::optional<bool>& _ptr;

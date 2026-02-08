@@ -88,7 +88,7 @@ public:
     /**
      * Destructor that closes and finalizes the HTML file
      */
-    virtual ~HTMLLog() override;
+    ~HTMLLog() override;
 
     /**
      * Method that logs a message with a given \p level and \p category to the text file.
