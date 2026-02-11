@@ -82,7 +82,8 @@ public:
      *        `:`, `|`, `"`, `<`, `>`, or `.`) in the \p file
      */
     [[nodiscard]] std::filesystem::path cachedFilename(const std::filesystem::path& file,
-        std::optional<std::string_view> information = std::nullopt);
+        std::optional<std::string_view> information = std::nullopt,
+        std::string_view subDirectory = "");
 
     /**
      * This method checks if a cached \p file has been registered before in this or in a

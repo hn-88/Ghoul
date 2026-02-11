@@ -216,7 +216,8 @@ CacheManager::~CacheManager() {
 }
 
 std::filesystem::path CacheManager::cachedFilename(const std::filesystem::path& file,
-                                              std::optional<std::string_view> information)
+                                              std::optional<std::string_view> information,
+                                                            std::string_view subDirectory)
 {
     const std::filesystem::path baseName = file.filename();
     const std::string n = baseName.string();
@@ -237,14 +238,15 @@ std::filesystem::path CacheManager::cachedFilename(const std::filesystem::path& 
         information.has_value() ? *information : lmd
     );
 
+
     // If we couldn't find the file, we have to generate a directory with the name of the
     // hash and return the full path containing of the cache path + filename + hash value
-    const std::filesystem::path destinationBase = _directory / baseName;
+    const std::filesystem::path destinationBase = _directory / subDirectory / baseName;
 
     // If this is the first time anyone requests a cache for the file name, we have to
     // create the base directory under the cache directory
     if (!std::filesystem::is_directory(destinationBase)) {
-        std::filesystem::create_directory(destinationBase);
+        std::filesystem::create_directories(destinationBase);
     }
 
     const std::string destination = std::format("{}/{}", destinationBase, hash);
