@@ -77,7 +77,7 @@ public:
      * \pre The extension of \p filename must be among the supported extensions as
      *      reported by supportedExtensions
      */
-    virtual glm::ivec2 imageSize(const std::filesystem::path& filename) const;
+    glm::ivec2 imageSize(const std::filesystem::path& filename) const override;
 
     /**
      * Returns the supported file extensions.
