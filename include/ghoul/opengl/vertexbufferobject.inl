@@ -38,29 +38,28 @@ void VertexBufferObject::initialize(const std::vector<T>& vertexArray,
     ghoul_assert(!vertexArray.empty(), "Vertex array must not be empty");
     ghoul_assert(!indexArray.empty(), "Index array must not be empty");
 
-    generateGLObjects();
 
     _iSize = static_cast<unsigned int>(indexArray.size());
 
-    glBindVertexArray(_vaoID);
-
-    glBindBuffer(GL_ARRAY_BUFFER, _vBufferID);
-    glBufferData(
-        GL_ARRAY_BUFFER,
+    glCreateBuffers(1, &_vbo);
+    glNamedBufferStorage(
+        _vbo,
         vertexArray.size() * sizeof(T),
         vertexArray.data(),
-        GL_STATIC_DRAW
+        GL_NONE_BIT
     );
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _iBufferID);
-    glBufferData(
-        GL_ELEMENT_ARRAY_BUFFER,
+    glCreateBuffers(1, &_ibo);
+    glNamedBufferStorage(
+        _ibo,
         indexArray.size() * sizeof(GLint),
         indexArray.data(),
-        GL_STATIC_DRAW
+        GL_NONE_BIT
     );
 
-    glBindVertexArray(0);
+    glCreateVertexArrays(1, &_vao);
+    glVertexArrayVertexBuffer(_vao, 0, _vbo, 0, 3 * sizeof(float));
+    glVertexArrayElementBuffer(_vao, _ibo);
 }
 
 } // namespace ghoul::opengl

@@ -109,7 +109,7 @@ void ModelMesh::render(opengl::ProgramObject& program, const glm::mat4& meshTran
                 // Use texture or color
                 if (texture.hasTexture) {
                     // Activate proper texture unit before binding
-                    textureUnits[textureUnitIndex].activate();
+                    textureUnits[textureUnitIndex].bind(*texture.texture);
 
                     // Specular special case
                     if (texture.type == TextureType::TextureSpecular) {
@@ -119,9 +119,6 @@ void ModelMesh::render(opengl::ProgramObject& program, const glm::mat4& meshTran
                     // Tell shader to use textures and set texture unit
                     program.setUniform("has_" + name, true);
                     program.setUniform(name, textureUnits[textureUnitIndex]);
-
-                    // And finally bind the texture
-                    texture.texture->bind();
 
                     // Advance the texture unit index
                     textureUnitIndex++;
@@ -153,14 +150,11 @@ void ModelMesh::render(opengl::ProgramObject& program, const glm::mat4& meshTran
                     // Use texture or color
                     if (texture.hasTexture) {
                         // Activate proper texture unit before binding
-                        textureUnits[textureUnitIndex].activate();
+                        textureUnits[textureUnitIndex].bind(*texture.texture);
 
                         // Tell shader to use textures and set texture unit
                         program.setUniform("has_texture_diffuse", true);
                         program.setUniform("baseTexture", textureUnits[textureUnitIndex]);
-
-                        // And finally bind the texture
-                        texture.texture->bind();
 
                         // Advance the texture unit index
                         textureUnitIndex++;
@@ -185,7 +179,7 @@ void ModelMesh::render(opengl::ProgramObject& program, const glm::mat4& meshTran
     program.setUniform("meshNormalTransform", glm::mat4(normalTransform));
 
     // Render the mesh object
-    glBindVertexArray(_vaoID);
+    glBindVertexArray(_vao);
     glDrawElements(
         GL_TRIANGLES,
         static_cast<GLsizei>(_indices.size()),
@@ -258,77 +252,45 @@ void ModelMesh::initialize() {
         return;
     }
 
-    glGenVertexArrays(1, &_vaoID);
-    glGenBuffers(1, &_vbo);
-    glGenBuffers(1, &_ibo);
-
-    glBindVertexArray(_vaoID);
-    glBindBuffer(GL_ARRAY_BUFFER, _vbo);
-    glBufferData(
-        GL_ARRAY_BUFFER,
+    glCreateBuffers(1, &_vbo);
+    glNamedBufferStorage(
+        _vbo,
         _vertices.size() * sizeof(Vertex),
         _vertices.data(),
-        GL_STATIC_DRAW
+        GL_NONE_BIT
     );
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ibo);
-    glBufferData(
-        GL_ELEMENT_ARRAY_BUFFER,
+    glCreateBuffers(1, &_ibo);
+    glNamedBufferStorage(
+        _ibo,
         _indices.size() * sizeof(unsigned int),
         _indices.data(),
-        GL_STATIC_DRAW
+        GL_NONE_BIT
     );
 
-    // Set vertex attributes pointers
-    // Vertex position
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), nullptr);
+    glCreateVertexArrays(1, &_vao);
+    glVertexArrayVertexBuffer(_vao, 0, _vbo, 0, sizeof(Vertex));
+    glVertexArrayElementBuffer(_vao, _ibo);
 
-    // Vertex texture coordinates
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(
-        1,
-        2,
-        GL_FLOAT,
-        GL_FALSE,
-        sizeof(Vertex),
-        reinterpret_cast<const GLvoid*>(offsetof(Vertex, tex))
-    );
+    glEnableVertexArrayAttrib(_vao, 0);
+    glVertexArrayAttribFormat(_vao, 0, 3, GL_FLOAT, GL_FALSE, 0);
+    glVertexArrayAttribBinding(_vao, 0, 0);
 
-    // Vertex normals
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(
-        2,
-        3,
-        GL_FLOAT,
-        GL_FALSE,
-        sizeof(Vertex),
-        reinterpret_cast<const GLvoid*>(offsetof(Vertex, normal))
-    );
+    glEnableVertexArrayAttrib(_vao, 1);
+    glVertexArrayAttribFormat(_vao, 1, 2, GL_FLOAT, GL_FALSE, offsetof(Vertex, tex));
+    glVertexArrayAttribBinding(_vao, 1, 0);
 
-    // Vertex tangent (for normal mapping)
-    glEnableVertexAttribArray(3);
-    glVertexAttribPointer(
-        3,
-        3,
-        GL_FLOAT,
-        GL_FALSE,
-        sizeof(Vertex),
-        reinterpret_cast<const GLvoid*>(offsetof(Vertex, tangent))
-    );
+    glEnableVertexArrayAttrib(_vao, 2);
+    glVertexArrayAttribFormat(_vao, 2, 3, GL_FLOAT, GL_FALSE, offsetof(Vertex, normal));
+    glVertexArrayAttribBinding(_vao, 2, 0);
 
-    // Vertex color
-    glEnableVertexAttribArray(4);
-    glVertexAttribPointer(
-        4,
-        3,
-        GL_FLOAT,
-        GL_FALSE,
-        sizeof(Vertex),
-        reinterpret_cast<const GLvoid*>(offsetof(Vertex, color))
-    );
+    glEnableVertexArrayAttrib(_vao, 3);
+    glVertexArrayAttribFormat(_vao, 3, 3, GL_FLOAT, GL_FALSE, offsetof(Vertex, tangent));
+    glVertexArrayAttribBinding(_vao, 3, 0);
 
-    glBindVertexArray(0);
+    glEnableVertexArrayAttrib(_vao, 4);
+    glVertexArrayAttribFormat(_vao, 4, 3, GL_FLOAT, GL_FALSE, offsetof(Vertex, color));
+    glVertexArrayAttribBinding(_vao, 4, 0);
 
     // initialize textures
     // Also chack if there are several textures/colors of the same type for this mesh
@@ -367,12 +329,9 @@ void ModelMesh::initialize() {
 }
 
 void ModelMesh::deinitialize() {
+    glDeleteVertexArrays(1, &_vao);
     glDeleteBuffers(1, &_vbo);
-    _vbo = 0;
-    glDeleteVertexArrays(1, &_vaoID);
-    _vaoID = 0;
     glDeleteBuffers(1, &_ibo);
-    _ibo = 0;
 }
 
 } // namespace ghoul::io

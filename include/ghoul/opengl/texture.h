@@ -211,11 +211,6 @@ public:
     void disable() const;
 
     /**
-     * Binds this texture to the texture type by calling `glBindTexture`.
-     */
-    void bind() const;
-
-    /**
      * Returns the OpenGL name of this texture.
      */
     operator GLuint() const;
@@ -467,6 +462,7 @@ public:
      * \param mipMapLevel The MipMap level that should be used in this texture.
      */
     void setMipMapLevel(int mipMapLevel);
+    int mipMapLevel() const;
 
     /**
      * Sets the maximum anisotropy level that should be used. This is only valid when the
@@ -834,6 +830,9 @@ public:
      */
     glm::vec4 texelAsFloat(const glm::uvec3& pos) const;
 
+    void setBorderColor(glm::vec4 borderColor);
+    glm::vec4 borderColor() const;
+
 protected:
     /**
      * Initializes the Texture by determining the Texture type, the bytes per pixel,
@@ -914,6 +913,8 @@ private:
     bool _hasOwnershipOfData = false;
     void* _pixels = nullptr;
     int _pixelAlignment = 1;
+
+    glm::vec4 _borderColor;
 
 #ifdef Debugging_Ghoul_Textures_Indices
     int index = 0;

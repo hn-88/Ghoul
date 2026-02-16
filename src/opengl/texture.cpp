@@ -141,7 +141,7 @@ void Texture::generateId() {
     ZoneScoped;
 
     _id = 0;
-    glGenTextures(1, &_id);
+    glCreateTextures(_type, 1, &_id);
 }
 
 void Texture::enable() const {
@@ -150,10 +150,6 @@ void Texture::enable() const {
 
 void Texture::disable()  const {
     glDisable(_type);
-}
-
-void Texture::bind() const {
-    glBindTexture(_type, _id);
 }
 
 Texture::operator GLuint() const {
@@ -236,28 +232,26 @@ std::array<GLenum, 4> Texture::swizzleMask() const {
 void Texture::applyFilter() {
     ZoneScoped;
 
-    bind();
-
     switch (_filter) {
         case FilterMode::Nearest:
-            glTexParameteri(_type, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-            glTexParameteri(_type, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+            glTextureParameteri(_id, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+            glTextureParameteri(_id, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
             break;
         case FilterMode::Linear:
-            glTexParameteri(_type, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-            glTexParameteri(_type, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+            glTextureParameteri(_id, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+            glTextureParameteri(_id, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
             break;
         case FilterMode::LinearMipMap:
-            glGenerateMipmap(_type);
-            glTexParameteri(_type, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-            glTexParameteri(_type, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-            glTexParameteri(_type, GL_TEXTURE_MAX_LEVEL, _mipMapLevel - 1);
+            glGenerateTextureMipmap(_id);
+            glTextureParameteri(_id, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+            glTextureParameteri(_id, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+            glTextureParameteri(_id, GL_TEXTURE_MAX_LEVEL, _mipMapLevel - 1);
             break;
         case FilterMode::AnisotropicMipMap:
-            glGenerateMipmap(_type);
-            glTexParameteri(_type, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-            glTexParameteri(_type, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-            glTexParameteri(_type, GL_TEXTURE_MAX_LEVEL, _mipMapLevel - 1);
+            glGenerateTextureMipmap(_id);
+            glTextureParameteri(_id, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+            glTextureParameteri(_id, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+            glTextureParameteri(_id, GL_TEXTURE_MAX_LEVEL, _mipMapLevel - 1);
             if (std::equal_to<>()(_anisotropyLevel, -1.f)) {
                 GLfloat maxTextureAnisotropy = 1.0;
                 glGetFloatv(
@@ -266,8 +260,8 @@ void Texture::applyFilter() {
                 );
                 _anisotropyLevel = maxTextureAnisotropy;
             }
-            glTexParameterf(_type, GL_TEXTURE_MAX_ANISOTROPY_EXT, _anisotropyLevel);
-            glTexParameteri(_type, GL_TEXTURE_BASE_LEVEL, 0);
+            glTextureParameterf(_id, GL_TEXTURE_MAX_ANISOTROPY_EXT, _anisotropyLevel);
+            glTextureParameteri(_id, GL_TEXTURE_BASE_LEVEL, 0);
             break;
     }
 }
@@ -367,20 +361,22 @@ void Texture::setMipMapLevel(int mipMapLevel) {
     applyFilter();
 }
 
+int Texture::mipMapLevel() const {
+    return _mipMapLevel;
+}
+
 void Texture::applyWrapping() const {
     ZoneScoped;
 
-    bind();
-
     switch (_type) {
         case GL_TEXTURE_3D:
-            glTexParameteri(_type, GL_TEXTURE_WRAP_R, static_cast<GLint>(_wrapping.r));
+            glTextureParameteri(_id, GL_TEXTURE_WRAP_R, static_cast<GLint>(_wrapping.r));
             [[fallthrough]];
         case GL_TEXTURE_2D:
-            glTexParameteri(_type, GL_TEXTURE_WRAP_T, static_cast<GLint>(_wrapping.t));
+            glTextureParameteri(_id, GL_TEXTURE_WRAP_T, static_cast<GLint>(_wrapping.t));
             [[fallthrough]];
         case GL_TEXTURE_1D:
-            glTexParameteri(_type, GL_TEXTURE_WRAP_S, static_cast<GLint>(_wrapping.s));
+            glTextureParameteri(_id, GL_TEXTURE_WRAP_S, static_cast<GLint>(_wrapping.s));
             break;
         default:
             throw MissingCaseException();
@@ -389,14 +385,12 @@ void Texture::applyWrapping() const {
 
 void Texture::applySwizzleMask() {
     if (_swizzleMaskChanged) {
-        bind();
-        glTexParameteriv(_type, GL_TEXTURE_SWIZZLE_RGBA, _swizzleMask.data());
+        glTextureParameteriv(_id, GL_TEXTURE_SWIZZLE_RGBA, _swizzleMask.data());
     }
 }
 
 void Texture::uploadDataToTexture(void* pixelData) const {
-    bind();
-
+    glBindTexture(_type, _id);
     glPixelStorei(GL_UNPACK_ALIGNMENT, _pixelAlignment);
 
     switch (_type) {
@@ -445,12 +439,10 @@ void Texture::uploadDataToTexture(void* pixelData) const {
 }
 
 void Texture::reUploadDataToTexture(void* pixelData) const {
-    bind();
-
     switch (_type) {
         case GL_TEXTURE_1D:
-            glTexSubImage1D(
-                _type,
+            glTextureSubImage1D(
+                _id,
                 0,
                 0,
                 GLsizei(_dimensions.x),
@@ -460,8 +452,8 @@ void Texture::reUploadDataToTexture(void* pixelData) const {
             );
             break;
         case GL_TEXTURE_2D:
-            glTexSubImage2D(
-                _type,
+            glTextureSubImage2D(
+                _id,
                 0,
                 0,
                 0,
@@ -473,8 +465,8 @@ void Texture::reUploadDataToTexture(void* pixelData) const {
             );
             break;
         case GL_TEXTURE_3D:
-            glTexSubImage3D(
-                _type,
+            glTextureSubImage3D(
+                _id,
                 0,
                 0,
                 0,
@@ -519,11 +511,11 @@ void Texture::purgeFromRAM() {
 }
 
 void Texture::downloadTexture() {
-    bind();
     if (!_pixels) {
         allocateMemory();
     }
-    glGetTexImage(_type, 0, GLenum(_format), _dataType, _pixels);
+    const unsigned int arraySize = compMul(_dimensions) * _bpp;
+    glGetTextureImage(_id, 0, GLenum(_format), _dataType, arraySize, _pixels);
 }
 
 glm::vec4 Texture::texelAsFloat(unsigned int x) const {
@@ -1370,6 +1362,16 @@ glm::vec4 Texture::texelAsFloat(const glm::uvec2& pos) const {
 
 glm::vec4 Texture::texelAsFloat(const glm::uvec3& pos) const {
     return texelAsFloat(pos.x, pos.y, pos.z);
+}
+
+
+void Texture::setBorderColor(glm::vec4 borderColor) {
+    _borderColor = std::move(borderColor);
+    glTextureParameterfv(_id, GL_TEXTURE_BORDER_COLOR, glm::value_ptr(_borderColor));
+}
+
+glm::vec4 Texture::borderColor() const {
+    return _borderColor;
 }
 
 void Texture::calculateBytesPerPixel() {

@@ -206,14 +206,8 @@ FontRenderer::FontRenderer(std::unique_ptr<opengl::ProgramObject> program,
 {
     ghoul_assert(_program, "No program provided");
 
-        //
+    //
     // Configure the OpenGL objects for the orthogonal font rendering
-    glGenVertexArrays(1, &_orthogonal.vao);
-    glBindVertexArray(_orthogonal.vao);
-
-    glGenBuffers(1, &_orthogonal.vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, _orthogonal.vbo);
-
     struct OrthogonalVertex {
         float x;
         float y;
@@ -223,41 +217,48 @@ FontRenderer::FontRenderer(std::unique_ptr<opengl::ProgramObject> program,
         float outlineT;
     };
 
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(OrthogonalVertex), nullptr);
+    glCreateBuffers(1, &_orthogonal.vbo);
+    glCreateBuffers(1, &_orthogonal.ibo);
 
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(
+    glCreateVertexArrays(1, &_orthogonal.vao);
+    glVertexArrayVertexBuffer(
+        _orthogonal.vao,
+        0,
+        _orthogonal.vbo,
+        0,
+        sizeof(OrthogonalVertex)
+    );
+    glVertexArrayElementBuffer(_orthogonal.vao, _orthogonal.ibo);
+
+    glEnableVertexArrayAttrib(_orthogonal.vao, 0);
+    glVertexArrayAttribFormat(_orthogonal.vao, 0, 2, GL_FLOAT, GL_FALSE, 0);
+    glVertexArrayAttribBinding(_orthogonal.vao, 0, 0);
+
+    glEnableVertexArrayAttrib(_orthogonal.vao, 1);
+    glVertexArrayAttribFormat(
+        _orthogonal.vao,
         1,
         2,
         GL_FLOAT,
         GL_FALSE,
-        sizeof(OrthogonalVertex),
-        reinterpret_cast<const void*>(offsetof(OrthogonalVertex, s))
+        offsetof(OrthogonalVertex, s)
     );
+    glVertexArrayAttribBinding(_orthogonal.vao, 1, 0);
 
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(
+    glEnableVertexArrayAttrib(_orthogonal.vao, 2);
+    glVertexArrayAttribFormat(
+        _orthogonal.vao,
         2,
         2,
         GL_FLOAT,
         GL_FALSE,
-        sizeof(OrthogonalVertex),
-        reinterpret_cast<const void*>(offsetof(OrthogonalVertex, outlineS))
+        offsetof(OrthogonalVertex, outlineS)
     );
-
-    glGenBuffers(1, &_orthogonal.ibo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _orthogonal.ibo);
+    glVertexArrayAttribBinding(_orthogonal.vao, 2, 0);
 
 
     //
     // Configure the OpenGL objects for the projective font rendering
-    glGenVertexArrays(1, &_perspective.vao);
-    glBindVertexArray(_perspective.vao);
-
-    glGenBuffers(1, &_perspective.vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, _perspective.vbo);
-
     struct PerspectiveVertex {
         float x;
         float y;
@@ -268,35 +269,43 @@ FontRenderer::FontRenderer(std::unique_ptr<opengl::ProgramObject> program,
         float outlineT;
     };
 
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(PerspectiveVertex), nullptr);
+    glCreateBuffers(1, &_perspective.vbo);
+    glCreateBuffers(1, &_perspective.ibo);
+    glCreateVertexArrays(1, &_perspective.vao);
+    glVertexArrayVertexBuffer(
+        _perspective.vao,
+        0,
+        _perspective.vbo,
+        0,
+        sizeof(PerspectiveVertex)
+    );
+    glVertexArrayElementBuffer(_perspective.vao, _perspective.ibo);
 
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(
+    glEnableVertexArrayAttrib(_perspective.vao, 0);
+    glVertexArrayAttribFormat(_perspective.vao, 0, 3, GL_FLOAT, GL_FALSE, 0);
+    glVertexArrayAttribBinding(_perspective.vao, 0, 0);
+
+    glEnableVertexArrayAttrib(_perspective.vao, 1);
+    glVertexArrayAttribFormat(
+        _perspective.vao,
         1,
         2,
         GL_FLOAT,
         GL_FALSE,
-        7 * sizeof(float),
-        reinterpret_cast<const void*>(offsetof(PerspectiveVertex, s))
+        offsetof(PerspectiveVertex, s)
     );
+    glVertexArrayAttribBinding(_perspective.vao, 1, 0);
 
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(
+    glEnableVertexArrayAttrib(_perspective.vao, 2);
+    glVertexArrayAttribFormat(
+        _perspective.vao,
         2,
         2,
         GL_FLOAT,
         GL_FALSE,
-        7 * sizeof(float),
-        reinterpret_cast<const void*>(offsetof(PerspectiveVertex, outlineS))
+        offsetof(PerspectiveVertex, outlineS)
     );
-
-    glGenBuffers(1, &_perspective.ibo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _perspective.ibo);
-    glBindVertexArray(0);
-
-    _vertexBuffer.reserve(128 * 10);
-    _indexBuffer.reserve(128 * 10);
+    glVertexArrayAttribBinding(_perspective.vao, 2, 0);
 }
 
 FontRenderer::~FontRenderer() {
@@ -448,8 +457,10 @@ FontRenderer::BoundingBoxInformation FontRenderer::render(Font& font,
 
     _program->activate();
 
-    _vertexBuffer.clear();
-    _indexBuffer.clear();
+    std::vector<float> vertexBuffer;
+    vertexBuffer.reserve(128 * 10);
+    std::vector<GLushort> indexBuffer;
+    indexBuffer.reserve(128 * 10);
 
     GLushort vertexIndex = 0;
     glm::vec2 size = glm::vec2(0.f);
@@ -493,14 +504,17 @@ FontRenderer::BoundingBoxInformation FontRenderer::render(Font& font,
             const GLushort idx1 = vertexIndex + 1;
             const GLushort idx2 = vertexIndex + 2;
             const GLushort idx3 = vertexIndex + 3;
-            _indexBuffer.insert(_indexBuffer.end(), { idx, idx1, idx2, idx, idx2, idx3 });
+            indexBuffer.insert(indexBuffer.end(), { idx, idx1, idx2, idx, idx2, idx3 });
             vertexIndex += 4;
-            _vertexBuffer.insert(_vertexBuffer.end(), {
-                x0, y0, s0, t0, outlineS0, outlineT0,
-                x0, y1, s0, t1, outlineS0, outlineT1,
-                x1, y1, s1, t1, outlineS1, outlineT1,
-                x1, y0, s1, t0, outlineS1, outlineT0
-            });
+            vertexBuffer.insert(
+                vertexBuffer.end(),
+                {
+                    x0, y0, s0, t0, outlineS0, outlineT0,
+                    x0, y1, s0, t1, outlineS0, outlineT1,
+                    x1, y1, s1, t1, outlineS1, outlineT1,
+                    x1, y0, s1, t0, outlineS1, outlineT0
+                }
+            );
             movingPos.x += glyph->horizontalAdvance;
 
             width += glyph->horizontalAdvance;
@@ -512,8 +526,7 @@ FontRenderer::BoundingBoxInformation FontRenderer::render(Font& font,
     size.y = lines * font.height();
 
     opengl::TextureUnit atlasUnit;
-    atlasUnit.activate();
-    font.atlasTexture().bind();
+    atlasUnit.bind(font.atlasTexture());
 
     _program->setUniform(_uniformCache.baseColor, color);
     _program->setUniform(_uniformCache.outlineColor, outlineColor);
@@ -524,32 +537,29 @@ FontRenderer::BoundingBoxInformation FontRenderer::render(Font& font,
         glm::ortho(0.f, _framebufferSize.x, 0.f, _framebufferSize.y)
     );
 
+    glNamedBufferData(
+        _orthogonal.vbo,
+        vertexBuffer.size() * sizeof(float),
+        vertexBuffer.data(),
+        GL_DYNAMIC_DRAW
+    );
+
+    glNamedBufferData(
+        _orthogonal.ibo,
+        indexBuffer.size() * sizeof(GLushort),
+        indexBuffer.data(),
+        GL_DYNAMIC_DRAW
+    );
+
     glBindVertexArray(_orthogonal.vao);
-
-    glBindBuffer(GL_ARRAY_BUFFER, _orthogonal.vbo);
-    glBufferData(
-        GL_ARRAY_BUFFER,
-        _vertexBuffer.size() * sizeof(float),
-        _vertexBuffer.data(),
-        GL_DYNAMIC_DRAW
-    );
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _orthogonal.ibo);
-    glBufferData(
-        GL_ELEMENT_ARRAY_BUFFER,
-        _indexBuffer.size() * sizeof(GLushort),
-        _indexBuffer.data(),
-        GL_DYNAMIC_DRAW
-    );
-
     glDrawElements(
         GL_TRIANGLES,
-        static_cast<GLsizei>(_indexBuffer.size()),
+        static_cast<GLsizei>(indexBuffer.size()),
         GL_UNSIGNED_SHORT,
         nullptr
     );
-
     glBindVertexArray(0);
+
     glEnable(GL_DEPTH_TEST);
 
     return { size, static_cast<int>(lines) };
@@ -565,8 +575,10 @@ FontRenderer::BoundingBoxInformation FontRenderer::render(Font& font,
 {
     const float h = font.height();
 
-    _vertexBuffer.clear();
-    _indexBuffer.clear();
+    std::vector<float> vertexBuffer;
+    vertexBuffer.reserve(128 * 10);
+    std::vector<GLushort> indexBuffer;
+    indexBuffer.reserve(128 * 10);
 
     const size_t lines = std::count(text.begin(), text.end(), '\n') + 1;
 
@@ -689,18 +701,21 @@ FontRenderer::BoundingBoxInformation FontRenderer::render(Font& font,
                 }
             }
 
-            _vertexBuffer.insert(_vertexBuffer.end(), {
-                p0.x, p0.y, p0.z, s0, t0, outlineS0, outlineT0,
-                p1.x, p1.y, p1.z, s0, t1, outlineS0, outlineT1,
-                p2.x, p2.y, p2.z, s1, t1, outlineS1, outlineT1,
-                p3.x, p3.y, p3.z, s1, t0, outlineS1, outlineT0
-            });
+            vertexBuffer.insert(
+                vertexBuffer.end(),
+                {
+                    p0.x, p0.y, p0.z, s0, t0, outlineS0, outlineT0,
+                    p1.x, p1.y, p1.z, s0, t1, outlineS0, outlineT1,
+                    p2.x, p2.y, p2.z, s1, t1, outlineS1, outlineT1,
+                    p3.x, p3.y, p3.z, s1, t0, outlineS1, outlineT0
+                }
+            );
 
             const unsigned short vi = vertexIndex;
             const unsigned short vi1 = vertexIndex + 1;
             const unsigned short vi2 = vertexIndex + 2;
             const unsigned short vi3 = vertexIndex + 3;
-            _indexBuffer.insert(_indexBuffer.end(), { vi, vi1, vi2, vi, vi2, vi3 });
+            indexBuffer.insert(indexBuffer.end(), { vi, vi1, vi2, vi, vi2, vi3 });
             vertexIndex += 4;
 
             movingPos.x += glyph->horizontalAdvance;
@@ -723,8 +738,7 @@ FontRenderer::BoundingBoxInformation FontRenderer::render(Font& font,
     _program->activate();
 
     opengl::TextureUnit atlasUnit;
-    atlasUnit.activate();
-    font.atlasTexture().bind();
+    atlasUnit.bind(font.atlasTexture());
 
     _program->setUniform(_uniformCacheProjection.baseColor, color);
     _program->setUniform(_uniformCacheProjection.outlineColor, outlineColor);
@@ -744,32 +758,29 @@ FontRenderer::BoundingBoxInformation FontRenderer::render(Font& font,
         labelInfo.disableTransmittance
     );
 
+    glNamedBufferData(
+        _perspective.vbo,
+        vertexBuffer.size() * sizeof(float),
+        vertexBuffer.data(),
+        GL_DYNAMIC_DRAW
+    );
+
+    glNamedBufferData(
+        _perspective.ibo,
+        indexBuffer.size() * sizeof(GLushort),
+        indexBuffer.data(),
+        GL_DYNAMIC_DRAW
+    );
+
     glBindVertexArray(_perspective.vao);
-
-    glBindBuffer(GL_ARRAY_BUFFER, _perspective.vbo);
-    glBufferData(
-        GL_ARRAY_BUFFER,
-        _vertexBuffer.size() * sizeof(float),
-        _vertexBuffer.data(),
-        GL_DYNAMIC_DRAW
-    );
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _perspective.ibo);
-    glBufferData(
-        GL_ELEMENT_ARRAY_BUFFER,
-        _indexBuffer.size() * sizeof(GLushort),
-        _indexBuffer.data(),
-        GL_DYNAMIC_DRAW
-    );
-
     glDrawElements(
         GL_TRIANGLES,
-        static_cast<GLsizei>(_indexBuffer.size()),
+        static_cast<GLsizei>(indexBuffer.size()),
         GL_UNSIGNED_SHORT,
         nullptr
     );
-
     glBindVertexArray(0);
+
     if (!labelInfo.enableDepth) {
         glEnable(GL_DEPTH_TEST);
     }
