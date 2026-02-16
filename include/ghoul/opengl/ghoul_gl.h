@@ -26,17 +26,9 @@
 #ifndef __GHOUL___GHOUL_GL___H__
 #define __GHOUL___GHOUL_GL___H__
 
-#ifdef __APPLE__
-#define GL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED
-#undef __gl_h_
-#endif
-
 #ifdef __clang__
 #pragma clang diagnostic push
-#ifndef __APPLE__
-// The Apple Clang compiler doesn't understand this warning yet
 #pragma clang diagnostic ignored "-Wdeprecated-copy"
-#endif // __APPLE__
 #elif defined(__GNUC__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-copy"

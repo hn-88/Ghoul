@@ -28,17 +28,6 @@ if (WIN32)
   target_link_libraries(Ghoul PRIVATE "shlwapi" "WbemUuid.lib" "Ws2_32.lib")
 endif ()
 
-if (APPLE)
-  begin_dependency("Core Libraries")
-  find_library(COREFOUNDATION_LIBRARY CoreFoundation REQUIRED)
-  find_library(CARBON_LIBRARY Carbon REQUIRED)
-  find_library(COCOA_LIBRARY Carbon REQUIRED)
-  find_library(APP_SERVICES_LIBRARY ApplicationServices REQUIRED)
-  target_include_directories(Ghoul SYSTEM PRIVATE "/Developer/Headers/FlatCarbon")
-  target_link_libraries(Ghoul PRIVATE ${CARBON_LIBRARY} ${COREFOUNDATION_LIBRARY} ${COCOA_LIBRARY} ${APP_SERVICES_LIBRARY})
-  end_dependency("Core Libraries")
-endif ()
-
 if (CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
   begin_dependency("iNotify")
   find_library(INOTIFY_LIBRARIES inotify PATHS "/usr/local/lib")
@@ -152,29 +141,27 @@ if (GHOUL_MODULE_ASSIMP)
 
   # We need to include this to be able to find the assimp/config.h file
   target_include_directories(assimp PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/ext/assimp/include")
-  if (NOT APPLE)
-    target_precompile_headers(assimp PRIVATE
-      "$<$<COMPILE_LANGUAGE:CXX>:functional>"
-      "$<$<COMPILE_LANGUAGE:CXX>:istream>"
-      "$<$<COMPILE_LANGUAGE:CXX>:list>"
-      "$<$<COMPILE_LANGUAGE:CXX>:locale>"
-      "$<$<COMPILE_LANGUAGE:CXX>:map>"
-      "$<$<COMPILE_LANGUAGE:CXX>:ostream>"
-      "$<$<COMPILE_LANGUAGE:CXX>:set>"
-      "$<$<COMPILE_LANGUAGE:CXX>:sstream>"
-      "$<$<COMPILE_LANGUAGE:CXX>:vector>"
-      "$<$<COMPILE_LANGUAGE:CXX>:tuple>"
-      "$<$<COMPILE_LANGUAGE:CXX>:unordered_map>"
-      "$<$<COMPILE_LANGUAGE:CXX>:assimp/DefaultLogger.hpp>"
-      "$<$<COMPILE_LANGUAGE:CXX>:assimp/Exceptional.h>"
-      "$<$<COMPILE_LANGUAGE:CXX>:assimp/mesh.h>"
-      "$<$<COMPILE_LANGUAGE:CXX>:assimp/scene.h>"
-      "$<$<COMPILE_LANGUAGE:CXX>:assimp/StringUtils.h>"
-      "$<$<COMPILE_LANGUAGE:CXX>:assimp/types.h>"
-      "$<$<COMPILE_LANGUAGE:CXX>:assimp/XmlParser.h>"
-      <string.h>
-    )
-  endif ()
+  target_precompile_headers(assimp PRIVATE
+    "$<$<COMPILE_LANGUAGE:CXX>:functional>"
+    "$<$<COMPILE_LANGUAGE:CXX>:istream>"
+    "$<$<COMPILE_LANGUAGE:CXX>:list>"
+    "$<$<COMPILE_LANGUAGE:CXX>:locale>"
+    "$<$<COMPILE_LANGUAGE:CXX>:map>"
+    "$<$<COMPILE_LANGUAGE:CXX>:ostream>"
+    "$<$<COMPILE_LANGUAGE:CXX>:set>"
+    "$<$<COMPILE_LANGUAGE:CXX>:sstream>"
+    "$<$<COMPILE_LANGUAGE:CXX>:vector>"
+    "$<$<COMPILE_LANGUAGE:CXX>:tuple>"
+    "$<$<COMPILE_LANGUAGE:CXX>:unordered_map>"
+    "$<$<COMPILE_LANGUAGE:CXX>:assimp/DefaultLogger.hpp>"
+    "$<$<COMPILE_LANGUAGE:CXX>:assimp/Exceptional.h>"
+    "$<$<COMPILE_LANGUAGE:CXX>:assimp/mesh.h>"
+    "$<$<COMPILE_LANGUAGE:CXX>:assimp/scene.h>"
+    "$<$<COMPILE_LANGUAGE:CXX>:assimp/StringUtils.h>"
+    "$<$<COMPILE_LANGUAGE:CXX>:assimp/types.h>"
+    "$<$<COMPILE_LANGUAGE:CXX>:assimp/XmlParser.h>"
+    <string.h>
+  )
 
   if (MSVC)
     target_compile_options(assimp PRIVATE "/W0")

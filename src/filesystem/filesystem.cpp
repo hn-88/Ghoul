@@ -45,15 +45,12 @@
 #include <cstring>
 #include <dirent.h>
 #include <pwd.h>
+#include <sys/inotify.h>
 #include <sys/param.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
 #endif // WIN32
-
-#if !defined(WIN32) && !defined(__APPLE__)
-#include <sys/inotify.h>
-#endif // !defined(WIN32) && !defined(__APPLE__)
 
 namespace {
     constexpr std::string_view _loggerCat = "FileSystem";
@@ -83,24 +80,22 @@ FileSystem::FileSystem() {
     LINFO(std::format("Set temporary path ${{TEMPORARY}} to '{}'", temporaryPath));
     registerPathToken("${TEMPORARY}", temporaryPath);
 
-#if !defined(WIN32) && !defined(__APPLE__)
+#ifndef WIN32
     // This code can't be moved to the initializer list as the inotifyWatcher function
     // passed into the thread will be called immediately. This will try to access the
     // FileSys global and lead to an assertion as the global object has not yet finished
     _inotifyHandle = inotify_init();
     _keepGoing = true;
     _t = std::thread(inotifyWatcher);
-#endif
+#endif // WIN32
 }
 
 FileSystem::~FileSystem() {
-#if defined WIN32
+#ifdef WIN32
     deinitializeInternalWindows();
-#elif defined __APPLE__
-    deinitializeInternalApple();
-#else
+#else // ^^^^ WIN32 // !WIN32 vvvv
     deinitializeInternalLinux();
-#endif
+#endif // WIN32
 }
 
 void FileSystem::initialize() {

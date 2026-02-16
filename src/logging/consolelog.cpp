@@ -36,41 +36,6 @@
 #include <Windows.h>
 #endif // WIN32
 
-#ifdef __APPLE__
-#include <assert.h>
-#include <unistd.h>
-#include <sys/sysctl.h>
-
-// Function is taken from https://developer.apple.com/library/mac/qa/qa1361/_index.html
-// Returns true if the current process is being debugged (either running under the
-// debugger or has a debugger attached post facto).
-static bool runningInDebugger() {
-    int junk;
-    int mib[4];
-    struct kinfo_proc info;
-    size_t size;
-
-    // Initialize the flags so that, if sysctl fails for some bizarre
-    // reason, we get a predictable result.
-    info.kp_proc.p_flag = 0;
-
-    // Initialize mib, which tells sysctl the info we want, in this case
-    // we're looking for information about a specific process ID.
-    mib[0] = CTL_KERN;
-    mib[1] = KERN_PROC;
-    mib[2] = KERN_PROC_PID;
-    mib[3] = getpid();
-
-    // Call sysctl.
-    size = sizeof(info);
-    junk = sysctl(mib, sizeof(mib) / sizeof(*mib), &info, &size, nullptr, 0);
-    ghoul_assert(junk == 0, "sysctl call failed");
-
-    // We're being debugged if the P_TRACED flag is set.
-    return ((info.kp_proc.p_flag & P_TRACED) != 0);
-}
-#endif // __APPLE__
-
 namespace ghoul::logging {
 
 ConsoleLog::ConsoleLog(ColorOutput colorOutput, LogLevel minimumLogLevel)
@@ -196,7 +161,7 @@ void ConsoleLog::setColorForLevel(LogLevel level) {
     const WORD Background = BACKGROUND_BLUE | BACKGROUND_GREEN |
                             BACKGROUND_RED | BACKGROUND_INTENSITY;
     SetConsoleTextAttribute(hConsole, colorIndex | (csbiInfo.wAttributes & Background));
-#elif defined __unix__
+#elif // ^^^^ WIN32 // !WIN32 vvvv
     switch (level) {
         case LogLevel::Trace:
             std::cout << "\033[0;37m";    // grey
@@ -222,40 +187,7 @@ void ConsoleLog::setColorForLevel(LogLevel level) {
         case LogLevel::AllLogging:
             break;
     }
-#elif __APPLE__
-    // The Xcode debugger is a bit strange with those control commands, so we have to
-    // disable them if where are being debugged
-    bool inDebugger = runningInDebugger();
-    if (inDebugger) {
-        return;
-    }
-
-    switch (level) {
-        case LogLevel::Trace:
-            std::cout << "\033[0;37m";    // grey
-            break;
-        case LogLevel::Debug:
-            std::cout << "\033[22;32m";   // green
-            break;
-        case LogLevel::Info:
-            std::cout << "\033[0m";       // white
-            break;
-        case LogLevel::Warning:
-            std::cout << "\033[01;40;33m";// yellow on black
-            break;
-        case LogLevel::Error:
-            std::cout << "\033[22;31m";   // red
-            break;
-        case LogLevel::Fatal:
-            std::cout << "\033[22;35m";   // blue
-            break;
-        case LogLevel::NoLogging:
-            std::cout << "\033[0m";       // white
-            break;
-        case LogLevel::AllLogging:
-            break;
-    }
-#endif
+#endif // WIN32
 }
 
 void ConsoleLog::resetColor() {

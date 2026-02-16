@@ -112,7 +112,6 @@ target_sources(
     filesystem/file.cpp
     filesystem/filesystem.cpp
     filesystem/filesystem.linux.cpp
-    filesystem/filesystem.osx.cpp
     filesystem/filesystem.windows.cpp
     io/model/modelanimation.cpp
     io/model/modelgeometry.cpp

@@ -78,7 +78,7 @@ int convertThreadPriorityLevel([[maybe_unused]] ThreadPriorityClass c,
         case ThreadPriorityClass::High:   return HIGH_PRIORITY_CLASS;
         default:                          throw MissingCaseException();
     }
-#elif defined __APPLE__ || defined __FreeBSD__
+#elif defined __FreeBSD__
     switch (c) {
         case ThreadPriorityClass::Idle:   return SCHED_OTHER;
         case ThreadPriorityClass::Normal: return SCHED_OTHER;

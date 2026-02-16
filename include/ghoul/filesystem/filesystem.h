@@ -35,9 +35,9 @@
 #include <string>
 #include <vector>
 
-#if !defined(WIN32) && !defined(__APPLE__)
+#ifndef WIN32
 #include <thread>
-#endif
+#endif // WIN32
 
 namespace ghoul::filesystem {
 
@@ -45,9 +45,6 @@ namespace ghoul::filesystem {
 struct DirectoryHandle;
 void readStarter(DirectoryHandle* directoryHandle);
 void callbackHandler(DirectoryHandle* directoryHandle, const std::string& filePath);
-#elif defined(__APPLE__)
-struct DirectoryHandle;
-void callbackHandler(const std::string& path);
 #endif // WIN32
 
 class CacheManager;
@@ -244,29 +241,7 @@ private:
     /// The list of tracked directories
     std::map<std::filesystem::path, DirectoryHandle*> _directories;
 
-#elif defined(__APPLE__)
-    /// OS X specific deinitialize function
-    void deinitializeInternalApple();
-
-    /// OS X callback handler
-    static void callbackHandler(const std::string& path);
-
-    /// Friend callback handler calling the static callback handler
-    friend void callbackHandler(const std::string& path);
-
-    struct FileChangeInfo {
-        static int NextIdentifier;
-        int identifier;
-        std::filesystem::path path;
-        File::FileChangedCallback callback;
-    };
-    /// The list of all tracked files
-    std::vector<FileChangeInfo> _trackedFiles;
-
-    /// The list of tracked directories
-    std::map<std::string, DirectoryHandle*> _directories;
-
-#else // Linux
+#else // ^^^^ WIN32 // !WIN32 vvvv
     /// Linux specific initialize function
     void initializeInternalLinux();
 
@@ -289,7 +264,7 @@ private:
     };
     /// The list of all tracked files
     std::vector<FileChangeInfo> _trackedFiles;
-#endif
+#endif // WIN32
 
     static FileSystem* _instance;
 };

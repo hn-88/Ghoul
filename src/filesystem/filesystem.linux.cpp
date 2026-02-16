@@ -23,7 +23,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                                         *
  ****************************************************************************************/
 
-#if !defined(WIN32) && !defined(__APPLE__)
+#ifndef WIN32
 
 #include <ghoul/filesystem/filesystem.h>
 
@@ -166,4 +166,4 @@ void FileSystem::inotifyWatcher() {
 
 } // namespace ghoul::filesystem
 
-#endif // !defined(WIN32) && !defined(__APPLE__)
+#endif // WIN32

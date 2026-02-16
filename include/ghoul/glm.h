@@ -29,13 +29,6 @@
 #include <ghoul/format.h>
 #include <ghoul/misc/stringconversion.h>
 
-#ifdef __APPLE__
-// The GLM header throw 'anonymous struct' warnings that we do not want. By marking the
-// following files as system headers, all warnings are ignored
-#pragma clang diagnostic push
-#pragma clang system_header
-#endif // __APPLE__
-
 #ifdef __unix__
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wpedantic"
@@ -50,11 +43,9 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #endif // GLM_ENABLE_EXPERIMENTAL
 
-#ifndef __APPLE__
 #ifndef GLM_FORCE_CTOR_INIT
 #define GLM_FORCE_CTOR_INIT
 #endif // GLM_FORCE_CTOR_INIT
-#endif
 
 // Enabling swizzling breaks binary compatibility between glm::vecX and float* ?
 // #ifndef GLM_SWIZZLE
@@ -1070,10 +1061,6 @@ struct std::not_equal_to<glm::dvec4> {
         return a.x != b.x && a.x != b.y && a.z != b.z && a.w != b.w;
     }
 };
-
-#ifdef __APPLE__
-#pragma clang diagnostic pop
-#endif
 
 #ifdef __unix__
 #pragma GCC diagnostic pop

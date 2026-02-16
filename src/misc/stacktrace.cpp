@@ -28,12 +28,12 @@
 
 #include <ghoul/misc/stacktrace.h>
 
-#if defined __unix__ || defined __APPLE__
+#ifdef __unix__
 #include <cstdio>
 #include <cstdlib>
 #include <cxxabi.h>
 #include <execinfo.h>
-#endif
+#endif // __unix__
 
 namespace ghoul {
 
@@ -44,7 +44,7 @@ std::vector<std::string> stackTrace() {
 #endif // WIN32
     std::vector<std::string> stackFrames;
 
-#if defined __unix__ || defined __APPLE__
+#ifdef __unix__
     const int MaxCallStackDepth = 128;
 
     int callstack[MaxCallStackDepth] = {};
@@ -121,7 +121,7 @@ std::vector<std::string> stackTrace() {
         stackFrames.emplace_back(stackFrame.data());
     }
     free(strs);
-#elif WIN32
+#elif WIN32  // ^^^^ __unix__ // !__unix__ vvvv
     // Note that in order for the stackframes to work correctly on client machines,
     // `_NT_SYMBOL_PATH` has to be defined as an environment variable
 
@@ -129,7 +129,7 @@ std::vector<std::string> stackTrace() {
     for (const std::stacktrace_entry& e : trace) {
         stackFrames.push_back(std::to_string(e));
     }
-#endif
+#endif // __unix__
 
     return stackFrames;
 }

@@ -89,13 +89,7 @@ std::string clipboardText([[maybe_unused]] SelectionArea selectionArea) {
 
     text.erase(std::remove(text.begin(), text.end(), '\r'), text.end());
     return text;
-#elif defined(__APPLE__)
-    std::string text;
-    if (exec("pbpaste", text)) {
-        return text.substr(0, text.length()); // remove a line ending
-    }
-    return "";
-#else
+#else // ^^^^ WIN32 // !WIN32 vvvv
     std::string_view s = [](SelectionArea selection) {
         switch (selection) {
             case SelectionArea::Clipboard: return "clipboard";
@@ -135,7 +129,7 @@ std::string clipboardText([[maybe_unused]] SelectionArea selectionArea) {
 
     // If all else fails
     return "";
-#endif
+#endif // WIN32
 }
 
 void setClipboardText(std::string_view text, [[maybe_unused]] SelectionArea selectionArea)
@@ -166,13 +160,7 @@ void setClipboardText(std::string_view text, [[maybe_unused]] SelectionArea sele
 
     SetClipboardData(CF_TEXT, hData);
     CloseClipboard();
-#elif defined(__APPLE__)
-    std::string buf;
-    bool success = exec(std::format("echo \"{}\" | pbcopy", text), buf);
-    if (!success) {
-        throw RuntimeError("Error setting text to clipboard", "Clipboard");
-    }
-#else
+#else // ^^^^ WIN32 // !WIN32 vvvv
     std::string_view s = [](SelectionArea selection) {
         switch (selection) {
             case SelectionArea::Clipboard: return "clipboard";
@@ -188,7 +176,7 @@ void setClipboardText(std::string_view text, [[maybe_unused]] SelectionArea sele
     if (!success) {
         throw RuntimeError("Error setting text to clipboard", "Clipboard");
     }
-#endif
+#endif // WIN32
 }
 
 } // namespace ghoul

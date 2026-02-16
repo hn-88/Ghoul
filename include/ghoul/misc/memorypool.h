@@ -30,13 +30,13 @@
 #include <cstddef>
 #include <memory>
 
-#if defined(__APPLE__) || (defined(__linux__) && defined(__clang__))
+#if (defined(__linux__) && defined(__clang__))
 #include <experimental/memory_resource>
 namespace pmr = std::experimental::pmr;
-#else
+#else // ^^^^ __linux__ && __clang__ // !(__linux__ && __clang__) vvvv
 #include <memory_resource>
 namespace pmr = std::pmr;
-#endif
+#endif // __linux__ && __clang__
 
 #include <vector>
 
