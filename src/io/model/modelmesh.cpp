@@ -187,7 +187,6 @@ void ModelMesh::render(opengl::ProgramObject& program, const glm::mat4& meshTran
         nullptr
     );
     glBindVertexArray(0);
-    glActiveTexture(GL_TEXTURE0);
 }
 
 float ModelMesh::calculateBoundingRadius(glm::mat4& transform) const {
