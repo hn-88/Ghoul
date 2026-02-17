@@ -161,7 +161,7 @@ void ConsoleLog::setColorForLevel(LogLevel level) {
     const WORD Background = BACKGROUND_BLUE | BACKGROUND_GREEN |
                             BACKGROUND_RED | BACKGROUND_INTENSITY;
     SetConsoleTextAttribute(hConsole, colorIndex | (csbiInfo.wAttributes & Background));
-#elif // ^^^^ WIN32 // !WIN32 vvvv
+#else // ^^^^ WIN32 // !WIN32 vvvv
     switch (level) {
         case LogLevel::Trace:
             std::cout << "\033[0;37m";    // grey
