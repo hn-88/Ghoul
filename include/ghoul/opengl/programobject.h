@@ -416,11 +416,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param value The value the uniform should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, GLuint value) const;
+    void setUniform(const std::string& name, GLuint value) const;
 
     /**
      * Locates and sets the uniform \p name with the passed values \p v1 and \p v2.
@@ -430,11 +429,10 @@ public:
      * \param name The name of the uniform in the ShaderObject%s
      * \param v1 The first value that should be used to set the uniform
      * \param v2 The second value that should be used to set the uniform
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, GLuint v1, GLuint v2) const;
+    void setUniform(const std::string& name, GLuint v1, GLuint v2) const;
 
     /**
      * Locates and sets the uniform \p name with the passed values \p v1, \p v2, and
@@ -445,11 +443,10 @@ public:
      * \param v1 The first value that should be used to set the uniform
      * \param v2 The second value that should be used to set the uniform
      * \param v3 The third value that should be used to set the uniform
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, GLuint v1, GLuint v2, GLuint v3) const;
+    void setUniform(const std::string& name, GLuint v1, GLuint v2, GLuint v3) const;
 
     /**
      * Locates and sets the uniform \p name with the passed values \p v1, \p v2, \p v3,
@@ -461,11 +458,10 @@ public:
      * \param v2 The second value that should be used to set the uniform
      * \param v3 The third value that should be used to set the uniform
      * \param v4 The fourth value that should be used to set the uniform
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, GLuint v1, GLuint v2, GLuint v3,
+    void setUniform(const std::string& name, GLuint v1, GLuint v2, GLuint v3,
         GLuint v4) const;
 
     /**
@@ -475,11 +471,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param value The value the uniform should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::uvec2& value) const;
+    void setUniform(const std::string& name, const glm::uvec2& value) const;
 
     /**
      * Locates and sets the uniform \p name with the passed \p value. Returns `true` if
@@ -488,11 +483,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param value The value the uniform should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::uvec3& value) const;
+    void setUniform(const std::string& name, const glm::uvec3& value) const;
 
     /**
      * Locates and sets the uniform \p name with the passed \p value. Returns `true` if
@@ -501,11 +495,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param value The value the uniform should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::uvec4& value) const;
+    void setUniform(const std::string& name, const glm::uvec4& value) const;
 
     /**
      * Locates and sets the uniform(s) \p name with the passed values \p values, where the
@@ -514,11 +507,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param values The values the uniform(s) should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const std::vector<GLuint>& values) const;
+    void setUniform(const std::string& name, const std::vector<GLuint>& values) const;
 
     /**
      * Locates and sets the uniform(s) \p name with the passed values \p values, where the
@@ -527,11 +519,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param values The values the uniform(s) should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const std::vector<glm::uvec2>& values) const;
+    void setUniform(const std::string& name, const std::vector<glm::uvec2>& values) const;
 
     /**
      * Locates and sets the uniform(s) \p name with the passed values \p values. Returns
@@ -540,11 +531,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param values The values the uniform(s) should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const std::vector<glm::uvec3>& values) const;
+    void setUniform(const std::string& name, const std::vector<glm::uvec3>& values) const;
 
     /**
      * Locates and sets the uniform(s) \p name with the passed values \p values. Returns
@@ -553,11 +543,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param values The values the uniform(s) should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const std::vector<glm::uvec4>& values) const;
+    void setUniform(const std::string& name, const std::vector<glm::uvec4>& values) const;
 
     /**
      * Locates and sets the uniform \p name with the passed \p value. Returns `true` if
@@ -566,11 +555,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param value The value the uniform should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, GLint value) const;
+    void setUniform(const std::string& name, GLint value) const;
 
     /**
      * Locates and sets the uniform \p name with the passed values \p v1 and \p v2.
@@ -580,11 +568,10 @@ public:
      * \param name The name of the uniform in the ShaderObject%s
      * \param v1 The first value that should be used to set the uniform
      * \param v2 The second value that should be used to set the uniform
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, GLint v1, GLint v2) const;
+    void setUniform(const std::string& name, GLint v1, GLint v2) const;
 
     /**
      * Locates and sets the uniform \p name with the passed values \p v1, \p v2, and
@@ -595,11 +582,10 @@ public:
      * \param v1 The first value that should be used to set the uniform
      * \param v2 The second value that should be used to set the uniform
      * \param v3 The third value that should be used to set the uniform
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, GLint v1, GLint v2, GLint v3) const;
+    void setUniform(const std::string& name, GLint v1, GLint v2, GLint v3) const;
 
     /**
      * Locates and sets the uniform \p name with the passed values \p v1, \p v2, \p v3,
@@ -611,11 +597,10 @@ public:
      * \param v2 The second value that should be used to set the uniform
      * \param v3 The third value that should be used to set the uniform
      * \param v4 The fourth value that should be used to set the uniform
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, GLint v1, GLint v2, GLint v3,
+    void setUniform(const std::string& name, GLint v1, GLint v2, GLint v3,
         GLint v4) const;
 
     /**
@@ -625,11 +610,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param value The value the uniform should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::ivec2& value) const;
+    void setUniform(const std::string& name, const glm::ivec2& value) const;
 
     /**
      * Locates and sets the uniform \p name with the passed \p value. Returns `true` if
@@ -638,11 +622,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObjects
      * \param value The value the uniform should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::ivec3& value) const;
+    void setUniform(const std::string& name, const glm::ivec3& value) const;
 
     /**
      * Locates and sets the uniform \p name with the passed \p value. Returns `true` if
@@ -651,11 +634,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param value The value the uniform should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::ivec4& value) const;
+    void setUniform(const std::string& name, const glm::ivec4& value) const;
 
     /**
      * Locates and sets the uniform(s) \p name with the passed values \p values. Returns
@@ -664,11 +646,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param values The values the uniform(s) should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const std::vector<GLint>& values) const;
+    void setUniform(const std::string& name, const std::vector<GLint>& values) const;
 
     /**
      * Locates and sets the uniform(s) \p name with the passed values \p values, where the
@@ -677,11 +658,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param values The values the uniform(s) should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const std::vector<glm::ivec2>& values) const;
+    void setUniform(const std::string& name, const std::vector<glm::ivec2>& values) const;
 
     /**
      * Locates and sets the uniform(s) \p name with the passed values \p values, where the
@@ -690,11 +670,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param values The values the uniform(s) should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const std::vector<glm::ivec3>& values) const;
+    void setUniform(const std::string& name, const std::vector<glm::ivec3>& values) const;
 
     /**
      * Locates and sets the uniform(s) \p name with the passed values \p values, where the
@@ -703,11 +682,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param values The values the uniform(s) should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const std::vector<glm::ivec4>& values) const;
+    void setUniform(const std::string& name, const std::vector<glm::ivec4>& values) const;
 
     /**
      * Locates and sets the uniform \p name with the passed \p value. Returns `true` if
@@ -716,11 +694,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param value The value the uniform should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, GLfloat value) const;
+    void setUniform(const std::string& name, GLfloat value) const;
 
     /**
      * Locates and sets the uniform \p name with the passed values \p v1 and \p v2.
@@ -730,11 +707,10 @@ public:
      * \param name The name of the uniform in the ShaderObject%s
      * \param v1 The first value that should be used to set the uniform
      * \param v2 The second value that should be used to set the uniform
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, GLfloat v1, GLfloat v2) const;
+    void setUniform(const std::string& name, GLfloat v1, GLfloat v2) const;
 
     /**
      * Locates and sets the uniform \p name with the passed values \p v1, \p v2, and
@@ -745,11 +721,10 @@ public:
      * \param v1 The first value that should be used to set the uniform
      * \param v2 The second value that should be used to set the uniform
      * \param v3 The third value that should be used to set the uniform
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, GLfloat v1, GLfloat v2, GLfloat v3) const;
+    void setUniform(const std::string& name, GLfloat v1, GLfloat v2, GLfloat v3) const;
 
     /**
      * Locates and sets the uniform \p name with the passed values \p v1, \p v2, \p v3,
@@ -761,11 +736,10 @@ public:
      * \param v2 The second value that should be used to set the uniform
      * \param v3 The third value that should be used to set the uniform
      * \param v4 The fourth value that should be used to set the uniform
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, GLfloat v1, GLfloat v2, GLfloat v3,
+    void setUniform(const std::string& name, GLfloat v1, GLfloat v2, GLfloat v3,
         GLfloat v4) const;
 
     /**
@@ -775,11 +749,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param value The value the uniform should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::vec2& value) const;
+    void setUniform(const std::string& name, const glm::vec2& value) const;
 
     /**
      * Locates and sets the uniform \p name with the passed \p value. Returns `true` if
@@ -788,11 +761,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param value The value the uniform should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::vec3& value) const;
+    void setUniform(const std::string& name, const glm::vec3& value) const;
 
     /**
      * Locates and sets the uniform \p name with the passed \p value. Returns `true` if
@@ -801,11 +773,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param value The value the uniform should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::vec4& value) const;
+    void setUniform(const std::string& name, const glm::vec4& value) const;
 
     /**
      * Locates and sets the uniform(s) \p name with the passed values \p values, where the
@@ -814,11 +785,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param values The values the uniform(s) should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const std::vector<GLfloat>& values) const;
+    void setUniform(const std::string& name, const std::vector<GLfloat>& values) const;
 
     /**
      * Locates and sets the uniform(s) \p name with the passed values \p values, where the
@@ -827,11 +797,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param values The values the uniform(s) should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const std::vector<glm::vec2>& values) const;
+    void setUniform(const std::string& name, const std::vector<glm::vec2>& values) const;
 
     /**
      * Locates and sets the uniform(s) \p name with the passed values \p values, where the
@@ -840,11 +809,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param values The values the uniform(s) should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const std::vector<glm::vec3>& values) const;
+    void setUniform(const std::string& name, const std::vector<glm::vec3>& values) const;
 
     /**
      * Locates and sets the uniform(s) \p name with the passed values \p values, where the
@@ -853,11 +821,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param values The values the uniform(s) should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const std::vector<glm::vec4>& values) const;
+    void setUniform(const std::string& name, const std::vector<glm::vec4>& values) const;
 
     /**
      * Locates and sets the uniform \p name with the passed \p value. Returns `true` if
@@ -866,11 +833,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param value The value the uniform should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, GLdouble value) const;
+    void setUniform(const std::string& name, GLdouble value) const;
 
     /**
      * Locates and sets the uniform \p name with the passed values \p v1 and \p v2.
@@ -880,11 +846,10 @@ public:
      * \param name The name of the uniform in the ShaderObject%s
      * \param v1 The first value that should be used to set the uniform
      * \param v2 The second value that should be used to set the uniform
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, GLdouble v1, GLdouble v2) const;
+    void setUniform(const std::string& name, GLdouble v1, GLdouble v2) const;
 
     /**
      * Locates and sets the uniform \p name with the passed values \p v1, \p v2, and
@@ -895,11 +860,10 @@ public:
      * \param v1 The first value that should be used to set the uniform
      * \param v2 The second value that should be used to set the uniform
      * \param v3 The third value that should be used to set the uniform
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, GLdouble v1, GLdouble v2, GLdouble v3) const;
+    void setUniform(const std::string& name, GLdouble v1, GLdouble v2, GLdouble v3) const;
 
     /**
      * Locates and sets the uniform \p name with the passed values \p v1, \p v2, \p v3,
@@ -911,11 +875,10 @@ public:
      * \param v2 The second value that should be used to set the uniform
      * \param v3 The third value that should be used to set the uniform
      * \param v4 The fourth value that should be used to set the uniform
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, GLdouble v1, GLdouble v2, GLdouble v3,
+    void setUniform(const std::string& name, GLdouble v1, GLdouble v2, GLdouble v3,
         GLdouble v4) const;
 
     /**
@@ -925,11 +888,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param value The value the uniform should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::dvec2& value) const;
+    void setUniform(const std::string& name, const glm::dvec2& value) const;
 
     /**
      * Locates and sets the uniform \p name with the passed \p value. Returns `true` if
@@ -938,11 +900,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param value The value the uniform should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::dvec3& value) const;
+    void setUniform(const std::string& name, const glm::dvec3& value) const;
 
     /**
      * Locates and sets the uniform \p name with the passed \p value. Returns `true` if
@@ -951,11 +912,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param value The value the uniform should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::dvec4& value) const;
+    void setUniform(const std::string& name, const glm::dvec4& value) const;
 
     /**
      * Locates and sets the uniform(s) \p name with the passed values \p values, where the
@@ -964,11 +924,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param values The values the uniform(s) should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const std::vector<GLdouble>& values) const;
+    void setUniform(const std::string& name, const std::vector<GLdouble>& values) const;
 
     /**
      * Locates and sets the uniform(s) \p name with the passed values \p values, where the
@@ -977,11 +936,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param values The values the uniform(s) should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const std::vector<glm::dvec2>& values) const;
+    void setUniform(const std::string& name, const std::vector<glm::dvec2>& values) const;
 
     /**
      * Locates and sets the uniform(s) \p name with the passed values \p values, where the
@@ -990,11 +948,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param values The values the uniform(s) should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const std::vector<glm::dvec3>& values) const;
+    void setUniform(const std::string& name, const std::vector<glm::dvec3>& values) const;
 
     /**
      * Locates and sets the uniform(s) \p name with the passed values \p values, where the
@@ -1003,11 +960,10 @@ public:
      *
      * \param name The name of the uniform in the ShaderObject%s
      * \param values The values the uniform(s) should be set to
-     * \return `true` if the uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const std::vector<glm::dvec4>& values) const;
+    void setUniform(const std::string& name, const std::vector<glm::dvec4>& values) const;
 
     /**
      * Locates and sets the uniform(s) \p name with the passed value \p value. Returns
@@ -1018,11 +974,10 @@ public:
      * \param value The value the uniform should be set to
      * \param transpose Transpose::Yes if the matrix should be set in row major order,
      *        Transpose::No if the matrix is in column major order
-     * \return `true` if the initial uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::mat2x2& value,
+    void setUniform(const std::string& name, const glm::mat2x2& value,
         Transpose transpose = Transpose::No) const;
 
     /**
@@ -1034,11 +989,10 @@ public:
      * \param value The value the uniform should be set to
      * \param transpose Transpose::Yes if the matrix should be set in row major order,
      *        Transpose::No if the matrix is in column major order
-     * \return `true` if the initial uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::mat2x3& value,
+    void setUniform(const std::string& name, const glm::mat2x3& value,
         Transpose transpose = Transpose::No) const;
 
     /**
@@ -1050,11 +1004,10 @@ public:
      * \param value The value the uniform should be set to
      * \param transpose Transpose::Yes if the matrix should be set in row major order,
      *        Transpose::No if the matrix is in column major order
-     * \return `true` if the initial uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::mat2x4& value,
+    void setUniform(const std::string& name, const glm::mat2x4& value,
         Transpose transpose = Transpose::No) const;
 
     /**
@@ -1066,11 +1019,10 @@ public:
      * \param value The value the uniform should be set to
      * \param transpose Transpose::Yes if the matrix should be set in row major order,
      *        Transpose::No if the matrix is in column major order
-     * \return `true` if the initial uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::mat3x2& value,
+    void setUniform(const std::string& name, const glm::mat3x2& value,
         Transpose transpose = Transpose::No) const;
 
     /**
@@ -1082,11 +1034,10 @@ public:
      * \param value The value the uniform should be set to
      * \param transpose Transpose::Yes if the matrix should be set in row major order,
      *        Transpose::No if the matrix is in column major order
-     * \return `true` if the initial uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::mat3x3& value,
+    void setUniform(const std::string& name, const glm::mat3x3& value,
         Transpose transpose = Transpose::No) const;
 
     /**
@@ -1098,11 +1049,10 @@ public:
      * \param value The value the uniform should be set to
      * \param transpose Transpose::Yes if the matrix should be set in row major order,
      *        Transpose::No if the matrix is in column major order
-     * \return `true` if the initial uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::mat3x4& value,
+    void setUniform(const std::string& name, const glm::mat3x4& value,
         Transpose transpose = Transpose::No) const;
 
     /**
@@ -1114,11 +1064,10 @@ public:
      * \param value The value the uniform should be set to
      * \param transpose Transpose::Yes if the matrix should be set in row major order,
      *        Transpose::No if the matrix is in column major order
-     * \return `true` if the initial uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::mat4x2& value,
+    void setUniform(const std::string& name, const glm::mat4x2& value,
         Transpose transpose = Transpose::No) const;
 
     /**
@@ -1130,11 +1079,10 @@ public:
      * \param value The value the uniform should be set to
      * \param transpose Transpose::Yes if the matrix should be set in row major order,
      *        Transpose::No if the matrix is in column major order
-     * \return `true` if the initial uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::mat4x3& value,
+    void setUniform(const std::string& name, const glm::mat4x3& value,
         Transpose transpose = Transpose::No) const;
 
     /**
@@ -1146,11 +1094,10 @@ public:
      * \param value The value the uniform should be set to
      * \param transpose Transpose::Yes if the matrix should be set in row major order,
      *        Transpose::No if the matrix is in column major order
-     * \return `true` if the initial uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::mat4x4& value,
+    void setUniform(const std::string& name, const glm::mat4x4& value,
         Transpose transpose = Transpose::No) const;
 
     /**
@@ -1162,11 +1109,10 @@ public:
      * \param value The value the uniform should be set to
      * \param transpose Transpose::Yes if the matrix should be set in row major order,
      *        Transpose::No if the matrix is in column major order
-     * \return `true` if the initial uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::dmat2x2& value,
+    void setUniform(const std::string& name, const glm::dmat2x2& value,
         Transpose transpose = Transpose::No) const;
 
     /**
@@ -1178,11 +1124,10 @@ public:
      * \param value The value the uniform should be set to
      * \param transpose Transpose::Yes if the matrix should be set in row major order,
      *        Transpose::No if the matrix is in column major order
-     * \return `true` if the initial uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::dmat2x3& value,
+    void setUniform(const std::string& name, const glm::dmat2x3& value,
         Transpose transpose = Transpose::No) const;
 
     /**
@@ -1194,11 +1139,10 @@ public:
      * \param value The value the uniform should be set to
      * \param transpose Transpose::Yes if the matrix should be set in row major order,
      *        Transpose::No if the matrix is in column major order
-     * \return `true` if the initial uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::dmat2x4& value,
+    void setUniform(const std::string& name, const glm::dmat2x4& value,
         Transpose transpose = Transpose::No) const;
 
     /**
@@ -1210,11 +1154,10 @@ public:
      * \param value The value the uniform should be set to
      * \param transpose Transpose::Yes if the matrix should be set in row major order,
      *        Transpose::No if the matrix is in column major order
-     * \return `true` if the initial uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::dmat3x2& value,
+    void setUniform(const std::string& name, const glm::dmat3x2& value,
         Transpose transpose = Transpose::No) const;
 
     /**
@@ -1226,11 +1169,10 @@ public:
      * \param value The value the uniform should be set to
      * \param transpose Transpose::Yes if the matrix should be set in row major order,
      *        Transpose::No if the matrix is in column major order
-     * \return `true` if the initial uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::dmat3x3& value,
+    void setUniform(const std::string& name, const glm::dmat3x3& value,
         Transpose transpose = Transpose::No) const;
 
     /**
@@ -1242,11 +1184,10 @@ public:
      * \param value The value the uniform should be set to
      * \param transpose Transpose::Yes if the matrix should be set in row major order,
      *        Transpose::No if the matrix is in column major order
-     * \return `true` if the initial uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::dmat3x4& value,
+    void setUniform(const std::string& name, const glm::dmat3x4& value,
         Transpose transpose = Transpose::No) const;
 
     /**
@@ -1258,11 +1199,10 @@ public:
      * \param value The value the uniform should be set to
      * \param transpose Transpose::Yes if the matrix should be set in row major order,
      *        Transpose::No if the matrix is in column major order
-     * \return `true` if the initial uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::dmat4x2& value,
+    void setUniform(const std::string& name, const glm::dmat4x2& value,
         Transpose transpose = Transpose::No) const;
 
     /**
@@ -1274,11 +1214,10 @@ public:
      * \param value The value the uniform should be set to
      * \param transpose Transpose::Yes if the matrix should be set in row major order,
      *        Transpose::No if the matrix is in column major order
-     * \return `true` if the initial uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::dmat4x3& value,
+    void setUniform(const std::string& name, const glm::dmat4x3& value,
         Transpose transpose = Transpose::No) const;
 
     /**
@@ -1290,11 +1229,10 @@ public:
      * \param value The value the uniform should be set to
      * \param transpose Transpose::Yes if the matrix should be set in row major order,
      *        Transpose::No if the matrix is in column major order
-     * \return `true` if the initial uniform was successfully located, `false` otherwise
      *
      * \pre \p name must not be empty
      */
-    bool setUniform(const std::string& name, const glm::dmat4x4& value,
+    void setUniform(const std::string& name, const glm::dmat4x4& value,
         Transpose transpose = Transpose::No) const;
 
     /**

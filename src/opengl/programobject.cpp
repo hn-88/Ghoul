@@ -502,770 +502,646 @@ GLint ProgramObject::uniformLocation(const std::string& name) const {
     return location;
 }
 
-bool ProgramObject::setUniform(const std::string& name, GLuint value) const {
+void ProgramObject::setUniform(const std::string& name, GLuint value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value);
     }
-    setUniform(location, value);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, GLuint v1, GLuint v2) const {
+void ProgramObject::setUniform(const std::string& name, GLuint v1, GLuint v2) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, v1, v2);
     }
-    setUniform(location, v1, v2);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, GLuint v1, GLuint v2,
+void ProgramObject::setUniform(const std::string& name, GLuint v1, GLuint v2,
                                GLuint v3) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, v1, v2, v3);
     }
-    setUniform(location, v1, v2, v3);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, GLuint v1, GLuint v2, GLuint v3,
+void ProgramObject::setUniform(const std::string& name, GLuint v1, GLuint v2, GLuint v3,
                                GLuint v4) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, v1, v2, v3, v4);
     }
-    setUniform(location, v1, v2, v3, v4);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::uvec2& value) const {
+void ProgramObject::setUniform(const std::string& name, const glm::uvec2& value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value);
     }
-    setUniform(location, value);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::uvec3& value) const {
+void ProgramObject::setUniform(const std::string& name, const glm::uvec3& value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value);
     }
-    setUniform(location, value);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::uvec4& value) const {
+void ProgramObject::setUniform(const std::string& name, const glm::uvec4& value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value);
     }
-    setUniform(location, value);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name,
+void ProgramObject::setUniform(const std::string& name,
                                const std::vector<GLuint>& values) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, values);
     }
-    setUniform(location, values);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name,
+void ProgramObject::setUniform(const std::string& name,
                                const std::vector<glm::uvec2>& values) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, values);
     }
-    setUniform(location, values);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name,
+void ProgramObject::setUniform(const std::string& name,
                                const std::vector<glm::uvec3>& values) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, values);
     }
-    setUniform(location, values);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name,
+void ProgramObject::setUniform(const std::string& name,
                                const std::vector<glm::uvec4>& values) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, values);
     }
-    setUniform(location, values);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, GLint value) const {
+void ProgramObject::setUniform(const std::string& name, GLint value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value);
     }
-    setUniform(location, value);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, GLint v1, GLint v2) const {
+void ProgramObject::setUniform(const std::string& name, GLint v1, GLint v2) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, v1, v2);
     }
-    setUniform(location, v1, v2);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, GLint v1, GLint v2,
+void ProgramObject::setUniform(const std::string& name, GLint v1, GLint v2,
                                GLint v3) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, v1, v2, v3);
     }
-    setUniform(location, v1, v2, v3);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, GLint v1, GLint v2, GLint v3,
+void ProgramObject::setUniform(const std::string& name, GLint v1, GLint v2, GLint v3,
                                GLint v4) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, v1, v2, v3, v4);
     }
-    setUniform(location, v1, v2, v3, v4);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::ivec2& value) const {
+void ProgramObject::setUniform(const std::string& name, const glm::ivec2& value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value);
     }
-    setUniform(location, value);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::ivec3& value) const {
+void ProgramObject::setUniform(const std::string& name, const glm::ivec3& value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value);
     }
-    setUniform(location, value);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::ivec4& value) const {
+void ProgramObject::setUniform(const std::string& name, const glm::ivec4& value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value);
     }
-    setUniform(location, value);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name,
+void ProgramObject::setUniform(const std::string& name,
                                const std::vector<GLint>& values) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, values);
     }
-    setUniform(location, values);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name,
+void ProgramObject::setUniform(const std::string& name,
                                const std::vector<glm::ivec2>& values) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, values);
     }
-    setUniform(location, values);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name,
+void ProgramObject::setUniform(const std::string& name,
                                const std::vector<glm::ivec3>& values) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, values);
     }
-    setUniform(location, values);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name,
+void ProgramObject::setUniform(const std::string& name,
                                const std::vector<glm::ivec4>& values) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, values);
     }
-    setUniform(location, values);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, GLfloat value) const {
+void ProgramObject::setUniform(const std::string& name, GLfloat value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value);
     }
-    setUniform(location, value);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, GLfloat v1, GLfloat v2) const {
+void ProgramObject::setUniform(const std::string& name, GLfloat v1, GLfloat v2) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, v1, v2);
     }
-    setUniform(location, v1, v2);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, GLfloat v1, GLfloat v2,
+void ProgramObject::setUniform(const std::string& name, GLfloat v1, GLfloat v2,
                                GLfloat v3) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, v1, v2, v3);
     }
-    setUniform(location, v1, v2, v3);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, GLfloat v1, GLfloat v2,
+void ProgramObject::setUniform(const std::string& name, GLfloat v1, GLfloat v2,
                                GLfloat v3, GLfloat v4) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, v1, v2, v3, v4);
     }
-    setUniform(location, v1, v2, v3, v4);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::vec2& value) const {
+void ProgramObject::setUniform(const std::string& name, const glm::vec2& value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value);
     }
-    setUniform(location, value);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::vec3& value) const {
+void ProgramObject::setUniform(const std::string& name, const glm::vec3& value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value);
     }
-    setUniform(location, value);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::vec4& value) const {
+void ProgramObject::setUniform(const std::string& name, const glm::vec4& value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value);
     }
-    setUniform(location, value);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name,
+void ProgramObject::setUniform(const std::string& name,
                                const std::vector<GLfloat>& values) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, values);
     }
-    setUniform(location, values);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name,
+void ProgramObject::setUniform(const std::string& name,
                                const std::vector<glm::vec2>& values) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, values);
     }
-    setUniform(location, values);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name,
+void ProgramObject::setUniform(const std::string& name,
                                const std::vector<glm::vec3>& values) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, values);
     }
-    setUniform(location, values);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name,
+void ProgramObject::setUniform(const std::string& name,
                                const std::vector<glm::vec4>& values) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, values);
     }
-    setUniform(location, values);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, GLdouble value) const {
+void ProgramObject::setUniform(const std::string& name, GLdouble value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value);
     }
-    setUniform(location, value);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, GLdouble v1, GLdouble v2) const {
+void ProgramObject::setUniform(const std::string& name, GLdouble v1, GLdouble v2) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, v1, v2);
     }
-    setUniform(location, v1, v2);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, GLdouble v1, GLdouble v2,
+void ProgramObject::setUniform(const std::string& name, GLdouble v1, GLdouble v2,
                                GLdouble v3) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, v1, v2, v3);
     }
-    setUniform(location, v1, v2, v3);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, GLdouble v1, GLdouble v2,
+void ProgramObject::setUniform(const std::string& name, GLdouble v1, GLdouble v2,
                                GLdouble v3, GLdouble v4) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, v1, v2, v3, v4);
     }
-    setUniform(location, v1, v2, v3, v4);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::dvec2& value) const {
+void ProgramObject::setUniform(const std::string& name, const glm::dvec2& value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value);
     }
-    setUniform(location, value);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::dvec3& value) const {
+void ProgramObject::setUniform(const std::string& name, const glm::dvec3& value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value);
     }
-    setUniform(location, value);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::dvec4& value) const {
+void ProgramObject::setUniform(const std::string& name, const glm::dvec4& value) const {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value);
     }
-    setUniform(location, value);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name,
+void ProgramObject::setUniform(const std::string& name,
                                const std::vector<GLdouble>& values) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, values);
     }
-    setUniform(location, values);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name,
+void ProgramObject::setUniform(const std::string& name,
                                const std::vector<glm::dvec2>& values) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, values);
     }
-    setUniform(location, values);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name,
+void ProgramObject::setUniform(const std::string& name,
                                const std::vector<glm::dvec3>& values) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, values);
     }
-    setUniform(location, values);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name,
+void ProgramObject::setUniform(const std::string& name,
                                const std::vector<glm::dvec4>& values) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, values);
     }
-    setUniform(location, values);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::mat2x2& value,
+void ProgramObject::setUniform(const std::string& name, const glm::mat2x2& value,
                                Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value, transpose);
     }
-    setUniform(location, value, transpose);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::mat2x3& value,
+void ProgramObject::setUniform(const std::string& name, const glm::mat2x3& value,
                                Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value, transpose);
     }
-    setUniform(location, value, transpose);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::mat2x4& value,
+void ProgramObject::setUniform(const std::string& name, const glm::mat2x4& value,
                                Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value, transpose);
     }
-    setUniform(location, value, transpose);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::mat3x2& value,
+void ProgramObject::setUniform(const std::string& name, const glm::mat3x2& value,
                                Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value, transpose);
     }
-    setUniform(location, value, transpose);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::mat3x3& value,
+void ProgramObject::setUniform(const std::string& name, const glm::mat3x3& value,
                                Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value, transpose);
     }
-    setUniform(location, value, transpose);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::mat3x4& value,
+void ProgramObject::setUniform(const std::string& name, const glm::mat3x4& value,
                                Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value, transpose);
     }
-    setUniform(location, value, transpose);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::mat4x2& value,
+void ProgramObject::setUniform(const std::string& name, const glm::mat4x2& value,
                                Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value, transpose);
     }
-    setUniform(location, value, transpose);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::mat4x3& value,
+void ProgramObject::setUniform(const std::string& name, const glm::mat4x3& value,
                                Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value, transpose);
     }
-    setUniform(location, value, transpose);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::mat4x4& value,
+void ProgramObject::setUniform(const std::string& name, const glm::mat4x4& value,
                                Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value, transpose);
     }
-    setUniform(location, value, transpose);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::dmat2x2& value,
+void ProgramObject::setUniform(const std::string& name, const glm::dmat2x2& value,
                                Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value, transpose);
     }
-    setUniform(location, value, transpose);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::dmat2x3& value,
+void ProgramObject::setUniform(const std::string& name, const glm::dmat2x3& value,
                                Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value, transpose);
     }
-    setUniform(location, value, transpose);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::dmat2x4& value,
+void ProgramObject::setUniform(const std::string& name, const glm::dmat2x4& value,
                                Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value, transpose);
     }
-    setUniform(location, value, transpose);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::dmat3x2& value,
+void ProgramObject::setUniform(const std::string& name, const glm::dmat3x2& value,
                                Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value, transpose);
     }
-    setUniform(location, value, transpose);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::dmat3x3& value,
+void ProgramObject::setUniform(const std::string& name, const glm::dmat3x3& value,
                                Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value, transpose);
     }
-    setUniform(location, value, transpose);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::dmat3x4& value,
+void ProgramObject::setUniform(const std::string& name, const glm::dmat3x4& value,
                                Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value, transpose);
     }
-    setUniform(location, value, transpose);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::dmat4x2& value,
+void ProgramObject::setUniform(const std::string& name, const glm::dmat4x2& value,
                                Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value, transpose);
     }
-    setUniform(location, value, transpose);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::dmat4x3& value,
+void ProgramObject::setUniform(const std::string& name, const glm::dmat4x3& value,
                                Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value, transpose);
     }
-    setUniform(location, value, transpose);
-    return true;
 }
 
-bool ProgramObject::setUniform(const std::string& name, const glm::dmat4x4& value,
+void ProgramObject::setUniform(const std::string& name, const glm::dmat4x4& value,
                                Transpose transpose) const
 {
     ghoul_assert(!name.empty(), "Name must not be empty");
 
     const GLint location = uniformLocation(name);
-    if (location == -1) {
-        return false;
+    if (location != -1) {
+        setUniform(location, value, transpose);
     }
-    setUniform(location, value, transpose);
-    return true;
 }
 
 void ProgramObject::setUniform(GLint location, GLuint value) const {
