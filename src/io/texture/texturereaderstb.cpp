@@ -36,7 +36,8 @@ namespace {
     std::unique_ptr<ghoul::opengl::Texture> load(unsigned char* data, int x, int y,
                                                  int n, const std::string& message,
                                                  const ghoul::io::TextureReaderBase* r,
-                                                 int nDimensions)
+                                                 int nDimensions,
+                                      ghoul::opengl::Texture::SamplerInit samplerSettings)
     {
         if (!data) {
             throw ghoul::io::TextureReaderBase::TextureLoadException(
@@ -50,45 +51,34 @@ namespace {
         // This is weird.  stb_image.h says that the first pixel loaded is the one in the
         // upper left.  However, if we load the data and just use it, the images are
         // flipped in y.  I assume that there is a 1-t floating around somewhere and
-        // someone should hunt that down.  For now, we just flip these values as well. In
-        // addition, stb uses malloc to clear the memory and since we use delete[] for
-        // cleanup in the texture class, I don't know what will happen. But probably
-        // nothing good, so we copy it into a new array (abock)
-
-        unsigned char* newData = new unsigned char[x * y * n];
-        std::memset(newData, 255, x * y * n);
+        // someone should hunt that down.  For now, we just flip these values as well.
 
         // As we only need to flip in y direction, we can take entire scanlines and move
         // the ith line to the (y-i-1)th line
-        for (int i = 0; i < y; i++) {
-            std::memmove(newData + (i * x * n), data + ((y-i-1) * x * n), x * n);
-        }
-        // We don't need the original data anymore, so we can free it
-        stbi_image_free(data);
+        std::vector<std::byte> buffer = std::vector<std::byte>(x * n);
+        for (int i = 0; i < y / 2; i++) {
+            // 1. Save the destination
+            std::memcpy(buffer.data(), data + (i * x * n), x * n);
 
-        ghoul::opengl::Texture::Format format = ghoul::opengl::Texture::Format::RGB;
-        GLenum internalFormat = GL_RGB;
-        switch (n) {
-            // @TODO (2020-06-15), abock) At some point we should look into compressed
-            // formats here as well
-            case 1:
-                format = ghoul::opengl::Texture::Format::Red;
-                internalFormat = GL_RED;
-                break;
-            case 2:
-                format = ghoul::opengl::Texture::Format::RG;
-                internalFormat = GL_RG;
-                break;
-            case 3:
-                format = ghoul::opengl::Texture::Format::RGB;
-                internalFormat = GL_RGB;
-                break;
-            case 4:
-                format = ghoul::opengl::Texture::Format::RGBA;
-                internalFormat = GL_RGBA;
-                break;
+            // 2. Copy the source to destination
+            std::memcpy(data + (i * x * n), data + (y - i - 1) * x * n, x * n);
+
+            // 3. Copy into the source
+            std::memcpy(data + (y - i - 1) * x * n, buffer.data(), x * n);
         }
 
+        const ghoul::opengl::Texture::Format format = [](int n) {
+            switch (n) {
+                case 1: return ghoul::opengl::Texture::Format::Red;
+                case 2: return ghoul::opengl::Texture::Format::RG;
+                case 3: return ghoul::opengl::Texture::Format::RGB;
+                case 4: return ghoul::opengl::Texture::Format::RGBA;
+                default:
+                    throw ghoul::RuntimeError(std::format(
+                        "Unknown dimension '{}'", n
+                    ));
+            }
+        }(n);
         const GLenum type = [](int d) {
             switch (d) {
                 case 1: return GL_TEXTURE_1D;
@@ -101,14 +91,19 @@ namespace {
             }
         }(nDimensions);
 
-        return std::make_unique<ghoul::opengl::Texture>(
-            newData,
-            glm::uvec3(x, y, 1),
-            type,
-            format,
-            internalFormat,
-            GL_UNSIGNED_BYTE
-        );
+        std::unique_ptr<ghoul::opengl::Texture> texture =
+            std::make_unique<ghoul::opengl::Texture>(
+                ghoul::opengl::Texture::FormatInit{
+                    .dimensions = glm::uvec3(x, y, 1),
+                    .type = type,
+                    .format = format,
+                    .dataType = GL_UNSIGNED_BYTE
+                },
+                samplerSettings,
+                reinterpret_cast<std::byte*>(data)
+            );
+        stbi_image_free(data);
+        return texture;
     }
 } // namespace
 
@@ -116,7 +111,8 @@ namespace ghoul::io {
 
 std::unique_ptr<opengl::Texture> TextureReaderSTB::loadTexture(
                                                     const std::filesystem::path& filename,
-                                                                    int nDimensions) const
+                                                                          int nDimensions,
+                                ghoul::opengl::Texture::SamplerInit samplerSettings) const
 {
     const std::string f = filename.string();
     int x = 0;
@@ -124,11 +120,12 @@ std::unique_ptr<opengl::Texture> TextureReaderSTB::loadTexture(
     int n = 0;
     unsigned char* data = stbi_load(f.c_str(), &x, &y, &n, 0);
 
-    return load(data, x, y, n, f, this, nDimensions);
+    return load(data, x, y, n, f, this, nDimensions, std::move(samplerSettings));
 }
 
 std::unique_ptr<opengl::Texture> TextureReaderSTB::loadTexture(void* memory, size_t size,
-                                                               int nDimensions) const
+                                                               int nDimensions,
+                                ghoul::opengl::Texture::SamplerInit samplerSettings) const
 {
     int x = 0;
     int y = 0;
@@ -142,7 +139,7 @@ std::unique_ptr<opengl::Texture> TextureReaderSTB::loadTexture(void* memory, siz
         0
     );
 
-    return load(data, x, y, n, "Memory", this, nDimensions);
+    return load(data, x, y, n, "Memory", this, nDimensions, std::move(samplerSettings));
 }
 
 glm::ivec2 TextureReaderSTB::imageSize(const std::filesystem::path& filename) const {

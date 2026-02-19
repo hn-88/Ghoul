@@ -178,22 +178,20 @@ std::unique_ptr<modelgeometry::ModelGeometry> ModelReaderBinary::loadModel(
                 this
             );
         }
-        std::byte* data = new std::byte[textureSize];
-        fileStream.read(reinterpret_cast<char*>(data), textureSize);
+        std::vector<std::byte> data = std::vector<std::byte>(textureSize);
+        fileStream.read(reinterpret_cast<char*>(data.data()), textureSize);
 
         textureEntry.texture = std::make_unique<opengl::Texture>(
-            dimensions,
-            GL_TEXTURE_2D,
-            format,
-            internalFormat,
-            dataType,
-            opengl::Texture::FilterMode::Linear,
-            opengl::Texture::WrappingMode::Repeat,
-            opengl::Texture::AllocateData::No,
-            opengl::Texture::TakeOwnership::Yes
+            ghoul::opengl::Texture::FormatInit{
+                .dimensions = dimensions,
+                .type = GL_TEXTURE_2D,
+                .format = format,
+                .dataType = dataType,
+                .internalFormat = internalFormat
+            },
+            ghoul::opengl::Texture::SamplerInit{},
+            data.data()
         );
-
-        textureEntry.texture->setPixelData(data, opengl::Texture::TakeOwnership::Yes);
         textureStorageArray.push_back(std::move(textureEntry));
     }
 

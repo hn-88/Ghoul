@@ -43,7 +43,7 @@
 
 namespace {
     constexpr std::string_view _loggerCat = "ModelGeometry";
-    constexpr int8_t CurrentCacheVersion = 10;
+    constexpr int8_t CurrentCacheVersion = 11;
     constexpr int FormatStringSize = 4;
     constexpr int8_t ShouldSkipMarker = -1;
     constexpr int8_t NoSkipMarker = 1;
@@ -285,18 +285,19 @@ std::unique_ptr<modelgeometry::ModelGeometry> ModelGeometry::loadCacheFile(
         fileStream.read(reinterpret_cast<char*>(data), textureSize);
 
         textureEntry.texture = std::make_unique<opengl::Texture>(
-            dimensions,
-            GL_TEXTURE_2D,
-            format,
-            internalFormat,
-            dataType,
-            opengl::Texture::FilterMode::Linear,
-            opengl::Texture::WrappingMode::Repeat,
-            opengl::Texture::AllocateData::No,
-            opengl::Texture::TakeOwnership::Yes
+            ghoul::opengl::Texture::FormatInit{
+                .dimensions = dimensions,
+                .type = GL_TEXTURE_2D,
+                .format = format,
+                .dataType = dataType,
+                .internalFormat = internalFormat
+            },
+            ghoul::opengl::Texture::SamplerInit{
+                .filter = opengl::Texture::FilterMode::AnisotropicMipMap
+            },
+            data
         );
 
-        textureEntry.texture->setPixelData(data, opengl::Texture::TakeOwnership::Yes);
         textureStorageArray.push_back(std::move(textureEntry));
     }
 
@@ -714,18 +715,10 @@ bool ModelGeometry::saveToCacheFile(const std::filesystem::path& cachedFile) con
         fileStream.write(dataType.data(), FormatStringSize * sizeof(char));
 
         // data
-        _textureStorage[te].texture->downloadTexture();
-        int32_t pixelSize = _textureStorage[te].texture->expectedPixelDataSize();
-        if (pixelSize <= 0) {
-            throw ModelCacheException(
-                cachedFile,
-                "No texture size was found while saving cache"
-            );
-        }
-        fileStream.write(reinterpret_cast<const char*>(&pixelSize), sizeof(int32_t));
-
-        const void* data = _textureStorage[te].texture->pixelData();
-        fileStream.write(reinterpret_cast<const char*>(data), pixelSize);
+        std::vector<std::byte> pixels = _textureStorage[te].texture->pixelData();
+        int32_t nPixels = static_cast<int32_t>(pixels.size());
+        fileStream.write(reinterpret_cast<const char*>(&nPixels), sizeof(int32_t));
+        fileStream.write(reinterpret_cast<const char*>(pixels.data()), nPixels);
     }
 
     // Write how many nodes are to be written

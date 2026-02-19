@@ -53,7 +53,7 @@ TextureAtlas::TextureAtlas(glm::ivec3 size)
 
     _nodes.emplace_back(1, 1, _size.x - 2);
     _data.resize(_size.x * _size.y * _size.z);
-    std::fill(_data.begin(), _data.end(), static_cast<unsigned char>(0));
+    std::fill(_data.begin(), _data.end(), static_cast<std::byte>(0));
 }
 
 TextureAtlas::TextureAtlas(TextureAtlas&& rhs) noexcept
@@ -78,7 +78,7 @@ TextureAtlas& TextureAtlas::operator=(TextureAtlas&& rhs) noexcept {
 }
 
 void TextureAtlas::initialize() {
-    const Texture::Format format = [](int z) {
+    const ghoul::opengl::Texture::Format format = [](int z) {
         switch (z) {
             case 1: return Texture::Format::Red;
             case 2: return Texture::Format::RG;
@@ -87,16 +87,18 @@ void TextureAtlas::initialize() {
             default: throw ghoul::RuntimeError("Wrong texture depth", "TextureAtlas");
         }
     }(_size.z);
-    const GLenum internalFormat = GLenum(format);
     const GLenum dataType = GL_UNSIGNED_BYTE;
 
     _texture = std::make_unique<Texture>(
-        glm::uvec3(glm::ivec2(_size), 1),
-        GL_TEXTURE_2D,
-        format,
-        internalFormat,
-        dataType,
-        Texture::FilterMode::Nearest
+        ghoul::opengl::Texture::FormatInit{
+            .dimensions = glm::uvec3(glm::ivec2(_size), 1),
+            .type = GL_TEXTURE_2D,
+            .format = format,
+            .dataType = dataType
+        },
+        ghoul::opengl::Texture::SamplerInit{
+            .filter = Texture::FilterMode::Nearest
+        }
     );
     ghoul_assert(_texture != nullptr, "Error creating Texture");
 }
@@ -118,8 +120,7 @@ int TextureAtlas::spaceUsed() const {
 }
 
 void TextureAtlas::upload() {
-    _texture->setPixelData(_data.data(), Texture::TakeOwnership::No);
-    _texture->uploadTexture();
+    _texture->setPixelData(_data.data());
 }
 
 void TextureAtlas::clear() {
@@ -127,7 +128,7 @@ void TextureAtlas::clear() {
     _nodes.emplace_back(1, 1 , _size.x - 2);
 
     _nUsed = 0;
-    std::fill(_data.begin(), _data.end(), static_cast<unsigned char>(0));
+    std::fill(_data.begin(), _data.end(), static_cast<std::byte>(0));
 }
 
 TextureAtlas::RegionHandle TextureAtlas::newRegion(int width, int height) {

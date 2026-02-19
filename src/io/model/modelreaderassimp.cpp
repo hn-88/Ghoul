@@ -37,6 +37,7 @@
 #include <ghoul/io/texture/texturereaderbase.h>
 #include <ghoul/logging/logmanager.h>
 #include <ghoul/misc/assert.h>
+#include <ghoul/misc/defer.h>
 #include <ghoul/opengl/ghoul_gl.h>
 #include <assimp/anim.h>
 #include <assimp/color4.h>
@@ -63,10 +64,13 @@ namespace {
             return false;
         }
 
+        texture.texture->downloadTexture();
+        defer { texture.texture->clearDownloadedTexture(); };
+
         // Check if there is at least one pixel that is somewhat transparent
         for (unsigned int j = 0; j < texture.texture->dimensions().x; j++) {
             for (unsigned int k = 0; k < texture.texture->dimensions().y; k++) {
-                const float alpha = texture.texture->texelAsFloat({ j, k }).a;
+                const float alpha = texture.texture->texelAsFloat({ j, k, 0 }).a;
                 if (alpha < 1.f) {
                     return true;
                 }
@@ -113,7 +117,6 @@ namespace {
                 if (texture.texture->name() == std::string_view(path.C_Str())) {
                     // Texture has already been loaded. Point to that texture instead
                     meshTexture.texture = texture.texture.get();
-                    meshTexture.texture->setName(path.C_Str());
                     meshTexture.hasTexture = true;
                     textureArray.push_back(meshTexture);
                     shouldSkip = true;
@@ -140,10 +143,11 @@ namespace {
                             static_cast<void*>(texture->pcData),
                             texture->mWidth,
                             2,
+                            {},
                             texture->achFormatHint
                         );
+                        textureEntry.texture->setName(path.C_Str());
                         meshTexture.texture = textureEntry.texture.get();
-                        meshTexture.texture->setName(path.C_Str());
                     }
                     catch (const TextureReader::InvalidLoadException& e) {
                         LWARNING(std::format(
@@ -186,8 +190,8 @@ namespace {
                         absPath(absolutePath),
                         2
                     );
+                    textureEntry.texture->setName(path.C_Str());
                     meshTexture.texture = textureEntry.texture.get();
-                    meshTexture.texture->setName(path.C_Str());
                 }
                 catch (const TextureReader::MissingReaderException& e) {
                     LWARNING(std::format(
@@ -209,6 +213,8 @@ namespace {
                 }
             }
 
+            meshTexture.texture->downloadTexture();
+
             // Check if the entire texture is transparent
             bool isOpaque = false;
             for (unsigned int j = 0; j < meshTexture.texture->dimensions().x; j++) {
@@ -217,13 +223,15 @@ namespace {
                 }
 
                 for (unsigned int k = 0; k < meshTexture.texture->dimensions().y; k++) {
-                    const float alpha = meshTexture.texture->texelAsFloat({ j, k }).a;
+                    const float alpha = meshTexture.texture->texelAsFloat({ j, k, 0 }).a;
                     if (alpha > 0.f) {
                         isOpaque = true;
                         break;
                     }
                 }
             }
+
+            meshTexture.texture->clearDownloadedTexture();
 
             // If entire texture is transparent, do not add it
             if (!isOpaque) {

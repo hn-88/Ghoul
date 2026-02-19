@@ -292,7 +292,7 @@ void ModelMesh::initialize() {
     glVertexArrayAttribBinding(_vao, 4, 0);
 
     // initialize textures
-    // Also chack if there are several textures/colors of the same type for this mesh
+    // Also check if there are several textures/colors of the same type for this mesh
     unsigned int nDiffuse = 0;
     unsigned int nSpecular = 0;
     unsigned int nNormal = 0;
@@ -309,12 +309,6 @@ void ModelMesh::initialize() {
             case TextureType::TextureNormal:
                 nNormal++;
                 break;
-        }
-
-        if (texture.hasTexture) {
-            texture.texture->uploadTexture();
-            texture.texture->setFilter(opengl::Texture::FilterMode::AnisotropicMipMap);
-            texture.texture->purgeFromRAM();
         }
     }
 
