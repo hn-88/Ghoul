@@ -292,19 +292,12 @@ template <>
 constexpr systemcapabilities::SystemCapabilitiesComponent::Verbosity from_string(
                                                                   std::string_view string)
 {
-    if (string == "None") {
-        return systemcapabilities::SystemCapabilitiesComponent::Verbosity::None;
-    }
-    if (string == "Minimal") {
-        return systemcapabilities::SystemCapabilitiesComponent::Verbosity::Minimal;
-    }
-    if (string == "Default") {
-        return systemcapabilities::SystemCapabilitiesComponent::Verbosity::Default;
-    }
-    if (string == "Full") {
-        return systemcapabilities::SystemCapabilitiesComponent::Verbosity::Full;
-    }
+    using Verbosity = systemcapabilities::SystemCapabilitiesComponent::Verbosity;
 
+    if (string == "None") { return Verbosity::None; }
+    else if (string == "Minimal") { return Verbosity::Minimal; }
+    else if (string == "Default") { return Verbosity::Default; }
+    else if (string == "Full") { return Verbosity::Full; }
     throw RuntimeError("Unknown verbosity '" + std::string(string) + "'");
 }
 
