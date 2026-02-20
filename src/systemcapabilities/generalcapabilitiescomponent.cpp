@@ -54,7 +54,7 @@ template <>
 std::string to_string(
            const systemcapabilities::GeneralCapabilitiesComponent::OperatingSystem& value)
 {
-    using OS = ghoul::systemcapabilities::GeneralCapabilitiesComponent::OperatingSystem;
+    using OS = systemcapabilities::GeneralCapabilitiesComponent::OperatingSystem;
     switch (value) {
         case OS::Windows10or11:               return "Windows 10/11";
         case OS::WindowsServer2016:           return "Windows Server 2016";
@@ -84,7 +84,7 @@ std::string to_string(
         case OS::Unknown:
             return "";
         default:
-            throw ghoul::MissingCaseException();
+            throw MissingCaseException();
     }
 }
 } // namespace ghoul
@@ -318,8 +318,7 @@ void GeneralCapabilitiesComponent::detectOS() {
     }
 
     _operatingSystemExtra = resultStream.str();
-    _fullOperatingSystem =
-        ghoul::to_string(_operatingSystem) + ' ' + _operatingSystemExtra;
+    _fullOperatingSystem = to_string(_operatingSystem) + ' ' + _operatingSystemExtra;
 #else
     utsname name;
     const int res = uname(&name);
@@ -540,7 +539,7 @@ GeneralCapabilitiesComponent::operatingSystem() const
 }
 
 std::string GeneralCapabilitiesComponent::operatingSystemString() const {
-    return ghoul::to_string(_operatingSystem);
+    return to_string(_operatingSystem);
 }
 
 const std::string& GeneralCapabilitiesComponent::fullOperatingSystem() const {

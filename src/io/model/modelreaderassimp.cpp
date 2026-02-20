@@ -55,9 +55,12 @@
 #include <utility>
 
 namespace {
+    using namespace ghoul;
+    using namespace ghoul::io;
+
     constexpr std::string_view _loggerCat = "ModelReaderAssimp";
 
-    bool isTextureTransparent(const ghoul::io::ModelMesh::Texture& texture) {
+    bool isTextureTransparent(const ModelMesh::Texture& texture) {
         const int nChannels = texture.texture->numberOfChannels();
 
         if (nChannels < 4) {
@@ -81,14 +84,11 @@ namespace {
 
     bool loadMaterialTextures(const aiScene& scene, const aiMaterial& material,
                               const aiTextureType& type,
-                              const ghoul::io::ModelMesh::TextureType& enumType,
-                                 std::vector<ghoul::io::ModelMesh::Texture>& textureArray,
-           std::vector<ghoul::modelgeometry::ModelGeometry::TextureEntry>& textureStorage,
+                              const ModelMesh::TextureType& enumType,
+                              std::vector<ModelMesh::Texture>& textureArray,
+                  std::vector<modelgeometry::ModelGeometry::TextureEntry>& textureStorage,
                                                     std::filesystem::path& modelDirectory)
     {
-        using namespace ghoul::io;
-        using namespace ghoul::modelgeometry;
-
         for (unsigned int i = 0; i < material.GetTextureCount(type); i++) {
             ModelMesh::Texture meshTexture;
             meshTexture.type = enumType;
@@ -113,10 +113,10 @@ namespace {
             }
 
             // Check if texture has already been loaded by other meshes
-            for (const ModelGeometry::TextureEntry& texture : textureStorage) {
-                if (texture.texture->name() == std::string_view(path.C_Str())) {
+            for (const modelgeometry::ModelGeometry::TextureEntry& tex : textureStorage) {
+                if (tex.texture->name() == std::string_view(path.C_Str())) {
                     // Texture has already been loaded. Point to that texture instead
-                    meshTexture.texture = texture.texture.get();
+                    meshTexture.texture = tex.texture.get();
                     meshTexture.hasTexture = true;
                     textureArray.push_back(meshTexture);
                     shouldSkip = true;
@@ -131,7 +131,7 @@ namespace {
 
             // Load texture
             const aiTexture* texture = scene.GetEmbeddedTexture(path.C_Str());
-            ModelGeometry::TextureEntry textureEntry;
+            modelgeometry::ModelGeometry::TextureEntry textureEntry;
             textureEntry.name = path.C_Str();
             // Check if the texture is an embedded texture or a local texture
             if (texture) {
@@ -252,14 +252,12 @@ namespace {
     }
 
 
-    ghoul::io::ModelMesh processMesh(const aiMesh& mesh, const aiScene& scene,
-           std::vector<ghoul::modelgeometry::ModelGeometry::TextureEntry>& textureStorage,
+    ModelMesh processMesh(const aiMesh& mesh, const aiScene& scene,
+                  std::vector<modelgeometry::ModelGeometry::TextureEntry>& textureStorage,
                                                     std::filesystem::path& modelDirectory,
                                                                 bool forceRenderInvisible,
                                                               bool notifyInvisibleDropped)
     {
-        using namespace ghoul::io;
-
         std::vector<ModelMesh::Vertex> vertexArray;
         std::vector<unsigned int> indexArray;
         std::vector<ModelMesh::Texture> textureArray;
@@ -537,15 +535,13 @@ namespace {
     // Process a node in a recursive fashion. Process each individual mesh located
     // at the node and repeats this process on its children nodes (if any)
     void processNode(const aiNode& node, const aiScene& scene,
-                     std::vector<ghoul::io::ModelNode>& nodes, int parent,
-                     std::unique_ptr<ghoul::io::ModelAnimation>& modelAnimation,
-           std::vector<ghoul::modelgeometry::ModelGeometry::TextureEntry>& textureStorage,
+                     std::vector<ModelNode>& nodes, int parent,
+                     std::unique_ptr<ModelAnimation>& modelAnimation,
+                  std::vector<modelgeometry::ModelGeometry::TextureEntry>& textureStorage,
                                                                 bool forceRenderInvisible,
                                                               bool notifyInvisibleDropped,
                                                     std::filesystem::path& modelDirectory)
     {
-        using namespace ghoul::io;
-
         // Convert transform matrix of the node
         // Assimp stores matrixes in row major and glm stores matrixes in column major
         const glm::mat4 nodeTransform = glm::mat4(
@@ -701,7 +697,6 @@ namespace {
             );
         }
     }
-
 } // namespace
 
 namespace ghoul::io {

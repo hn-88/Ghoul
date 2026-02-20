@@ -38,12 +38,12 @@ namespace ghoul::io {
 std::unique_ptr<opengl::Texture> TextureReaderCMAP::loadTexture(
                                                     const std::filesystem::path& filename,
                                                                           int nDimensions,
-                                ghoul::opengl::Texture::SamplerInit samplerSettings) const
+                                       opengl::Texture::SamplerInit samplerSettings) const
 {
     ghoul_assert(!filename.empty(), "Filename must not be empty");
 
     if (nDimensions != 1) {
-        throw ghoul::RuntimeError(std::format(
+        throw RuntimeError(std::format(
             "The number of dimensions for '{}' must be 1, but was {}",
             filename, nDimensions
         ));
@@ -59,7 +59,7 @@ std::unique_ptr<opengl::Texture> TextureReaderCMAP::loadTexture(
 
     std::string line;
     int i = 0;
-    while (ghoul::getline(file, line)) {
+    while (getline(file, line)) {
         // Skip empty lines
         if (line.empty() || line == "\r") {
             continue;
@@ -125,7 +125,7 @@ std::unique_ptr<opengl::Texture> TextureReaderCMAP::loadTexture(
 }
 
 std::unique_ptr<opengl::Texture> TextureReaderCMAP::loadTexture(void*, size_t, int,
-                                                ghoul::opengl::Texture::SamplerInit) const
+                                                       opengl::Texture::SamplerInit) const
 {
     ghoul_assert(false, "Implementation missing");
     return nullptr;
@@ -140,7 +140,7 @@ glm::ivec2 TextureReaderCMAP::imageSize(const std::filesystem::path& filename) c
     int width = 0;
 
     std::string line;
-    while (ghoul::getline(file, line)) {
+    while (getline(file, line)) {
         // Skip empty lines
         if (line.empty() || line == "\r") {
             continue;

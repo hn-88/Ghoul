@@ -78,7 +78,7 @@ public:
      */
     virtual std::unique_ptr<opengl::Texture> loadTexture(
         const std::filesystem::path& filename, int nDimensions,
-        ghoul::opengl::Texture::SamplerInit samplerSettings) const = 0;
+        opengl::Texture::SamplerInit samplerSettings) const = 0;
 
     /**
      * Loads a Texture from the memory pointed at by \p memory. The memory block must
@@ -95,7 +95,7 @@ public:
      */
     virtual std::unique_ptr<opengl::Texture> loadTexture(void* memory,
         size_t size, int nDimensions,
-        ghoul::opengl::Texture::SamplerInit samplerSettings) const = 0;
+        opengl::Texture::SamplerInit samplerSettings) const = 0;
 
     /**
      * Returns the size of the image pointed to by \p filename.

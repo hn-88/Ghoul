@@ -41,12 +41,6 @@ constexpr int IPC_W = 000200; // write/alter permission
 constexpr int IPC_M = 010000; // permission to change control info
 #endif
 
-namespace ghoul {
-
-#ifdef WIN32
-std::map<const std::string, HANDLE> SharedMemory::_createdSections;
-#endif // WIN32
-
 namespace {
     struct Header {
         std::atomic_flag mutex;
@@ -84,6 +78,12 @@ namespace {
     }
 #endif // WIN32
 } // namespace
+
+namespace ghoul {
+
+#ifdef WIN32
+std::map<const std::string, HANDLE> SharedMemory::_createdSections;
+#endif // WIN32
 
 SharedMemory::SharedMemoryError::SharedMemoryError(std::string msg)
     : RuntimeError(std::move(msg), "SharedMemory")

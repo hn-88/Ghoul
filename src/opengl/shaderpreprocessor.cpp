@@ -49,15 +49,18 @@
 // #for <key>, <value> in <dictionary>
 
 namespace {
+    using namespace ghoul;
+    using namespace ghoul::opengl;
+
     constexpr std::string_view Ws = " \n\r\t";
 
-    struct ShaderPreprocessorError final : public ghoul::RuntimeError {
+    struct ShaderPreprocessorError final : public RuntimeError {
         explicit ShaderPreprocessorError(std::string msg)
             : RuntimeError(std::move(msg), "ShaderPreprocessor")
         {}
     };
 
-    bool hasKeyRecursive(const ghoul::Dictionary& dictionary, std::string_view key) {
+    bool hasKeyRecursive(const Dictionary& dictionary, std::string_view key) {
         const size_t dotPos = key.find('.');
         if (dotPos == std::string_view::npos) {
             return dictionary.hasKey(key);
@@ -65,7 +68,7 @@ namespace {
 
         const std::string_view before = key.substr(0, dotPos);
         if (dictionary.hasKey(before)) {
-            const ghoul::Dictionary d = dictionary.value<ghoul::Dictionary>(before);
+            const Dictionary d = dictionary.value<Dictionary>(before);
             const std::string_view after = key.substr(dotPos + 1);
             return hasKeyRecursive(d, after);
         }
@@ -75,15 +78,15 @@ namespace {
     }
 
     template <typename T>
-    bool hasValueRecursive(const ghoul::Dictionary& dictionary, std::string_view key) {
+    bool hasValueRecursive(const Dictionary& dictionary, std::string_view key) {
         const size_t dotPos = key.find('.');
         if (dotPos == std::string_view::npos) {
             return dictionary.hasValue<T>(key);
         }
 
         const std::string_view before = key.substr(0, dotPos);
-        if (dictionary.hasValue<ghoul::Dictionary>(before)) {
-            const ghoul::Dictionary d = dictionary.value<ghoul::Dictionary>(before);
+        if (dictionary.hasValue<Dictionary>(before)) {
+            const Dictionary d = dictionary.value<Dictionary>(before);
             const std::string_view after = key.substr(dotPos + 1);
             return hasValueRecursive<T>(d, after);
         }
@@ -93,7 +96,7 @@ namespace {
     }
 
     template <typename T>
-    T valueRecursive(const ghoul::Dictionary& dictionary, std::string_view key) {
+    T valueRecursive(const Dictionary& dictionary, std::string_view key) {
         const size_t dotPos = key.find('.');
         if (dotPos == std::string_view::npos) {
             return dictionary.value<T>(key);
@@ -101,13 +104,13 @@ namespace {
 
         const std::string_view before = key.substr(0, dotPos);
         const std::string_view after = key.substr(dotPos + 1);
-        const ghoul::Dictionary d = dictionary.value<ghoul::Dictionary>(before);
+        const Dictionary d = dictionary.value<Dictionary>(before);
         return valueRecursive<T>(d, after);
     }
 
     class Env {
     public:
-        explicit Env(ghoul::Dictionary dictionary);
+        explicit Env(Dictionary dictionary);
 
         void processFile(const std::filesystem::path& path);
         std::vector<std::filesystem::path> includedFiles() const;
@@ -150,10 +153,10 @@ namespace {
         std::vector<ForStatement> _forStatements;
 
         std::vector<std::filesystem::path> _includedFiles;
-        ghoul::Dictionary _dictionary;
+        Dictionary _dictionary;
     };
 
-    Env::Env(ghoul::Dictionary dictionary)
+    Env::Env(Dictionary dictionary)
         : _dictionary(std::move(dictionary))
     {}
 
@@ -286,7 +289,7 @@ namespace {
         // Form 1: #for <key>, <value> in <dictionary>
         // Form 2: #for <key> in <a>..<b>
 
-        ghoul::trimWhitespace(line);
+        trimWhitespace(line);
 
         if (!line.starts_with(ForString)) {
             return false;
@@ -310,7 +313,7 @@ namespace {
             value = std::move(v);
 
             // Create all the elements in the dictionary
-            ghoul::Dictionary d;
+            Dictionary d;
             for (int i = 0; i <= maximum - minimum; i++) {
                 d.setValue(std::to_string(i + 1), std::to_string(minimum + i));
             }
@@ -327,7 +330,7 @@ namespace {
 
         // Fetch the dictionary to iterate over
         std::string dict = resolveAlias(dictionary);
-        const ghoul::Dictionary innerDict = _dictionary.value<ghoul::Dictionary>(dict);
+        const Dictionary innerDict = _dictionary.value<Dictionary>(dict);
 
         size_t currentIteration = 0;
         std::vector<std::string_view> keys = innerDict.keys();
@@ -362,7 +365,7 @@ namespace {
     bool Env::parseEndFor(std::string_view line) {
         constexpr std::string_view EndForString = "#endfor";
 
-        ghoul::trimWhitespace(line);
+        trimWhitespace(line);
 
         if (!line.starts_with(EndForString)) {
             return false;
@@ -381,9 +384,7 @@ namespace {
         forStmnt.currentIteration++;
 
         // Fetch the dictionary to iterate over
-        const ghoul::Dictionary innerDict = _dictionary.value<ghoul::Dictionary>(
-            forStmnt.dictionary
-        );
+        const Dictionary innerDict = _dictionary.value<Dictionary>(forStmnt.dictionary);
         std::vector<std::string_view> keys = innerDict.keys();
         // This part of the code effectively behaves like the check in a for loop, except
         // that the for loop is extracting all of the lines of the file
@@ -409,7 +410,7 @@ namespace {
     bool Env::parseInclude(std::string_view line) {
         constexpr std::string_view IncludeString = "#include";
 
-        ghoul::trimWhitespace(line);
+        trimWhitespace(line);
 
         if (!line.starts_with(IncludeString)) {
             return false;
@@ -439,9 +440,7 @@ namespace {
                 return true;
             }
 
-            for (const std::filesystem::path& path :
-                 ghoul::opengl::ShaderPreprocessor::includePaths())
-            {
+            for (const std::filesystem::path& path : ShaderPreprocessor::includePaths()) {
                 const std::filesystem::path inc = path / includeFilename;
                 if (std::filesystem::is_regular_file(inc)) {
                     processFile(inc);
@@ -487,7 +486,7 @@ namespace {
     bool Env::parseVersion(std::string_view line) {
         constexpr std::string_view VersionString = "#version __CONTEXT__";
 
-        ghoul::trimWhitespace(line);
+        trimWhitespace(line);
 
         if (!line.starts_with(VersionString)) {
             return false;
@@ -518,7 +517,7 @@ namespace {
     bool Env::parseOs(std::string_view line) {
         constexpr std::string_view OsString = "#define __OS__";
 
-        ghoul::trimWhitespace(line);
+        trimWhitespace(line);
 
         if (!line.starts_with(OsString)) {
             return false;
@@ -603,9 +602,7 @@ namespace {
 
         // Resolve only part before dot
         for (const Env::ForStatement& fs : std::ranges::reverse_view(_forStatements)) {
-            const ghoul::Dictionary innerDict = _dictionary.value<ghoul::Dictionary>(
-                fs.dictionary
-            );
+            const Dictionary innerDict = _dictionary.value<Dictionary>(fs.dictionary);
             std::vector<std::string_view> keys = innerDict.keys();
             std::string_view key = keys[fs.currentIteration];
             if (beforeDot == fs.keyName) {
@@ -634,7 +631,7 @@ namespace {
         std::string_view includeSep;
 
         // Sofar, only Nvidia on Windows supports empty statements in the shader
-        using Vendor = ghoul::systemcapabilities::OpenGLCapabilitiesComponent::Vendor;
+        using Vendor = systemcapabilities::OpenGLCapabilitiesComponent::Vendor;
         if (OpenGLCap.gpuVendor() == Vendor::Nvidia) {
             includeSep = "; // preprocessor add semicolon to isolate error messages";
         }

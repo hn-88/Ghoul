@@ -78,25 +78,25 @@ TextureAtlas& TextureAtlas::operator=(TextureAtlas&& rhs) noexcept {
 }
 
 void TextureAtlas::initialize() {
-    const ghoul::opengl::Texture::Format format = [](int z) {
+    const Texture::Format format = [](int z) {
         switch (z) {
             case 1: return Texture::Format::Red;
             case 2: return Texture::Format::RG;
             case 3: return Texture::Format::RGB;
             case 4: return Texture::Format::RGBA;
-            default: throw ghoul::RuntimeError("Wrong texture depth", "TextureAtlas");
+            default: throw RuntimeError("Wrong texture depth", "TextureAtlas");
         }
     }(_size.z);
     const GLenum dataType = GL_UNSIGNED_BYTE;
 
     _texture = std::make_unique<Texture>(
-        ghoul::opengl::Texture::FormatInit{
+        Texture::FormatInit{
             .dimensions = glm::uvec3(glm::ivec2(_size), 1),
             .type = GL_TEXTURE_2D,
             .format = format,
             .dataType = dataType
         },
-        ghoul::opengl::Texture::SamplerInit{
+        Texture::SamplerInit{
             .filter = Texture::FilterMode::Nearest
         }
     );

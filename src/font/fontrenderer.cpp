@@ -354,7 +354,7 @@ std::unique_ptr<FontRenderer> FontRenderer::createDefault() {
     program->linkProgramObject();
 
     auto fr = std::make_unique<FontRenderer>(std::move(program), glm::vec2(0.f));
-    ghoul::opengl::updateUniformLocations(*fr->_program, fr->_uniformCache);
+    updateUniformLocations(*fr->_program, fr->_uniformCache);
     return fr;
 }
 
@@ -395,7 +395,7 @@ std::unique_ptr<FontRenderer> FontRenderer::createProjectionSubjectText() {
 
     // Can't create a unique_ptr directly here as the FontRenderer is not private
     auto fr = std::make_unique<FontRenderer>(std::move(pg), glm::vec2(0.f));
-    ghoul::opengl::updateUniformLocations(*fr->_program, fr->_uniformCacheProjection);
+    updateUniformLocations(*fr->_program, fr->_uniformCacheProjection);
     fr->_uniformMvp = fr->_program->uniformLocation("mvpMatrix");
     return fr;
 }
@@ -817,8 +817,7 @@ glm::vec2 RenderFont(ghoul::fontrendering::Font& font, glm::vec2& pos,
                      std::string_view text, const glm::vec4& color, CrDirection direction,
                      const glm::vec4& outlineColor)
 {
-    using FR = ghoul::fontrendering::FontRenderer;
-    const FR::BoundingBoxInformation res = FR::defaultRenderer().render(
+    const FontRenderer::BoundingBoxInformation r = FontRenderer::defaultRenderer().render(
         font,
         pos,
         text,
@@ -828,47 +827,44 @@ glm::vec2 RenderFont(ghoul::fontrendering::Font& font, glm::vec2& pos,
 
     switch (direction) {
         case CrDirection::Up:
-            pos.y += res.numberOfLines * font.height();
+            pos.y += r.numberOfLines * font.height();
             break;
         case CrDirection::None:
             break;
         case CrDirection::Down:
-            pos.y -= res.numberOfLines * font.height();
+            pos.y -= r.numberOfLines * font.height();
             break;
     }
-    return res.boundingBox;
+    return r.boundingBox;
 }
 
-glm::vec2 RenderFont(ghoul::fontrendering::Font& font, const glm::vec2& pos,
-                     std::string_view text, const glm::vec4& color,
-                     const glm::vec4& outlineColor)
+glm::vec2 RenderFont(Font& font, const glm::vec2& pos, std::string_view text,
+                     const glm::vec4& color, const glm::vec4& outlineColor)
 {
-    using FR = ghoul::fontrendering::FontRenderer;
-    const FR::BoundingBoxInformation res = FR::defaultRenderer().render(
+    const FontRenderer::BoundingBoxInformation r = FontRenderer::defaultRenderer().render(
         font,
         pos,
         text,
         color,
         outlineColor
     );
-    return res.boundingBox;
+    return r.boundingBox;
 }
 
-glm::vec2 RenderFont(ghoul::fontrendering::Font& font, glm::vec2& pos,
-                     std::string_view text, const glm::vec4& color,
-                     CrDirection direction)
+glm::vec2 RenderFont(Font& font, glm::vec2& pos, std::string_view text,
+                     const glm::vec4& color, CrDirection direction)
 {
     return RenderFont(font, pos, text, color, direction, { 0.f, 0.f, 0.f, color.a });
 }
 
-glm::vec2 RenderFont(ghoul::fontrendering::Font& font, const glm::vec2& pos,
-                     std::string_view text, const glm::vec4& color)
+glm::vec2 RenderFont(Font& font, const glm::vec2& pos, std::string_view text,
+                     const glm::vec4& color)
 {
     return RenderFont(font, pos, text, color, { 0.f, 0.f, 0.f, color.a });
 }
 
-glm::vec2 RenderFont(ghoul::fontrendering::Font& font, glm::vec2& pos,
-                     std::string_view text, CrDirection direction)
+glm::vec2 RenderFont(Font& font, glm::vec2& pos, std::string_view text,
+                     CrDirection direction)
 {
     return RenderFont(
         font,
@@ -880,9 +876,7 @@ glm::vec2 RenderFont(ghoul::fontrendering::Font& font, glm::vec2& pos,
     );
 }
 
-glm::vec2 RenderFont(ghoul::fontrendering::Font& font, const glm::vec2& pos,
-                     std::string_view text)
-{
+glm::vec2 RenderFont(Font& font, const glm::vec2& pos, std::string_view text) {
     return RenderFont(font, pos, text, { 1.f, 1.f, 1.f, 1.f }, { 0.f, 0.f, 0.f, 1.f });
 }
 

@@ -31,7 +31,7 @@
 
 namespace ghoul::opengl {
 
-class ProgramObjectManager : public ghoul::ObjectManager<ProgramObject> {
+class ProgramObjectManager : public ObjectManager<ProgramObject> {
 public:
     ProgramObjectManager();
 };

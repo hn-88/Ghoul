@@ -30,6 +30,8 @@
 #include <utility>
 
 namespace {
+    using namespace ghoul;
+
     /*
      * The working principle is as follows: There are two methods which can create
      * subclasses, 'create' and 'createWithDictionary'. The first one will create the
@@ -53,14 +55,14 @@ namespace {
 
     /// Create Class using only the default constructor
     template <typename BaseClass, typename Class>
-    BaseClass* createDefault(bool useDictionary, const ghoul::Dictionary& dict,
+    BaseClass* createDefault(bool useDictionary, const Dictionary& dict,
                              pmr::memory_resource* pool)
     {
         // We don't have a dictionary constructor, but the user tried to create it with a
         // Dictionary
         if (useDictionary || dict.size() != 0) {
             std::string className = typeid(Class).name();
-            throw ghoul::TemplateConstructionError(std::format(
+            throw TemplateConstructionError(std::format(
                 "Class '{}' does not provide a constructor receiving a Dictionary",
                 className
             ));
@@ -78,7 +80,7 @@ namespace {
     // Create Class using the default constructor or the Dictionary
     template <typename BaseClass, typename Class>
     BaseClass* createDefaultAndDictionary(bool useDictionary,
-                                          const ghoul::Dictionary& dict,
+                                          const Dictionary& dict,
                                           pmr::memory_resource* pool)
     {
         if (useDictionary) {
@@ -103,12 +105,12 @@ namespace {
 
     // Create Class using only the Dictionary constructor
     template <typename BaseClass, typename Class>
-    BaseClass* createDictionary(bool useDictionary, const ghoul::Dictionary& dict,
+    BaseClass* createDictionary(bool useDictionary, const Dictionary& dict,
                                 pmr::memory_resource* pool)
     {
         if (!useDictionary) {
             std::string className = typeid(Class).name();
-            throw ghoul::TemplateConstructionError(std::format(
+            throw TemplateConstructionError(std::format(
                 "Class '{}' does only provide a Dictionary constructor but was called "
                 "using the default constructor",
                 className
@@ -126,7 +128,7 @@ namespace {
     template <typename BaseClass, typename Class, int Constructor>
     struct CreateHelper {
         using FactoryFuncPtr = BaseClass * (*)(
-            bool useDictionary, const ghoul::Dictionary& dict, pmr::memory_resource* pool
+            bool useDictionary, const Dictionary& dict, pmr::memory_resource* pool
         );
         FactoryFuncPtr createFunction();
     };
@@ -134,7 +136,7 @@ namespace {
     template <typename BaseClass, typename Class>
     struct CreateHelper<BaseClass, Class, DEFAULT_CONSTRUCTOR | DICTIONARY_CONSTRUCTOR> {
         using FactoryFuncPtr = BaseClass * (*)(
-            bool useDictionary, const ghoul::Dictionary& dict, pmr::memory_resource* pool
+            bool useDictionary, const Dictionary& dict, pmr::memory_resource* pool
         );
         FactoryFuncPtr createFunction() {
             return &createDefaultAndDictionary<BaseClass, Class>;
@@ -144,7 +146,7 @@ namespace {
     template <typename BaseClass, typename Class>
     struct CreateHelper<BaseClass, Class, DEFAULT_CONSTRUCTOR> {
         using FactoryFuncPtr = BaseClass * (*)(
-            bool useDictionary, const ghoul::Dictionary& dict, pmr::memory_resource* pool
+            bool useDictionary, const Dictionary& dict, pmr::memory_resource* pool
         );
         FactoryFuncPtr createFunction() {
             return &createDefault<BaseClass, Class>;
@@ -154,13 +156,12 @@ namespace {
     template <typename BaseClass, typename Class>
     struct CreateHelper<BaseClass, Class, DICTIONARY_CONSTRUCTOR> {
         using FactoryFuncPtr = BaseClass * (*)(
-            bool useDictionary, const ghoul::Dictionary& dict, pmr::memory_resource* pool
+            bool useDictionary, const Dictionary& dict, pmr::memory_resource* pool
         );
         FactoryFuncPtr createFunction() {
             return &createDictionary<BaseClass, Class>;
         }
     };
-
 } // namespace
 
 namespace ghoul {
@@ -215,7 +216,7 @@ void TemplateFactory<BaseClass>::registerClass(std::string className) {
     );
     static_assert(
         std::is_default_constructible<Class>::value |
-        std::is_constructible<Class, const ghoul::Dictionary&>::value,
+        std::is_constructible<Class, const Dictionary&>::value,
         "Class needs a public default or Dictionary constructor"
     );
 
@@ -226,7 +227,7 @@ void TemplateFactory<BaseClass>::registerClass(std::string className) {
     // run-time if there is a proper constructor for it)
     FactoryFunction&& function = CreateHelper<BaseClass, Class,
         (std::is_default_constructible<Class>::value * DEFAULT_CONSTRUCTOR) |
-        (std::is_constructible<Class, const ghoul::Dictionary&>::value *
+        (std::is_constructible<Class, const Dictionary&>::value *
         DICTIONARY_CONSTRUCTOR)
     >().createFunction();
 

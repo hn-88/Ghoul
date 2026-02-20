@@ -38,6 +38,8 @@
 #include <cstddef>
 
 namespace {
+    using namespace ghoul;
+
     constexpr std::string_view _loggerCat = "ModelReaderBinary";
     constexpr int8_t CurrentModelVersion = 10;
     constexpr int FormatStringSize = 4;
@@ -49,8 +51,8 @@ namespace {
     constexpr int8_t VertexColorUpdateVersion = 9;
     constexpr int8_t SkipMarkerUpdateVersion = 10;
 
-    ghoul::opengl::Texture::Format stringToFormat(std::string_view format) {
-        using Format = ghoul::opengl::Texture::Format;
+    opengl::Texture::Format stringToFormat(std::string_view format) {
+        using Format = opengl::Texture::Format;
         if (format == "Red ") { return Format::Red; }
         else if (format == "RG  ") { return Format::RG; }
         else if (format == "RGB ") { return Format::RGB; }
@@ -58,7 +60,7 @@ namespace {
         else if (format == "RGBA") { return Format::RGBA; }
         else if (format == "BGRA") { return Format::BGRA; }
         else if (format == "Dept") { return Format::DepthComponent; }
-        else { throw ghoul::MissingCaseException(); }
+        else { throw MissingCaseException(); }
     }
 
     GLenum stringToDataType(std::string_view dataType) {
@@ -70,7 +72,7 @@ namespace {
         else if (dataType == "uint") { return GL_UNSIGNED_INT; }
         else if (dataType == "floa") { return GL_FLOAT; }
         else if (dataType == "doub") { return GL_DOUBLE; }
-        else { throw ghoul::MissingCaseException(); }
+        else { throw MissingCaseException(); }
     }
 } // namespace
 
@@ -182,14 +184,14 @@ std::unique_ptr<modelgeometry::ModelGeometry> ModelReaderBinary::loadModel(
         fileStream.read(reinterpret_cast<char*>(data.data()), textureSize);
 
         textureEntry.texture = std::make_unique<opengl::Texture>(
-            ghoul::opengl::Texture::FormatInit{
+            opengl::Texture::FormatInit{
                 .dimensions = dimensions,
                 .type = GL_TEXTURE_2D,
                 .format = format,
                 .dataType = dataType,
                 .internalFormat = internalFormat
             },
-            ghoul::opengl::Texture::SamplerInit{},
+            opengl::Texture::SamplerInit{},
             data.data()
         );
         textureStorageArray.push_back(std::move(textureEntry));

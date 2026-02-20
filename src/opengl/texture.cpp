@@ -30,11 +30,12 @@
 #include <cstring>
 
 namespace {
+    using namespace ghoul;
     using namespace ghoul::opengl;
 
-    struct FormatError : public ghoul::RuntimeError {
+    struct FormatError : public RuntimeError {
         explicit FormatError(Texture::Format format, GLenum dataType)
-            : ghoul::RuntimeError(
+            : RuntimeError(
                 std::format(
                     "Unhandled combination '{}' / '{}'",
                     static_cast<int>(format), static_cast<int>(dataType)
@@ -145,7 +146,7 @@ namespace {
                         throw FormatError(frmt.format, frmt.dataType);
                 }
             default:
-                throw ghoul::MissingCaseException();
+                throw MissingCaseException();
         }
     }
 
@@ -166,7 +167,7 @@ namespace {
         }
     }
 
-    constexpr int numberOfChannels(Texture::Format format) {
+    constexpr int nChannels(Texture::Format format) {
         switch (format) {
             case Texture::Format::Red:
             case Texture::Format::DepthComponent:
@@ -184,7 +185,7 @@ namespace {
     }
 
     constexpr GLubyte bytesPerPixel(Texture::Format format, GLenum dataType) {
-        const int nChannels = numberOfChannels(format);
+        const int n = nChannels(format);
 
         int szType = 0;
         switch (dataType) {
@@ -214,10 +215,10 @@ namespace {
                 szType = 4;
                 break;
             default:
-                throw ghoul::MissingCaseException();
+                throw MissingCaseException();
         }
 
-        return static_cast<GLubyte>(szType * nChannels);
+        return static_cast<GLubyte>(szType * n);
     }
 } // namespace
 
@@ -447,7 +448,7 @@ glm::uvec3 Texture::dimensions() const {
 }
 
 int Texture::numberOfChannels() const {
-    return ::numberOfChannels(_format);
+    return nChannels(_format);
 }
 
 GLenum Texture::type() const {

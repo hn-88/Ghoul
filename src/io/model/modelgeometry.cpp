@@ -42,14 +42,16 @@
 #include <utility>
 
 namespace {
+    using namespace ghoul;
+
     constexpr std::string_view _loggerCat = "ModelGeometry";
     constexpr int8_t CurrentCacheVersion = 11;
     constexpr int FormatStringSize = 4;
     constexpr int8_t ShouldSkipMarker = -1;
     constexpr int8_t NoSkipMarker = 1;
 
-    ghoul::opengl::Texture::Format stringToFormat(std::string_view format) {
-        using Format = ghoul::opengl::Texture::Format;
+    opengl::Texture::Format stringToFormat(std::string_view format) {
+        using Format = opengl::Texture::Format;
         if (format == "Red ") { return Format::Red; }
         else if (format == "RG  ") { return Format::RG; }
         else if (format == "RGB ") { return Format::RGB; }
@@ -57,19 +59,19 @@ namespace {
         else if (format == "RGBA") { return Format::RGBA; }
         else if (format == "BGRA") { return Format::BGRA; }
         else if (format == "Dept") { return Format::DepthComponent; }
-        else                       { throw ghoul::MissingCaseException(); }
+        else                       { throw MissingCaseException(); }
     }
 
-    std::string formatToString(ghoul::opengl::Texture::Format format) {
+    std::string formatToString(opengl::Texture::Format format) {
         switch (format) {
-            case ghoul::opengl::Texture::Format::Red:            return "Red ";
-            case ghoul::opengl::Texture::Format::RG:             return "RG  ";
-            case ghoul::opengl::Texture::Format::RGB:            return "RGB ";
-            case ghoul::opengl::Texture::Format::BGR:            return "BGR ";
-            case ghoul::opengl::Texture::Format::RGBA:           return "RGBA";
-            case ghoul::opengl::Texture::Format::BGRA:           return "BGRA";
-            case ghoul::opengl::Texture::Format::DepthComponent: return "Dept";
-            default:                                  throw ghoul::MissingCaseException();
+            case opengl::Texture::Format::Red:            return "Red ";
+            case opengl::Texture::Format::RG:             return "RG  ";
+            case opengl::Texture::Format::RGB:            return "RGB ";
+            case opengl::Texture::Format::BGR:            return "BGR ";
+            case opengl::Texture::Format::RGBA:           return "RGBA";
+            case opengl::Texture::Format::BGRA:           return "BGRA";
+            case opengl::Texture::Format::DepthComponent: return "Dept";
+            default:                                      throw MissingCaseException();
         }
     }
 
@@ -82,7 +84,7 @@ namespace {
         else if (dataType == "uint") { return GL_UNSIGNED_INT; }
         else if (dataType == "floa") { return GL_FLOAT; }
         else if (dataType == "doub") { return GL_DOUBLE; }
-        else                         { throw ghoul::MissingCaseException(); }
+        else                         { throw MissingCaseException(); }
     }
 
     std::string dataTypeToString(GLenum dataType) {
@@ -95,12 +97,12 @@ namespace {
             case GL_UNSIGNED_INT:   return "uint";
             case GL_FLOAT:          return "floa";
             case GL_DOUBLE:         return "doub";
-            default:                throw ghoul::MissingCaseException();
+            default:                throw MissingCaseException();
         }
     }
 
-    void calculateBoundingRadiusRecursive(const std::vector<ghoul::io::ModelNode>& nodes,
-                                          const ghoul::io::ModelNode* node,
+    void calculateBoundingRadiusRecursive(const std::vector<io::ModelNode>& nodes,
+                                          const io::ModelNode* node,
                                           const glm::mat4& parentTransform,
                                           float& maximumDistanceSquared)
     {
@@ -112,7 +114,7 @@ namespace {
         // NOTE: The bounding radius will not change along with an animation
         glm::mat4 globalTransform = parentTransform * node->transform();
 
-        for (const ghoul::io::ModelMesh& mesh : node->meshes()) {
+        for (const io::ModelMesh& mesh : node->meshes()) {
             const float d = mesh.calculateBoundingRadius(globalTransform);
             maximumDistanceSquared = std::max(d, maximumDistanceSquared);
         }
@@ -127,9 +129,8 @@ namespace {
         }
     }
 
-    void renderRecursive(const std::vector<ghoul::io::ModelNode>& nodes,
-                         const ghoul::io::ModelNode* node,
-                         ghoul::opengl::ProgramObject& program,
+    void renderRecursive(const std::vector<io::ModelNode>& nodes,
+                         const io::ModelNode* node, opengl::ProgramObject& program,
                          const glm::mat4& parentTransform, bool isFullyTexturedModel,
                          bool isProjection)
     {
@@ -148,7 +149,7 @@ namespace {
             globalTransform = parentTransform * node->transform();
         }
 
-        for (const ghoul::io::ModelMesh& mesh : node->meshes()) {
+        for (const io::ModelMesh& mesh : node->meshes()) {
             mesh.render(program, globalTransform, isFullyTexturedModel, isProjection);
         }
 
@@ -285,14 +286,14 @@ std::unique_ptr<modelgeometry::ModelGeometry> ModelGeometry::loadCacheFile(
         fileStream.read(reinterpret_cast<char*>(data), textureSize);
 
         textureEntry.texture = std::make_unique<opengl::Texture>(
-            ghoul::opengl::Texture::FormatInit{
+            opengl::Texture::FormatInit{
                 .dimensions = dimensions,
                 .type = GL_TEXTURE_2D,
                 .format = format,
                 .dataType = dataType,
                 .internalFormat = internalFormat
             },
-            ghoul::opengl::Texture::SamplerInit{
+            opengl::Texture::SamplerInit{
                 .filter = opengl::Texture::FilterMode::AnisotropicMipMap
             },
             data

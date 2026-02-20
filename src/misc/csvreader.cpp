@@ -35,10 +35,12 @@
 #include <utility>
 
 namespace {
+    using namespace ghoul;
+
     std::string readFirstValidLine(std::ifstream& file) {
         std::string line;
-        while (ghoul::getline(file, line)) {
-            ghoul::trimWhitespace(line);
+        while (getline(file, line)) {
+            trimWhitespace(line);
             if (!line.empty() && !line.starts_with("#")) {
                 break;
             }
@@ -56,8 +58,8 @@ namespace {
 
         bool hasFoundFirstValidLine = false;
         std::string line;
-        while (ghoul::getline(file, line)) {
-            ghoul::trimWhitespace(line);
+        while (getline(file, line)) {
+            trimWhitespace(line);
 
             // Skip comments and empty lines
             if (line.empty() || line.starts_with("#")) {
@@ -72,14 +74,14 @@ namespace {
                 }
             }
 
-            std::vector<std::string> lineValues = ghoul::tokenizeString(line, ',');
+            std::vector<std::string> lineValues = tokenizeString(line, ',');
 
             // The user might have needed to use a , inside a value and needed to escape
             // it by surrounding the value with "..." The tokenizeString function will rip
             // those apart, and we need to reassemble it here
 
             for (size_t i = 0; i < lineValues.size(); i++) {
-                ghoul::trimWhitespace(lineValues[i]);
+                trimWhitespace(lineValues[i]);
 
                 if (lineValues[i].empty()) {
                     continue;
@@ -122,7 +124,7 @@ namespace {
                         }
                         else {
                             // it's not at the last position, so something was malformed
-                            throw ghoul::RuntimeError(
+                            throw RuntimeError(
                                 "Malformed CSV file. Mismatching \" to escape , in value"
                             );
                         }
@@ -175,9 +177,9 @@ std::vector<std::vector<std::string>> loadCSVFile(const std::filesystem::path& f
     // Get the file line that contains the column names (the first one)
     const std::string line = readFirstValidLine(file);
 
-    const std::vector<std::string> elements = ghoul::tokenizeString(line, ',');
+    const std::vector<std::string> elements = tokenizeString(line, ',');
     if (elements.empty()) {
-        throw ghoul::RuntimeError(std::format(
+        throw RuntimeError(std::format(
             "CSV file '{}' did not contain any lines", fileName
         ));
     }
@@ -191,7 +193,7 @@ std::vector<std::vector<std::string>> loadCSVFile(const std::filesystem::path& f
         [elements, &fileName](const std::string& column) {
             const auto it = std::find(elements.cbegin(), elements.cend(), column);
             if (it == elements.cend()) {
-                throw ghoul::RuntimeError(std::format(
+                throw RuntimeError(std::format(
                     "CSV file '{}' did not contain the requested key {}", fileName, column
                 ));
             }

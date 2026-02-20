@@ -33,14 +33,14 @@
 #include <string_view>
 #include <utility>
 
+using websocketpp::lib::placeholders::_1;
+using websocketpp::lib::placeholders::_2;
+using websocketpp::lib::bind;
+
 namespace {
     constexpr std::string_view _loggerCat = "WebSocket";
     constexpr std::chrono::milliseconds MaxWaitDuration(1000);
 } // namespace
-
-using websocketpp::lib::placeholders::_1;
-using websocketpp::lib::placeholders::_2;
-using websocketpp::lib::bind;
 
 namespace ghoul::io {
 

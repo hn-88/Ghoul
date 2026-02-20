@@ -33,14 +33,16 @@
 #include <cstring>
 
 namespace {
-    std::unique_ptr<ghoul::opengl::Texture> load(unsigned char* data, int x, int y,
-                                                 int n, const std::string& message,
-                                                 const ghoul::io::TextureReaderBase* r,
-                                                 int nDimensions,
-                                      ghoul::opengl::Texture::SamplerInit samplerSettings)
+    using namespace ghoul;
+    using namespace ghoul::io;
+
+    std::unique_ptr<opengl::Texture> load(unsigned char* data, int x, int y, int n,
+                                          const std::string& message,
+                                          const TextureReaderBase* r, int nDimensions,
+                                          opengl::Texture::SamplerInit samplerSettings)
     {
         if (!data) {
-            throw ghoul::io::TextureReaderBase::TextureLoadException(
+            throw TextureReaderBase::TextureLoadException(
                 message,
                 std::format("Error reading image data: {}", stbi_failure_reason()),
                 r
@@ -67,16 +69,14 @@ namespace {
             std::memcpy(data + (y - i - 1) * x * n, buffer.data(), x * n);
         }
 
-        const ghoul::opengl::Texture::Format format = [](int n) {
+        const opengl::Texture::Format format = [](int n) {
             switch (n) {
-                case 1: return ghoul::opengl::Texture::Format::Red;
-                case 2: return ghoul::opengl::Texture::Format::RG;
-                case 3: return ghoul::opengl::Texture::Format::RGB;
-                case 4: return ghoul::opengl::Texture::Format::RGBA;
+                case 1: return opengl::Texture::Format::Red;
+                case 2: return opengl::Texture::Format::RG;
+                case 3: return opengl::Texture::Format::RGB;
+                case 4: return opengl::Texture::Format::RGBA;
                 default:
-                    throw ghoul::RuntimeError(std::format(
-                        "Unknown dimension '{}'", n
-                    ));
+                    throw RuntimeError(std::format("Unknown dimension '{}'", n));
             }
         }(n);
         const GLenum type = [](int d) {
@@ -85,15 +85,13 @@ namespace {
                 case 2: return GL_TEXTURE_2D;
                 case 3: return GL_TEXTURE_3D;
                 default:
-                    throw ghoul::RuntimeError(std::format(
-                        "Unsupported dimensionality '{}'", d
-                    ));
+                    throw RuntimeError(std::format("Unsupported dimensionality '{}'", d));
             }
         }(nDimensions);
 
-        std::unique_ptr<ghoul::opengl::Texture> texture =
-            std::make_unique<ghoul::opengl::Texture>(
-                ghoul::opengl::Texture::FormatInit{
+        std::unique_ptr<opengl::Texture> texture =
+            std::make_unique<opengl::Texture>(
+                opengl::Texture::FormatInit{
                     .dimensions = glm::uvec3(x, y, 1),
                     .type = type,
                     .format = format,
@@ -112,7 +110,7 @@ namespace ghoul::io {
 std::unique_ptr<opengl::Texture> TextureReaderSTB::loadTexture(
                                                     const std::filesystem::path& filename,
                                                                           int nDimensions,
-                                ghoul::opengl::Texture::SamplerInit samplerSettings) const
+                                       opengl::Texture::SamplerInit samplerSettings) const
 {
     const std::string f = filename.string();
     int x = 0;
@@ -125,7 +123,7 @@ std::unique_ptr<opengl::Texture> TextureReaderSTB::loadTexture(
 
 std::unique_ptr<opengl::Texture> TextureReaderSTB::loadTexture(void* memory, size_t size,
                                                                int nDimensions,
-                                ghoul::opengl::Texture::SamplerInit samplerSettings) const
+                                       opengl::Texture::SamplerInit samplerSettings) const
 {
     int x = 0;
     int y = 0;

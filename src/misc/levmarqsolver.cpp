@@ -64,13 +64,15 @@
 #include <sstream>
 
 namespace {
+    using namespace ghoul;
+
     std::chrono::milliseconds TimeLimit(200);
     double TOL = 1e-30; // smallest value allowed in cholesky_decomp()
 
     // calculate the error function (chi-squared)
     double error_func(double* par, int ny, double* dysq,
-                      double (*func)(double*, int, void*, ghoul::LMstat*),
-                      void* fdata, ghoul::LMstat* lmstat)
+                      double (*func)(double*, int, void*, LMstat*), void* fdata,
+                      LMstat* lmstat)
     {
         int x;
         double res, e = 0;

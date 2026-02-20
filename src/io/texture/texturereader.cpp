@@ -64,7 +64,7 @@ TextureReader& TextureReader::ref() {
 std::unique_ptr<opengl::Texture> TextureReader::loadTexture(
                                                     const std::filesystem::path& filename,
                                                                           int nDimensions,
-                                      ghoul::opengl::Texture::SamplerInit samplerSettings)
+                                             opengl::Texture::SamplerInit samplerSettings)
 {
     ghoul_assert(!_readers.empty(), "No readers were registered before");
     ghoul_assert(!filename.empty(), "Filename must not be empty");
@@ -86,7 +86,7 @@ std::unique_ptr<opengl::Texture> TextureReader::loadTexture(
 
 std::unique_ptr<opengl::Texture> TextureReader::loadTexture(void* memory, size_t size,
                                                             int nDimensions,
-                                      ghoul::opengl::Texture::SamplerInit samplerSettings,
+                                             opengl::Texture::SamplerInit samplerSettings,
                                                                 const std::string& format)
 {
     ghoul_assert(memory, "Memory must not be nullptr");

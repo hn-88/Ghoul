@@ -35,15 +35,17 @@
 #include <utility>
 
 namespace {
-    std::string textureTypeToString(const ghoul::io::ModelMesh::TextureType& type) {
-        using TextureType = ghoul::io::ModelMesh::TextureType;
+    using namespace ghoul;
+    using namespace ghoul::io;
+
+    std::string textureTypeToString(const ModelMesh::TextureType& type) {
         switch (type) {
-            case TextureType::TextureDiffuse:  return "texture_diffuse";
-            case TextureType::TextureNormal:   return "texture_normal";
-            case TextureType::TextureSpecular: return "texture_specular";
-            case TextureType::ColorDiffuse:    return "color_diffuse";
-            case TextureType::ColorSpecular:   return "color_specular";
-            default:                           throw ghoul::MissingCaseException();
+            case ModelMesh::TextureType::TextureDiffuse:  return "texture_diffuse";
+            case ModelMesh::TextureType::TextureNormal:   return "texture_normal";
+            case ModelMesh::TextureType::TextureSpecular: return "texture_specular";
+            case ModelMesh::TextureType::ColorDiffuse:    return "color_diffuse";
+            case ModelMesh::TextureType::ColorSpecular:   return "color_specular";
+            default:                                      throw MissingCaseException();
         }
     }
 } // namespace
@@ -78,7 +80,7 @@ void ModelMesh::render(opengl::ProgramObject& program, const glm::mat4& meshTran
         }
     }
 
-    std::vector<ghoul::opengl::TextureUnit> textureUnits(counter);
+    std::vector<opengl::TextureUnit> textureUnits(counter);
     int textureUnitIndex = 0;
 
     if (!isProjection) {
