@@ -127,7 +127,7 @@ namespace {
 
     template <typename BaseClass, typename Class, int Constructor>
     struct CreateHelper {
-        using FactoryFuncPtr = BaseClass * (*)(
+        using FactoryFuncPtr = BaseClass* (*)(
             bool useDictionary, const Dictionary& dict, pmr::memory_resource* pool
         );
         FactoryFuncPtr createFunction();
@@ -135,7 +135,7 @@ namespace {
 
     template <typename BaseClass, typename Class>
     struct CreateHelper<BaseClass, Class, DEFAULT_CONSTRUCTOR | DICTIONARY_CONSTRUCTOR> {
-        using FactoryFuncPtr = BaseClass * (*)(
+        using FactoryFuncPtr = BaseClass* (*)(
             bool useDictionary, const Dictionary& dict, pmr::memory_resource* pool
         );
         FactoryFuncPtr createFunction() {
@@ -145,7 +145,7 @@ namespace {
 
     template <typename BaseClass, typename Class>
     struct CreateHelper<BaseClass, Class, DEFAULT_CONSTRUCTOR> {
-        using FactoryFuncPtr = BaseClass * (*)(
+        using FactoryFuncPtr = BaseClass* (*)(
             bool useDictionary, const Dictionary& dict, pmr::memory_resource* pool
         );
         FactoryFuncPtr createFunction() {
@@ -155,7 +155,7 @@ namespace {
 
     template <typename BaseClass, typename Class>
     struct CreateHelper<BaseClass, Class, DICTIONARY_CONSTRUCTOR> {
-        using FactoryFuncPtr = BaseClass * (*)(
+        using FactoryFuncPtr = BaseClass* (*)(
             bool useDictionary, const Dictionary& dict, pmr::memory_resource* pool
         );
         FactoryFuncPtr createFunction() {
@@ -176,12 +176,11 @@ BaseClass* TemplateFactory<BaseClass>::create(std::string_view className,
     if (it == _map.cend()) {
         throw TemplateClassNotFoundError(std::string(className));
     }
-    else {
-        // If 'className' is a valid name, we can use the stored function pointer to
-        // create the class using the 'createType' method
-        BaseClass* res = it->second(false, {}, pool);
-        return res;
-    }
+
+    // If 'className' is a valid name, we can use the stored function pointer to create
+    // the class using the 'createType' method
+    BaseClass* res = it->second(false, {}, pool);
+    return res;
 }
 
 template <typename BaseClass>
@@ -195,12 +194,11 @@ BaseClass* TemplateFactory<BaseClass>::create(std::string_view className,
     if (it == _map.end()) {
         throw TemplateClassNotFoundError(std::string(className));
     }
-    else {
-        // If 'className' is a valid name, we can use the stored function pointer to
-        // create the class using the 'createType' method
-        BaseClass* res = it->second(true, dictionary, pool);
-        return res;
-    }
+
+    // If 'className' is a valid name, we can use the stored function pointer to create
+    // the class using the 'createType' method
+    BaseClass* res = it->second(true, dictionary, pool);
+    return res;
 }
 
 template <typename BaseClass>
@@ -246,9 +244,8 @@ void TemplateFactory<BaseClass>::registerClass(std::string className,
             std::format("Class '{}' was registered before", className)
         );
     }
-    else {
-        _map.emplace(std::move(className), std::move(factoryFunction));
-    }
+
+    _map.emplace(std::move(className), std::move(factoryFunction));
 }
 
 template <typename BaseClass>

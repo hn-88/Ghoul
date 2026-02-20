@@ -52,6 +52,7 @@ namespace {
 
     opengl::Texture::Format stringToFormat(std::string_view format) {
         using Format = opengl::Texture::Format;
+
         if (format == "Red ") { return Format::Red; }
         else if (format == "RG  ") { return Format::RG; }
         else if (format == "RGB ") { return Format::RGB; }
@@ -63,15 +64,17 @@ namespace {
     }
 
     std::string formatToString(opengl::Texture::Format format) {
+        using Format = opengl::Texture::Format;
+
         switch (format) {
-            case opengl::Texture::Format::Red:            return "Red ";
-            case opengl::Texture::Format::RG:             return "RG  ";
-            case opengl::Texture::Format::RGB:            return "RGB ";
-            case opengl::Texture::Format::BGR:            return "BGR ";
-            case opengl::Texture::Format::RGBA:           return "RGBA";
-            case opengl::Texture::Format::BGRA:           return "BGRA";
-            case opengl::Texture::Format::DepthComponent: return "Dept";
-            default:                                      throw MissingCaseException();
+            case Format::Red:            return "Red ";
+            case Format::RG:             return "RG  ";
+            case Format::RGB:            return "RGB ";
+            case Format::BGR:            return "BGR ";
+            case Format::RGBA:           return "RGBA";
+            case Format::BGRA:           return "BGRA";
+            case Format::DepthComponent: return "Dept";
+            default:                     throw MissingCaseException();
         }
     }
 

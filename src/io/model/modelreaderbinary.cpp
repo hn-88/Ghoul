@@ -53,6 +53,7 @@ namespace {
 
     opengl::Texture::Format stringToFormat(std::string_view format) {
         using Format = opengl::Texture::Format;
+
         if (format == "Red ") { return Format::Red; }
         else if (format == "RG  ") { return Format::RG; }
         else if (format == "RGB ") { return Format::RGB; }

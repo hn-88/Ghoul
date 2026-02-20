@@ -319,6 +319,8 @@ FontRenderer::~FontRenderer() {
 }
 
 std::unique_ptr<FontRenderer> FontRenderer::createDefault() {
+    using namespace opengl;
+
     std::filesystem::path vsPath = absPath(DefaultVertexShaderPath);
     if (std::filesystem::is_regular_file(vsPath)) {
         LDEBUG(std::format("Skipping creation of existing vertex shader '{}'", vsPath));
@@ -338,7 +340,6 @@ std::unique_ptr<FontRenderer> FontRenderer::createDefault() {
         std::ofstream file(fsPath);
         file << DefaultFragmentShaderSource;
     }
-    using namespace opengl;
     auto program = std::make_unique<ProgramObject>("Font");
     program->attachObject(
         std::make_unique<ShaderObject>(ShaderObject::ShaderType::Vertex, vsPath)
@@ -359,6 +360,8 @@ std::unique_ptr<FontRenderer> FontRenderer::createDefault() {
 }
 
 std::unique_ptr<FontRenderer> FontRenderer::createProjectionSubjectText() {
+    using namespace opengl;
+
     std::filesystem::path vsPath = absPath(ProjectionVertexShaderPath);
     if (std::filesystem::is_regular_file(vsPath)) {
         LDEBUG(std::format("Skipping creation of existing vertex shader '{}'", vsPath));
@@ -378,7 +381,6 @@ std::unique_ptr<FontRenderer> FontRenderer::createProjectionSubjectText() {
         std::ofstream file(fsPath);
         file << ProjectionFragmentShaderSource;
     }
-    using namespace opengl;
     auto pg = std::make_unique<ProgramObject>("ProjectionFont");
     pg->attachObject(
         std::make_unique<ShaderObject>(ShaderObject::ShaderType::Vertex, vsPath)
