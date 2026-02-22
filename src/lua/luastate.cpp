@@ -80,4 +80,4 @@ LuaState::operator lua_State*() const {
     return _state;
 }
 
-}  // namespace ghoul::lua
+} // namespace ghoul::lua

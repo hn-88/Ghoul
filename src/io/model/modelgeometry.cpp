@@ -1218,4 +1218,4 @@ void ModelGeometry::deinitialize() {
     }
 }
 
-}  // namespace ghoul::modelgeometry
+} // namespace ghoul::modelgeometry

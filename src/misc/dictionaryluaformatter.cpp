@@ -172,7 +172,7 @@ namespace {
             "Key '{}' has invalid type for formatting dictionary as Lua", key
         ));
     }
-}  // namespace
+} // namespace
 
 namespace ghoul {
 
@@ -186,4 +186,4 @@ std::string formatLua(const Dictionary& dictionary, PrettyPrint prettyPrint,
     return format(dictionary, prettyPrint, indentation, 0);
 }
 
-}  // namespace ghoul
+} // namespace ghoul

@@ -50,6 +50,6 @@ struct JsonFormattingError final : public RuntimeError {
  */
 std::string formatJson(const Dictionary& dictionary);
 
-}  // namespace ghoul
+} // namespace ghoul
 
 #endif // __GHOUL___DICTIONARYJSONFORMATTER___H__

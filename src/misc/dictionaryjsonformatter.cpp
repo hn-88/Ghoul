@@ -224,4 +224,4 @@ std::string formatJson(const Dictionary& dictionary) {
     }
 }
 
-}  // namespace ghoul
+} // namespace ghoul

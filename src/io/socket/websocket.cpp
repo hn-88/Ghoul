@@ -154,4 +154,4 @@ void WebSocket::onClose(const websocketpp::connection_hdl& hdl) {
     _inputNotifier.notify_one();
 }
 
-}  // namespace ghoul::io
+} // namespace ghoul::io
